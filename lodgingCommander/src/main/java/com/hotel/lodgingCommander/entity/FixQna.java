@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class FixQna {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String title;

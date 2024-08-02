@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Img {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String path;
