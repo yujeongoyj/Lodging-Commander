@@ -1,2 +1,7 @@
-package com.hotel.lodgingCommander.respository;public interface CategoryRepository {
+package com.hotel.lodgingCommander.respository;
+
+import com.hotel.lodgingCommander.entity.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 }
