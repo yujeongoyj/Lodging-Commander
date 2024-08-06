@@ -1,6 +1,7 @@
 package com.hotel.lodgingCommander.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,21 +22,22 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", nullable = false)
+    @JsonBackReference
     private Room room;
 
     @Column(name = "checkid_date", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date checkidDate;
+    private LocalDate checkInDate;
 
     @Column(name = "checkout_date", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date checkoutDate;
+    private LocalDate checkOutDate;
 
-    // Getters and setters...
 }

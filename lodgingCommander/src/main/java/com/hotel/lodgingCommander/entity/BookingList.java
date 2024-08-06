@@ -1,11 +1,13 @@
 package com.hotel.lodgingCommander.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -19,22 +21,24 @@ public class BookingList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", nullable = false)
+    @JsonBackReference
     private Room room;
 
     @Column
-    private Boolean checkIn;
+    private Boolean cancel;
 
     @Column(nullable = false)
-    private LocalDateTime checkInDate;
+    private LocalDate checkInDate;
 
     @Column(nullable = false)
-    private LocalDateTime checkOutDate;
+    private LocalDate checkOutDate;
 
     @Column(nullable = false)
     private int totalPrice;
@@ -42,5 +46,4 @@ public class BookingList {
     @Column(nullable = false)
     private int totalPeople;
 
-    // Getters and Setters
 }

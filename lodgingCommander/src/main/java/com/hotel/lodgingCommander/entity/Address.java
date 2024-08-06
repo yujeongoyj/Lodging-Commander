@@ -1,5 +1,6 @@
 package com.hotel.lodgingCommander.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,7 +34,7 @@ public class Address {
     private double longitude;
 
     @OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
+    @JsonBackReference
     private Hotel hotel;
 
-    // Getters and setters...
 }
