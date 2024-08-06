@@ -1,14 +1,24 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/lodgingCommander
+    url: jdbc:mysql://localhost:3306/lodgingcommander
     username: root
     password: ss4161813!
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    check-template-location: true
+
+
 
   security:
     user:
       name: a
       password: a
+
+    filter:
+      dispatcher-types: async, error, request
 
   jpa:
     hibernate:

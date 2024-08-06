@@ -10,6 +10,7 @@ import com.hotel.lodgingCommander.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,12 +18,16 @@ public class HotelService {
     @Autowired
     private HotelRepository hotelRepository;
 
+    public List<Hotel> getAllHotels() {
+        return hotelRepository.findAll();
+    }
+
     public HotelDTO saveHotel(HotelDTO hotelRequestDTO) {
         Hotel hotel = Hotel.builder()
                 .name(hotelRequestDTO.getName())
-                .user(User.builder().id(hotelRequestDTO.getUserId()).build()) // User 객체를 UserDTO로 바꿔서 사용하면 좋습니다.
-                .address(Address.builder().id(hotelRequestDTO.getAddressId()).build()) // Address 객체를 AddressDTO로 바꿔서 사용하면 좋습니다.
-                .category(Category.builder().id(hotelRequestDTO.getCategoryId()).build()) // Category 객체를 CategoryDTO로 바꿔서 사용하면 좋습니다.
+                .user(User.builder().id(hotelRequestDTO.getUserId()).build())
+                .address(Address.builder().id(hotelRequestDTO.getAddressId()).build())
+                .category(Category.builder().id(hotelRequestDTO.getCategoryId()).build())
                 .tel(hotelRequestDTO.getTel())
                 .grade(hotelRequestDTO.getGrade())
                 .detail(hotelRequestDTO.getDetail())
@@ -80,3 +85,52 @@ public class HotelService {
         }
     }
 }
+/*package com.hotel.lodgingCommander.service;
+
+import com.hotel.lodgingCommander.dto.HotelDTO;
+import com.hotel.lodgingCommander.entity.Hotel;
+import com.hotel.lodgingCommander.repository.HotelRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class HotelService {
+    @Autowired
+    private HotelRepository hotelRepository;
+
+    public List<Hotel> getAllHotels() {
+        return hotelRepository.findAll();
+    }
+
+    public HotelDTO saveHotel(HotelDTO hotelRequestDTO) {
+        Hotel hotel = HotelMapper.toEntity(hotelRequestDTO);
+        Hotel savedHotel = hotelRepository.save(hotel);
+        return HotelMapper.toDTO(savedHotel);
+    }
+
+    public HotelDTO updateHotel(Long id, HotelDTO hotelRequestDTO) {
+        Optional<Hotel> hotelOptional = hotelRepository.findById(id);
+        if (hotelOptional.isPresent()) {
+            Hotel hotel = HotelMapper.toEntity(hotelRequestDTO);
+            hotel.setId(id); // Ensure the ID is set for updating
+            Hotel updatedHotel = hotelRepository.save(hotel);
+            return HotelMapper.toDTO(updatedHotel);
+        } else {
+            throw new RuntimeException("Hotel not found");
+        }
+    }
+
+    public void deleteHotel(Long id) {
+        Optional<Hotel> hotelOptional = hotelRepository.findById(id);
+        if (hotelOptional.isPresent()) {
+            hotelRepository.delete(hotelOptional.get());
+        } else {
+            throw new RuntimeException("Hotel not found");
+        }
+    }
+}*/
+
+
