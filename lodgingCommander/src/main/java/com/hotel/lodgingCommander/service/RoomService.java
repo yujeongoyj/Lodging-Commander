@@ -1,4 +1,3 @@
-/*
 package com.hotel.lodgingCommander.service;
 
 import com.hotel.lodgingCommander.dto.RoomDTO;
@@ -116,4 +115,3 @@ public class RoomService {
                 .collect(Collectors.toList());
     }
 }
-*/

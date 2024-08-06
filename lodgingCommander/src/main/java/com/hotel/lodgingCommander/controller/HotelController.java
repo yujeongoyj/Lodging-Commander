@@ -1,16 +1,23 @@
-/*
 package com.hotel.lodgingCommander.controller;
 
 import com.hotel.lodgingCommander.dto.HotelDTO;
 import com.hotel.lodgingCommander.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/properties")
 public class HotelController {
     @Autowired
     private HotelService hotelService;
+
+    @GetMapping
+    public String showHotelForm(Model model) {
+        model.addAttribute("hotel", new HotelDTO());
+        return "hotel-form";
+    }
 
     @PostMapping
     public HotelDTO createHotel(@RequestBody HotelDTO hotelRequestDTO) {
@@ -27,4 +34,3 @@ public class HotelController {
         hotelService.deleteHotel(propertyId);
     }
 }
-*/

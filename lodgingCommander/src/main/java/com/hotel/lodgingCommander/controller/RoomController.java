@@ -1,4 +1,3 @@
-/*
 package com.hotel.lodgingCommander.controller;
 
 import com.hotel.lodgingCommander.dto.RoomDTO;
@@ -73,4 +72,3 @@ public class RoomController {
         }
     }
 }
-*/

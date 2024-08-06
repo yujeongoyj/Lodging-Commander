@@ -1,4 +1,3 @@
-/*
 package com.hotel.lodgingCommander.service;
 
 import com.hotel.lodgingCommander.dto.HotelDTO;
@@ -81,4 +80,3 @@ public class HotelService {
         }
     }
 }
-*/
