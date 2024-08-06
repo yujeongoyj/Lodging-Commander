@@ -22,5 +22,4 @@ public class FixQna {
     @Column(nullable = false)
     private String content;
 
-    // Getters and setters...
 }
