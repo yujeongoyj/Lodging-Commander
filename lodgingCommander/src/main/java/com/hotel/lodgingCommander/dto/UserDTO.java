@@ -1,7 +1,6 @@
 package com.hotel.lodgingCommander.dto;
 
 
-import com.hotel.lodgingCommander.entity.User;
 import lombok.Data;
 
 public class UserDTO {
