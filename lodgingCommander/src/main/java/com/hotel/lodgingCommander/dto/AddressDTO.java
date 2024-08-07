@@ -9,13 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomDTO {
+public class AddressDTO {
     private Long id;
-    private String name;
-    private int price;
-    private Long hotelId;
-    private Long imgId;
-    private int quantity;
-    private String detail;
-    private int maxPeople;
+    private String address;
+    private String addressDetail;
+    private String postCode;
+    private double latitude;
+    private double longitude;  // 나중에 지도 API로 대체 가능
 }

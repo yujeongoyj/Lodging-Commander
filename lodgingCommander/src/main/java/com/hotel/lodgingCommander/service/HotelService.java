@@ -1,136 +1,91 @@
 package com.hotel.lodgingCommander.service;
 
+import com.hotel.lodgingCommander.dto.AddressDTO;
+import com.hotel.lodgingCommander.dto.CategoryDTO;
 import com.hotel.lodgingCommander.dto.HotelDTO;
-import com.hotel.lodgingCommander.dto.HotelDTO;
-import com.hotel.lodgingCommander.entity.Address;
-import com.hotel.lodgingCommander.entity.Category;
-import com.hotel.lodgingCommander.entity.Hotel;
-import com.hotel.lodgingCommander.entity.User;
+import com.hotel.lodgingCommander.dto.RoomDTO;
+import com.hotel.lodgingCommander.entity.*;
+import com.hotel.lodgingCommander.repository.AddressRepository;
+import com.hotel.lodgingCommander.repository.CategoryRepository;
 import com.hotel.lodgingCommander.repository.HotelRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hotel.lodgingCommander.repository.RoomRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class HotelService {
-    @Autowired
-    private HotelRepository hotelRepository;
 
-    public List<Hotel> getAllHotels() {
-        return hotelRepository.findAll();
+    private final AddressRepository addressRepository;
+    private final RoomRepository roomRepository;
+    private final HotelRepository hotelRepository;
+    private final CategoryRepository categoryRepository;
+
+    public HotelService(AddressRepository addressRepository, RoomRepository roomRepository,
+                        HotelRepository hotelRepository, CategoryRepository categoryRepository) {
+        this.addressRepository = addressRepository;
+        this.roomRepository = roomRepository;
+        this.hotelRepository = hotelRepository;
+        this.categoryRepository = categoryRepository;
     }
 
-    public HotelDTO saveHotel(HotelDTO hotelRequestDTO) {
+    @Transactional
+    public Long saveAddress(AddressDTO addressDTO) {
+        Address address = Address.builder()
+                .address(addressDTO.getAddress())
+                .addressDetail(addressDTO.getAddressDetail())
+                .postCode(addressDTO.getPostCode())
+                .latitude(addressDTO.getLatitude())
+                .longitude(addressDTO.getLongitude())
+                .build();
+        addressRepository.save(address);
+        return address.getId();
+    }
+
+    @Transactional
+    public Long saveCategory(CategoryDTO categoryDTO) {
+        Category category = Category.builder()
+                .name(categoryDTO.getName())
+                .build();
+        categoryRepository.save(category);
+        return category.getId();
+    }
+
+    @Transactional
+    public Long saveHotel(HotelDTO hotelDTO, User user) {
+        Address address = addressRepository.findById(hotelDTO.getAddressId())
+                .orElseThrow(() -> new RuntimeException("Address not found"));
+
+        Category category = categoryRepository.findById(hotelDTO.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
         Hotel hotel = Hotel.builder()
-                .name(hotelRequestDTO.getName())
-                .user(User.builder().id(hotelRequestDTO.getUserId()).build())
-                .address(Address.builder().id(hotelRequestDTO.getAddressId()).build())
-                .category(Category.builder().id(hotelRequestDTO.getCategoryId()).build())
-                .tel(hotelRequestDTO.getTel())
-                .grade(hotelRequestDTO.getGrade())
-                .detail(hotelRequestDTO.getDetail())
+                .name(hotelDTO.getName())
+                .address(address)
+                .category(category)
+                .tel(hotelDTO.getTel())
+                .grade(hotelDTO.getGrade())
+                .detail(hotelDTO.getDetail())
+                .user(user) // User 객체 설정
                 .build();
 
-        Hotel savedHotel = hotelRepository.save(hotel);
+        hotelRepository.save(hotel);
+        return hotel.getId();
+    }
 
-        return HotelDTO.builder()
-                .id(savedHotel.getId())
-                .name(savedHotel.getName())
-                .userId(savedHotel.getUser().getId())
-                .addressId(savedHotel.getAddress().getId())
-                .categoryId(savedHotel.getCategory().getId())
-                .tel(savedHotel.getTel())
-                .grade(savedHotel.getGrade())
-                .detail(savedHotel.getDetail())
+    @Transactional
+    public void saveRoom(RoomDTO roomDTO) {
+        Hotel hotel = hotelRepository.findById(roomDTO.getHotelId())
+                .orElseThrow(() -> new RuntimeException("Hotel not found"));
+
+        Room room = Room.builder()
+                .name(roomDTO.getName())
+                .price(roomDTO.getPrice())
+                .quantity(roomDTO.getQuantity())
+                .detail(roomDTO.getDetail())
+                .maxPeople(roomDTO.getMaxPeople())
+                .hotel(hotel)
                 .build();
-    }
 
-    public HotelDTO updateHotel(Long id, HotelDTO hotelRequestDTO) {
-        Optional<Hotel> hotelOptional = hotelRepository.findById(id);
-        if (hotelOptional.isPresent()) {
-            Hotel hotel = hotelOptional.get();
-            hotel.setName(hotelRequestDTO.getName());
-            hotel.setUser(User.builder().id(hotelRequestDTO.getUserId()).build());
-            hotel.setAddress(Address.builder().id(hotelRequestDTO.getAddressId()).build());
-            hotel.setCategory(Category.builder().id(hotelRequestDTO.getCategoryId()).build());
-            hotel.setTel(hotelRequestDTO.getTel());
-            hotel.setGrade(hotelRequestDTO.getGrade());
-            hotel.setDetail(hotelRequestDTO.getDetail());
-
-            Hotel updatedHotel = hotelRepository.save(hotel);
-
-            return HotelDTO.builder()
-                    .id(updatedHotel.getId())
-                    .name(updatedHotel.getName())
-                    .userId(updatedHotel.getUser().getId())
-                    .addressId(updatedHotel.getAddress().getId())
-                    .categoryId(updatedHotel.getCategory().getId())
-                    .tel(updatedHotel.getTel())
-                    .grade(updatedHotel.getGrade())
-                    .detail(updatedHotel.getDetail())
-                    .build();
-        } else {
-            throw new RuntimeException("Hotel not found");
-        }
-    }
-
-    public void deleteHotel(Long id) {
-        Optional<Hotel> hotelOptional = hotelRepository.findById(id);
-        if (hotelOptional.isPresent()) {
-            hotelRepository.delete(hotelOptional.get());
-        } else {
-            throw new RuntimeException("Hotel not found");
-        }
+        roomRepository.save(room);
     }
 }
-/*package com.hotel.lodgingCommander.service;
-
-import com.hotel.lodgingCommander.dto.HotelDTO;
-import com.hotel.lodgingCommander.entity.Hotel;
-import com.hotel.lodgingCommander.repository.HotelRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-
-@Service
-public class HotelService {
-    @Autowired
-    private HotelRepository hotelRepository;
-
-    public List<Hotel> getAllHotels() {
-        return hotelRepository.findAll();
-    }
-
-    public HotelDTO saveHotel(HotelDTO hotelRequestDTO) {
-        Hotel hotel = HotelMapper.toEntity(hotelRequestDTO);
-        Hotel savedHotel = hotelRepository.save(hotel);
-        return HotelMapper.toDTO(savedHotel);
-    }
-
-    public HotelDTO updateHotel(Long id, HotelDTO hotelRequestDTO) {
-        Optional<Hotel> hotelOptional = hotelRepository.findById(id);
-        if (hotelOptional.isPresent()) {
-            Hotel hotel = HotelMapper.toEntity(hotelRequestDTO);
-            hotel.setId(id); // Ensure the ID is set for updating
-            Hotel updatedHotel = hotelRepository.save(hotel);
-            return HotelMapper.toDTO(updatedHotel);
-        } else {
-            throw new RuntimeException("Hotel not found");
-        }
-    }
-
-    public void deleteHotel(Long id) {
-        Optional<Hotel> hotelOptional = hotelRepository.findById(id);
-        if (hotelOptional.isPresent()) {
-            hotelRepository.delete(hotelOptional.get());
-        } else {
-            throw new RuntimeException("Hotel not found");
-        }
-    }
-}*/
-
-

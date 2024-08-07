@@ -1,40 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>호텔 등록</title>
+    <title>호텔 정보 입력</title>
 </head>
 <body>
-<h1>호텔 등록</h1>
-<form th:action="@{/properties}" th:object="${hotel}" method="post">
-    <div>
-        <label for="name">호텔 이름:</label>
-        <input type="text" id="name" th:field="*{name}" required/>
-    </div>
-    <div>
-        <label for="userId">사용자 ID:</label>
-        <input type="number" id="userId" th:field="*{userId}" required/>
-    </div>
-    <div>
-        <label for="addressId">주소 ID:</label>
-        <input type="number" id="addressId" th:field="*{addressId}" required/>
-    </div>
-    <div>
-        <label for="categoryId">카테고리 ID:</label>
-        <input type="number" id="categoryId" th:field="*{categoryId}" required/>
-    </div>
-    <div>
-        <label for="tel">전화번호:</label>
-        <input type="text" id="tel" th:field="*{tel}" required/>
-    </div>
-    <div>
-        <label for="grade">등급:</label>
-        <input type="number" id="grade" th:field="*{grade}" required/>
-    </div>
-    <div>
-        <label for="detail">상세정보:</label>
-        <textarea id="detail" th:field="*{detail}"></textarea>
-    </div>
-    <button type="submit">등록</button>
+<h1>호텔 정보 입력</h1>
+<form action="#" th:action="@{/properties/hotel}" th:object="${hotelDTO}" method="post">
+    <input type="hidden" th:field="*{addressId}"/>
+    <input type="hidden" th:field="*{categoryId}"/>
+
+    <label for="name">호텔명:</label>
+    <input type="text" id="name" th:field="*{name}" required/><br/>
+
+    <label for="tel">전화번호:</label>
+    <input type="text" id="tel" th:field="*{tel}" required/><br/>
+
+    <label for="grade">등급:</label>
+    <input type="number" id="grade" th:field="*{grade}" min="1" max="5" required/><br/>
+
+    <label for="detail">상세 설명:</label>
+    <textarea id="detail" th:field="*{detail}"></textarea><br/>
+
+    <button type="submit">다음</button>
 </form>
 </body>
 </html>
