@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 let Auth = () => {
 
     let [inputs, setInputs] = useState({
-        username: '',
+        email: '',
         password: ''
     });
 
@@ -28,7 +28,7 @@ let Auth = () => {
     let onSubmit = async (e) => {
         e.preventDefault()
         let formData = new FormData()
-        formData.append('username', inputs.username)
+        formData.append('email', inputs.email)
         formData.append('password', inputs.password)
 
         let response = await axios({
@@ -41,6 +41,7 @@ let Auth = () => {
         if (response.status === 200 && response.data.result === 'success') {
             let userInfo = {
                 email: response.data.email,
+                password: response.data.password,
                 tel: response.data.tel,
                 grade: response.data.grade,
                 role: response.data.role
@@ -59,14 +60,13 @@ let Auth = () => {
                     </thead>
                     <tbody>
                     <tr>
-                        <td>아이디</td>
+                        <td>이메일</td>
                         <td>
                             <FormControl
                                 type={'text'}
-                                name={'username'}
-                                value={inputs.username}
-                                onChange={onChange}
-                            />
+                                name={'email'}
+                                value={inputs.email}
+                                onChange={onChange}/>
                         </td>
                         <tr>
                             <td>비밀번호</td>
