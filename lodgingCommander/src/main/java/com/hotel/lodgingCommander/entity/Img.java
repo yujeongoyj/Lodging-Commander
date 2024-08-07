@@ -1,5 +1,6 @@
 package com.hotel.lodgingCommander.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +21,8 @@ public class Img {
     @Column(nullable = false)
     private String path;
 
-    @OneToOne(mappedBy = "img", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "img", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
     private Room room;
 
-    // Getters and setters...
 }
