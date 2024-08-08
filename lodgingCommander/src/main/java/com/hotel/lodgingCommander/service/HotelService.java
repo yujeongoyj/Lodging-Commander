@@ -1,14 +1,8 @@
 package com.hotel.lodgingCommander.service;
 
-import com.hotel.lodgingCommander.dto.AddressDTO;
-import com.hotel.lodgingCommander.dto.CategoryDTO;
-import com.hotel.lodgingCommander.dto.HotelDTO;
-import com.hotel.lodgingCommander.dto.RoomDTO;
+import com.hotel.lodgingCommander.dto.*;
 import com.hotel.lodgingCommander.entity.*;
-import com.hotel.lodgingCommander.repository.AddressRepository;
-import com.hotel.lodgingCommander.repository.CategoryRepository;
-import com.hotel.lodgingCommander.repository.HotelRepository;
-import com.hotel.lodgingCommander.repository.RoomRepository;
+import com.hotel.lodgingCommander.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +13,15 @@ public class HotelService {
     private final RoomRepository roomRepository;
     private final HotelRepository hotelRepository;
     private final CategoryRepository categoryRepository;
+    private final FacilityRepository facilityRepository;
 
     public HotelService(AddressRepository addressRepository, RoomRepository roomRepository,
-                        HotelRepository hotelRepository, CategoryRepository categoryRepository) {
+                        HotelRepository hotelRepository, CategoryRepository categoryRepository, FacilityRepository facilityRepository) {
         this.addressRepository = addressRepository;
         this.roomRepository = roomRepository;
         this.hotelRepository = hotelRepository;
         this.categoryRepository = categoryRepository;
+        this.facilityRepository = facilityRepository;
     }
 
     @Transactional
@@ -38,6 +34,7 @@ public class HotelService {
                 .longitude(addressDTO.getLongitude())
                 .build();
         addressRepository.save(address);
+        System.out.println("AddressID: " + address.getId());
         return address.getId();
     }
 
@@ -70,6 +67,33 @@ public class HotelService {
 
         hotelRepository.save(hotel);
         return hotel.getId();
+    }
+
+    @Transactional
+    public void saveFacility(FacilityDTO facilityDTO) {
+        Hotel hotel = hotelRepository.findById(facilityDTO.getHotelId())
+                .orElseThrow(() -> new RuntimeException("Hotel not found"));
+
+        Facility facility = Facility.builder()
+                .hotel(hotel)
+                .freeWifi(facilityDTO.getFreeWifi())
+                .nonSmoking(facilityDTO.getNonSmoking())
+                .airConditioning(facilityDTO.getAirConditioning())
+                .laundryFacilities(facilityDTO.getLaundryFacilities())
+                .freeParking(facilityDTO.getFreeParking())
+                .twentyFourHourFrontDesk(facilityDTO.getTwentyFourHourFrontDesk())
+                .breakfast(facilityDTO.getBreakfast())
+                .airportShuttle(facilityDTO.getAirportShuttle())
+                .spa(facilityDTO.getSpa())
+                .bar(facilityDTO.getBar())
+                .swimmingPool(facilityDTO.getSwimmingPool())
+                .gym(facilityDTO.getGym())
+                .evChargingStation(facilityDTO.getEvChargingStation())
+                .petFriendly(facilityDTO.getPetFriendly())
+                .restaurant(facilityDTO.getRestaurant())
+                .build();
+
+        facilityRepository.save(facility);
     }
 
     @Transactional

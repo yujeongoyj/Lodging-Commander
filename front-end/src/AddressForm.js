@@ -1,97 +1,77 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function AddressForm() {
-    const [addressDTO, setAddressDTO] = useState({
-        address: '',
-        addressDetail: '',
-        postCode: '',
-        latitude: '',
-        longitude: ''
-    });
+const AddressForm = ({ onNext }) => {
+    const [address, setAddress] = useState('');
+    const [addressDetail, setAddressDetail] = useState('');
+    const [postCode, setPostCode] = useState('');
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    const navigate = useNavigate();
 
-    // 입력 값 변경 처리
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setAddressDTO({
-            ...addressDTO,
-            [name]: value
-        });
-    };
-
-    // 폼 제출 처리
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const data = {
+                address,
+                addressDetail,
+                postCode,
+                latitude: parseFloat(latitude),
+                longitude: parseFloat(longitude)
+            };
+            const response = await axios.post('http://localhost:8080/properties/address', data);
+            const addressId = response.data.addressId;
 
-        axios.post('http://localhost:8080/properties/address', addressDTO)
-            .then(response => {
-                console.log('Address saved', response.data);
-                window.location.href = `/properties/category?addressId=${response.data}`;
-            })
-            .catch(error => {
-                console.error('Error saving address', error);
-            });
+
+            navigate(`/CategoryForm?addressId=${addressId}`);
+        } catch (error) {
+            console.error('Error saving address', error);
+        }
     };
 
     return (
-        <div>
-            <h1>주소 입력</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="address">주소:</label>
-                <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    value={addressDTO.address}
-                    onChange={handleChange}
-                    required
-                /><br/>
-
-                <label htmlFor="addressDetail">상세 주소:</label>
-                <input
-                    type="text"
-                    id="addressDetail"
-                    name="addressDetail"
-                    value={addressDTO.addressDetail}
-                    onChange={handleChange}
-                /><br/>
-
-                <label htmlFor="postCode">우편번호:</label>
-                <input
-                    type="text"
-                    id="postCode"
-                    name="postCode"
-                    value={addressDTO.postCode}
-                    onChange={handleChange}
-                    required
-                /><br/>
-
-                <label htmlFor="latitude">위도:</label>
-                <input
-                    type="number"
-                    step="0.000001"
-                    id="latitude"
-                    name="latitude"
-                    value={addressDTO.latitude}
-                    onChange={handleChange}
-                    required
-                /><br/>
-
-                <label htmlFor="longitude">경도:</label>
-                <input
-                    type="number"
-                    step="0.000001"
-                    id="longitude"
-                    name="longitude"
-                    value={addressDTO.longitude}
-                    onChange={handleChange}
-                    required
-                /><br/>
-
-                <button type="submit">다음</button>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Address"
+                required
+            />
+            <input
+                type="text"
+                value={addressDetail}
+                onChange={(e) => setAddressDetail(e.target.value)}
+                placeholder="Address Detail"
+                required
+            />
+            <input
+                type="text"
+                value={postCode}
+                onChange={(e) => setPostCode(e.target.value)}
+                placeholder="Post Code"
+                required
+            />
+            <input
+                type="number"
+                step="any"
+                value={latitude}
+                onChange={(e) => setLatitude(e.target.value)}
+                placeholder="Latitude"
+                required
+            />
+            <input
+                type="number"
+                step="any"
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
+                placeholder="Longitude"
+                required
+            />
+            <button type="submit">Next</button>
+        </form>
     );
-}
+};
 
 export default AddressForm;

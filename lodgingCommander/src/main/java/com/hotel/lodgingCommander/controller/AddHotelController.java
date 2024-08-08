@@ -1,65 +1,57 @@
 package com.hotel.lodgingCommander.controller;
 
-import com.hotel.lodgingCommander.dto.AddressDTO;
-import com.hotel.lodgingCommander.dto.CategoryDTO;
-import com.hotel.lodgingCommander.dto.HotelDTO;
-import com.hotel.lodgingCommander.dto.RoomDTO;
-import com.hotel.lodgingCommander.entity.Address;
+import com.hotel.lodgingCommander.dto.*;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.service.HotelService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.util.HashMap;
+import java.util.Map;
+
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
-@CrossOrigin
 @RequestMapping("/properties")
-public class HotelController {
+public class AddHotelController {
 
     // 임시 User 객체 생성
     private User getTemporaryUser() {
         User user = new User();
-        user.setId(1L); // 하드코딩된 ID
-        // 필요한 다른 속성들도 설정 가능
+        user.setId(1L);
+
         return user;
     }
 
 
     private final HotelService hotelService;
 
-    public HotelController(HotelService hotelService) {
+    public AddHotelController(HotelService hotelService) {
         this.hotelService = hotelService;
     }
 
-    @GetMapping("/address")
-    public String showAddressForm(Model model) {
-        model.addAttribute("addressDTO", new AddressDTO());
-        return "address-form";
-    }
 
-    /*@PostMapping("/address")
-    public String saveAddress(@ModelAttribute AddressDTO addressDTO, Model model, HttpSession session) {
-        Long addressId = hotelService.saveAddress(addressDTO);
-        model.addAttribute("addressId", addressId);
-        return "redirect:/properties/category?addressId=" + addressId;
-    }*/
 
     @PostMapping("/address")
-    public String saveAddress(@ModelAttribute AddressDTO addressDTO, HttpSession session) {
+    public ResponseEntity<Map<String, Long>> saveAddress(@RequestBody AddressDTO addressDTO, HttpSession session) {
         Long addressId = hotelService.saveAddress(addressDTO);
         session.setAttribute("addressId", addressId);
-        return "redirect:/properties/category?addressId=" + addressId;
+        System.out.println("AddressDTO in controller: " + addressDTO);
+
+
+        Map<String, Long> response = new HashMap<>();
+        response.put("addressId", addressId);
+
+        // 클라이언트로 위의 addressId를 포함한 응답을 보내는 코드
+        // 따라서 세션에 저장한"addressId"는 클라이언트의 `response.data.addressId`값이 된다
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/category")
-    public String showCategoryForm( Model model) {
-        model.addAttribute("categoryDTO", new CategoryDTO());
-        return "category-form";
-    }
 
     @PostMapping("/category")
-    public String saveCategory(@ModelAttribute CategoryDTO categoryDTO, HttpSession session) {
+    public String saveCategory(@RequestBody CategoryDTO categoryDTO, HttpSession session) {
     Long addressId = (Long) session.getAttribute("addressId");
     if(addressId == null) {
         return "redirect:/error";
@@ -105,6 +97,24 @@ public class HotelController {
         session.setAttribute("hotelId", hotelId);
         return "redirect:/properties/room?hotelId=" + hotelId;
     }
+
+    @PostMapping("/facility")
+    public ResponseEntity<Map<String, Long>> saveFacility(@RequestBody FacilityDTO facilityDTO, HttpSession session) {
+        Long hotelId = (Long) session.getAttribute("hotelId");
+        if (hotelId == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        facilityDTO.setHotelId(hotelId);
+        hotelService.saveFacility(facilityDTO);
+
+        Map<String, Long> response = new HashMap<>();
+        response.put("hotelId", hotelId);
+
+        return ResponseEntity.ok(response);
+    }
+
+
 
     @GetMapping("/room")
     public String showRoomForm(HttpSession session, Model model) {
