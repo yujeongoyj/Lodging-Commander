@@ -16,8 +16,6 @@ function AddressForm() {
         setAddressDTO({
             ...addressDTO,
             [name]: value
-        });
-    };
 
     // 폼 제출 처리
     const handleSubmit = (e) => {
