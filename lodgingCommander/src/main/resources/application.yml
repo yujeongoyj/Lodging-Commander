@@ -10,6 +10,14 @@ spring:
     suffix: .html
     check-template-location: true
 
+server:
+  servlet:
+    session:
+      cookie:
+        name: JSESSIONID
+        http-only: true
+        secure: false
+      timeout: 30m
 
 
   security:
