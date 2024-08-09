@@ -23,7 +23,7 @@ const AddressForm = ({ onNext }) => {
             const response = await axios.post('http://localhost:8080/properties/address', data);
             const addressId = response.data.addressId;
 
-
+            // 페이지 내비게이션 처리
             navigate(`/CategoryForm?addressId=${addressId}`);
         } catch (error) {
             console.error('Error saving address', error);

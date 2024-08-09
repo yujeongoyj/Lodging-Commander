@@ -33,7 +33,6 @@ public class AddHotelController {
     }
 
 
-
     @PostMapping("/address")
     public ResponseEntity<Map<String, Long>> saveAddress(@RequestBody AddressDTO addressDTO, HttpSession session) {
         Long addressId = hotelService.saveAddress(addressDTO);
@@ -44,13 +43,25 @@ public class AddHotelController {
         Map<String, Long> response = new HashMap<>();
         response.put("addressId", addressId);
 
-        // 클라이언트로 위의 addressId를 포함한 응답을 보내는 코드
-        // 따라서 세션에 저장한"addressId"는 클라이언트의 `response.data.addressId`값이 된다
         return ResponseEntity.ok(response);
     }
 
-
     @PostMapping("/category")
+    public ResponseEntity<Map<String, Long>> saveCategory(@RequestBody CategoryDTO categoryDTO, HttpSession session) {
+        Long categoryId = hotelService.saveCategory(categoryDTO);
+        Long addressId = (Long) session.getAttribute("addressId");
+        System.out.println(addressId);
+        session.setAttribute("categoryId", categoryId);
+
+        Map<String, Long> response = new HashMap<>();
+        response.put("categoryId", categoryId);
+        response.put("addressId", addressId);
+
+        return ResponseEntity.ok(response);
+}
+
+
+/*    @PostMapping("/category")
     public String saveCategory(@RequestBody CategoryDTO categoryDTO, HttpSession session) {
     Long addressId = (Long) session.getAttribute("addressId");
     if(addressId == null) {
@@ -59,84 +70,83 @@ public class AddHotelController {
     Long categoryId = hotelService.saveCategory(categoryDTO);
     session.setAttribute("categoryId", categoryId);
     return "redirect:/properties/hotel?categoryId=" + categoryId;
-   }
+   }*/
 
-    @GetMapping("/hotel")
-    public String showHotelForm(HttpSession session, Model model) {
-        Long addressId = (Long) session.getAttribute("addressId");
-        Long categoryId = (Long) session.getAttribute("categoryId");
+@GetMapping("/hotel")
+public String showHotelForm(HttpSession session, Model model) {
+    Long addressId = (Long) session.getAttribute("addressId");
+    Long categoryId = (Long) session.getAttribute("categoryId");
 
-        if (addressId == null || categoryId == null) {
-            return "redirect:/error";
-        }
-        HotelDTO hotelDTO = new HotelDTO();
-        hotelDTO.setAddressId(addressId);
-        hotelDTO.setCategoryId(categoryId);
+    if (addressId == null || categoryId == null) {
+        return "redirect:/error";
+    }
+    HotelDTO hotelDTO = new HotelDTO();
+    hotelDTO.setAddressId(addressId);
+    hotelDTO.setCategoryId(categoryId);
 
-        model.addAttribute("hotelDTO", hotelDTO);
-        System.out.println(addressId);
-        return "hotel-form";
+    model.addAttribute("hotelDTO", hotelDTO);
+    System.out.println(addressId);
+    return "hotel-form";
+}
+
+
+@PostMapping("/hotel")
+public String saveHotel(@ModelAttribute HotelDTO hotelDTO, HttpSession session) {
+    Long addressId = (Long) session.getAttribute("addressId");
+    Long categoryId = (Long) session.getAttribute("categoryId");
+    System.out.println(addressId);
+    if (addressId == null || categoryId == null) {
+        return "redirect:/error";
     }
 
+    User user = getTemporaryUser(); // 임시로 User 객체 가져오기
 
-    @PostMapping("/hotel")
-    public String saveHotel(@ModelAttribute HotelDTO hotelDTO, HttpSession session) {
-        Long addressId = (Long) session.getAttribute("addressId");
-        Long categoryId = (Long) session.getAttribute("categoryId");
-        System.out.println(addressId);
-        if (addressId == null || categoryId == null) {
-            return "redirect:/error";
-        }
+    hotelDTO.setAddressId(addressId);
+    hotelDTO.setCategoryId(categoryId);
 
-        User user = getTemporaryUser(); // 임시로 User 객체 가져오기
+    long hotelId = hotelService.saveHotel(hotelDTO, user);
+    session.setAttribute("hotelId", hotelId);
+    return "redirect:/properties/room?hotelId=" + hotelId;
+}
 
-        hotelDTO.setAddressId(addressId);
-        hotelDTO.setCategoryId(categoryId);
-
-        long hotelId = hotelService.saveHotel(hotelDTO, user);
-        session.setAttribute("hotelId", hotelId);
-        return "redirect:/properties/room?hotelId=" + hotelId;
+@PostMapping("/facility")
+public ResponseEntity<Map<String, Long>> saveFacility(@RequestBody FacilityDTO facilityDTO, HttpSession session) {
+    Long hotelId = (Long) session.getAttribute("hotelId");
+    if (hotelId == null) {
+        return ResponseEntity.badRequest().build();
     }
 
-    @PostMapping("/facility")
-    public ResponseEntity<Map<String, Long>> saveFacility(@RequestBody FacilityDTO facilityDTO, HttpSession session) {
-        Long hotelId = (Long) session.getAttribute("hotelId");
-        if (hotelId == null) {
-            return ResponseEntity.badRequest().build();
-        }
+    facilityDTO.setHotelId(hotelId);
+    hotelService.saveFacility(facilityDTO);
 
-        facilityDTO.setHotelId(hotelId);
-        hotelService.saveFacility(facilityDTO);
+    Map<String, Long> response = new HashMap<>();
+    response.put("hotelId", hotelId);
 
-        Map<String, Long> response = new HashMap<>();
-        response.put("hotelId", hotelId);
-
-        return ResponseEntity.ok(response);
-    }
+    return ResponseEntity.ok(response);
+}
 
 
+@GetMapping("/room")
+public String showRoomForm(HttpSession session, Model model) {
+    Long hotelId = (Long) session.getAttribute("hotelId");
+    RoomDTO roomDTO = new RoomDTO();
+    roomDTO.setHotelId(hotelId);
 
-    @GetMapping("/room")
-    public String showRoomForm(HttpSession session, Model model) {
-        Long hotelId = (Long) session.getAttribute("hotelId");
-        RoomDTO roomDTO = new RoomDTO();
-        roomDTO.setHotelId(hotelId);
+    model.addAttribute("roomDTO", new RoomDTO());
+    return "room-form";
+}
 
-        model.addAttribute("roomDTO", new RoomDTO());
-        return "room-form";
-    }
+@PostMapping("/room")
+public String saveRoom(@ModelAttribute RoomDTO roomDTO, HttpSession session) {
+    Long hotelId = (Long) session.getAttribute("hotelId");
+    roomDTO.setHotelId(hotelId);
 
-    @PostMapping("/room")
-    public String saveRoom(@ModelAttribute RoomDTO roomDTO, HttpSession session) {
-        Long hotelId = (Long) session.getAttribute("hotelId");
-        roomDTO.setHotelId(hotelId);
+    hotelService.saveRoom(roomDTO);
+    return "redirect:/properties/success";
+}
 
-        hotelService.saveRoom(roomDTO);
-        return "redirect:/properties/success";
-    }
-
-    @GetMapping("/success")
-    public String showSuccessPage() {
-        return "success";
-    }
+@GetMapping("/success")
+public String showSuccessPage() {
+    return "success";
+}
 }

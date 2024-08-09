@@ -22,9 +22,8 @@ const FacilityForm = () => {
     });
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const params = new URLSearchParams(location.search);
-    const hotelId = params.get('hotelId');
+
+
 
     const handleChange = (e) => {
         const { name, checked } = e.target;
@@ -37,7 +36,7 @@ const FacilityForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://localhost:8080/properties/facilities`, { hotelId, ...facilities });
+            const response = await axios.post(`http://localhost:8080/properties/facilities`, { ...facilities });
             navigate('/success');
         } catch (error) {
             console.error('Error saving facilities', error);
