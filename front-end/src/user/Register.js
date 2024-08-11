@@ -1,100 +1,45 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 
-const Register = () => {
-    const [formData, setFormData] = useState({
+function Register() {
+    const [user, setUser] = useState({
         email: '',
         password: '',
+        nickname:'',
         tel: '',
-        grade: 'SILVER',
+        grade: 'Silver',
         role: 'USER'
     });
 
-    const [message, setMessage] = useState('');
-
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        const {id, value} = e.target;
+        setUser({...user, [id]: value});
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/user/register', formData);
-            if (response.data.result === 'success') {
-                setMessage('Registration successful!');
-            } else {
-                setMessage(`Registration failed: ${response.data.message}`);
-            }
+            const response = await axios.post('http://localhost:8080/user/register', user);
+            console.log(response)
+            alert('회원가입 완료');
+            window.location.href = '/';
         } catch (error) {
-            setMessage('Registration failed: An error occurred.');
+            console.error(error);
         }
     };
 
     return (
         <div>
-            <h2>Register</h2>
+            <h3>회원가입</h3>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Telephone:</label>
-                    <input
-                        type="tel"
-                        name="tel"
-                        value={formData.tel}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Grade:</label>
-                    <select
-                        name="grade"
-                        value={formData.grade}
-                        onChange={handleChange}
-                    >
-                        <option value="VIP">VIP</option>
-                        <option value="GOLD">Gold</option>
-                        <option value="SILVER">Silver</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Role:</label>
-                    <select
-                        name="role"
-                        value={formData.role}
-                        onChange={handleChange}
-                    >
-                        <option value="ADMIN">Admin</option>
-                        <option value="USER">User</option>
-                    </select>
-                </div>
-                <button type="submit">Register</button>
+                <input type="text" id="email" value={user.email} placeholder="이메일" onChange={handleChange}/>
+                <input type="password" id="password" value={user.password} placeholder="비밀번호" onChange={handleChange}/>
+                <input type="text" id="nickname" value={user.nickname} placeholder="닉네임" onChange={handleChange}/>
+                <input type="text" id="tel" value={user.tel} placeholder="연락처" onChange={handleChange}/>
+                <button type="submit">회원가입</button>
             </form>
-            {message && <p>{message}</p>}
         </div>
     );
-};
+}
 
 export default Register;
