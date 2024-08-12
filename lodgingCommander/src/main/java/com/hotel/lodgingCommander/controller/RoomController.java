@@ -1,6 +1,6 @@
 package com.hotel.lodgingCommander.controller;
 
-import com.hotel.lodgingCommander.sercvice.RoomService;
+import com.hotel.lodgingCommander.service.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

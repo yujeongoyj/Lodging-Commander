@@ -1,4 +1,4 @@
-package com.hotel.lodgingCommander.sercvice;
+package com.hotel.lodgingCommander.service;
 
 import com.hotel.lodgingCommander.model.cart.CartResponseDTO;
 import com.hotel.lodgingCommander.repository.CartRepository;

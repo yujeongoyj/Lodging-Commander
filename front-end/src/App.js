@@ -1,18 +1,28 @@
 import './App.css';
 import {Route, Routes} from "react-router-dom";
-import Cart from "./cart/Cart";
-import StartPage from "./home/StartPage";
-import RoomList from "./room/RoomList";
-import List from "./home/component/List";
+import Auth from "./user/Auth";
+import Register from "./user/Register";
+import AuthFail from "./user/AuthFail";
+import Info from "./user/Info";
+import Update from "./user/Update";
+import Home from "./user/Home";
+import Header from "./Header";
+import Details from "./hotel/Details";
 
 function App() {
     return (
-        <Routes>
-            <Route path="/cart" element={<Cart/>}/>
-            <Route path="/" element={<StartPage/>}/>
-            <Route path="/room" element={<RoomList/>}/>
-            <Route path="/showOne/:hotelId" element={<List/>}/>
-        </Routes>
+        <div>
+            <Header/>
+            <Routes>
+                <Route path="/" element={<Auth/>}/>
+                <Route path="/user/register" element={<Register/>}/>
+                <Route path="/user/update" element={<Update/>}/>
+                <Route path="/user/info" element={<Info/>}/>
+                <Route path="/user/authSuccess" element={<Home/>}/>
+                <Route path="/user/authFail" element={<AuthFail/>}/>
+                <Route path="/hotel/details/:id" element={<Details/>}/>
+            </Routes>
+        </div>
     );
 }
 

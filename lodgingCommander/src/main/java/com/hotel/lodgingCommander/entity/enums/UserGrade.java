@@ -11,10 +11,12 @@ public enum UserGrade implements CodeEnum<String> {
 
     UserGrade(String code) {
         this.code = code;
+
     }
 
     public String getCode() {
         return code;
+
     }
 
 }
