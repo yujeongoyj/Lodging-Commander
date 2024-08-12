@@ -1,9 +1,10 @@
 package com.hotel.lodgingCommander.controller;
 
+import com.hotel.lodgingCommander.dto.LogInResponseDTO;
 import com.hotel.lodgingCommander.dto.UserDTO;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,23 +18,26 @@ import java.util.Optional;
 @CrossOrigin
 @RequestMapping("/user/")
 public class UserController {
-    @Autowired
-    private UserService USER_SERVICE;
+
+    private final UserService USER_SERVICE;
+
+    public UserController(UserService userService) {
+        USER_SERVICE = userService;
+    }
 
     @PostMapping("register")
     public ResponseEntity<?> register(@RequestBody UserDTO userDTO) {
-
         USER_SERVICE.registerUser(userDTO.toEntity());
 
         return ResponseEntity.ok().build();
     }
-
 
     @PutMapping("update")
     public ResponseEntity<?> update(@RequestBody UserDTO userDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         USER_SERVICE.update(email, userDTO.toEntity());
+
         return ResponseEntity.ok().build();
     }
 
@@ -44,6 +48,7 @@ public class UserController {
         System.out.println("이메일" + email);
         USER_SERVICE.delete(email);
         SecurityContextHolder.clearContext();
+
         return ResponseEntity.ok().build();
     }
 
@@ -52,6 +57,7 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Optional<User> user = USER_SERVICE.getUserInfo(email);
+
         return ResponseEntity.ok(user);
     }
 
@@ -74,6 +80,7 @@ public class UserController {
         userInfo.put("tel", userDTO.getTel());
         userInfo.put("grade", userDTO.getGrade());
         userInfo.put("role", userDTO.getRole());
+
         return ResponseEntity.ok(userInfo);
     }
 
@@ -93,4 +100,6 @@ public class UserController {
 
         return ResponseEntity.ok().build();
     }
+
+
 }

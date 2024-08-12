@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button, Col, Container, FormControl, Row, Table} from "react-bootstrap";
 
 function Register() {
     const [user, setUser] = useState({
         email: '',
         password: '',
-        nickname:'',
+        nickname: '',
         tel: '',
         grade: 'Silver',
         role: 'USER'
@@ -29,16 +31,74 @@ function Register() {
     };
 
     return (
-        <div>
-            <h3>회원가입</h3>
-            <form onSubmit={handleSubmit}>
-                <input type="text" id="email" value={user.email} placeholder="이메일" onChange={handleChange}/>
-                <input type="password" id="password" value={user.password} placeholder="비밀번호" onChange={handleChange}/>
-                <input type="text" id="nickname" value={user.nickname} placeholder="닉네임" onChange={handleChange}/>
-                <input type="text" id="tel" value={user.tel} placeholder="연락처" onChange={handleChange}/>
-                <button type="submit">회원가입</button>
-            </form>
-        </div>
+        <Container>
+            <Row className="justify-content-center">
+                <Col xs={13} sm={10} md={6} lg={5}>
+                    <form onSubmit={handleSubmit}>
+                        <Table striped hover bordered>
+                            <thead className={"text-center"}>
+                            <tr>
+                                <td colSpan={2}><h3>회원가입</h3></td>
+                            </tr>
+                            </thead>
+                            <tbody className={"text-center"}>
+                            <tr>
+                                <td>이메일</td>
+                                <td>
+                                    <FormControl
+                                        type="text" id="email" value={user.email} placeholder="이메일"
+                                        onChange={handleChange}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>비밀번호</td>
+                                <td>
+                                    <FormControl
+                                        type="password"
+                                        id="password"
+                                        value={user.password}
+                                        placeholder="비밀번호"
+                                        onChange={handleChange}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>닉네임</td>
+                                <td>
+                                    <FormControl
+                                        type="text"
+                                        id="nickname"
+                                        value={user.nickname}
+                                        placeholder="닉네임"
+                                        onChange={handleChange}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>연락처</td>
+                                <td>
+                                    <FormControl
+                                        type="text"
+                                        id="tel"
+                                        value={user.tel}
+                                        placeholder="연락처"
+                                        onChange={handleChange}
+                                    />
+                                </td>
+                            </tr>
+                            <tr className={"text-center"}>
+                                <td colSpan={2}>
+                                    <Button type="submit">회원가입</Button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </Table>
+
+                    </form>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 

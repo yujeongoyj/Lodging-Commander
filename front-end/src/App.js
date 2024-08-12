@@ -7,6 +7,7 @@ import Info from "./user/Info";
 import Update from "./user/Update";
 import Home from "./user/Home";
 import Header from "./Header";
+import Details from "./hotel/Details";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/user/info" element={<Info/>}/>
                 <Route path="/user/authSuccess" element={<Home/>}/>
                 <Route path="/user/authFail" element={<AuthFail/>}/>
+                <Route path="/hotel/details/:id" element={<Details/>}/>
             </Routes>
         </div>
     );

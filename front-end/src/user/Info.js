@@ -1,6 +1,8 @@
 import React from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button, ButtonGroup, Col, Container, Row, Table} from "react-bootstrap";
 
 const Info = () => {
     const location = useLocation()
@@ -25,23 +27,57 @@ const Info = () => {
     }
 
     let onUpdate = () => {
-    navigate('/user/update' , {state: {userData, data}});
+        navigate('/user/update', {state: {userData, data}});
     }
 
-    return (
-        <div>
-            <h1>마이페이지</h1>
-            <p>이메일 : {userData?.email}</p>
-            <p>닉네임 : {userData?.nickname}</p>
-            <p>연락처 : {userData?.tel}</p>
-            <p>등급 : {userData?.grade}</p>
-            <p>권한 : {userData?.role}</p>
-            <p>추가 데이터: {JSON.stringify(data)}</p>
-            <button onClick={onUpdate}>회원수정</button>
-            <button onClick={goBack}>뒤로가기</button>
-            <button onClick={onLogout}>로그아웃</button>
-        </div>
-    );
+    return (<Container>
+        <Row className="justify-content-center">
+            <Col xs={13} sm={10} md={6} lg={5}>
+                <Table className={"text-center"} striped hover bordered>
+                    <thead>
+                    <tr>
+                        <th colSpan={2}><h3>마이페이지</h3></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>이메일</td>
+                        <td>{userData?.email}</td>
+                    </tr>
+                    <tr>
+                        <td>닉네임</td>
+                        <td>{userData?.nickname}</td>
+                    </tr>
+                    <tr>
+                        <td>연락처</td>
+                        <td>{userData?.tel}</td>
+                    </tr>
+                    <tr>
+                        <td>등급</td>
+                        <td>{userData?.grade}</td>
+                    </tr>
+                    <tr>
+                        <td>권한</td>
+                        <td>{userData?.role}</td>
+                    </tr>
+                    <tr>
+                        <td>추가 데이터</td>
+                        <td>{JSON.stringify(data)}</td>
+                    </tr>
+                    <tr>
+                        <td colSpan={2}>
+                            <ButtonGroup className="gap-3">
+                                <Button onClick={onUpdate}>회원수정</Button>
+                                <Button onClick={goBack}>뒤로가기</Button>
+                                <Button onClick={onLogout}>로그아웃</Button>
+                            </ButtonGroup>
+                        </td>
+                    </tr>
+                    </tbody>
+                </Table>
+            </Col>
+        </Row>
+    </Container>);
 };
 
 export default Info;
