@@ -32,7 +32,7 @@ public class Cart {
     @JsonBackReference
     private Room room;
 
-    @Column(name = "checkid_date", nullable = false)
+    @Column(name = "checkin_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private LocalDate checkInDate;
 
