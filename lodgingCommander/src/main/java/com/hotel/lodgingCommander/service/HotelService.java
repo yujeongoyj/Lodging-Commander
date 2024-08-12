@@ -5,6 +5,12 @@ import com.hotel.lodgingCommander.entity.*;
 import com.hotel.lodgingCommander.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 public class HotelService {
@@ -14,14 +20,17 @@ public class HotelService {
     private final HotelRepository hotelRepository;
     private final CategoryRepository categoryRepository;
     private final FacilityRepository facilityRepository;
+    private final ImgRepository imgRepository;
 
     public HotelService(AddressRepository addressRepository, RoomRepository roomRepository,
-                        HotelRepository hotelRepository, CategoryRepository categoryRepository, FacilityRepository facilityRepository) {
+                        HotelRepository hotelRepository, CategoryRepository categoryRepository, FacilityRepository facilityRepository
+    , ImgRepository imgRepository) {
         this.addressRepository = addressRepository;
         this.roomRepository = roomRepository;
         this.hotelRepository = hotelRepository;
         this.categoryRepository = categoryRepository;
         this.facilityRepository = facilityRepository;
+        this.imgRepository = imgRepository;
     }
 
     @Transactional
@@ -47,6 +56,7 @@ public class HotelService {
         return category.getId();
     }
 
+
     @Transactional
     public Long saveHotel(HotelDTO hotelDTO, User user) {
         Address address = addressRepository.findById(hotelDTO.getAddressId())
@@ -62,7 +72,7 @@ public class HotelService {
                 .tel(hotelDTO.getTel())
                 .grade(hotelDTO.getGrade())
                 .detail(hotelDTO.getDetail())
-                .user(user) // User 객체 설정
+                .user(user) // 지금은 임시 User 객체 설정
                 .build();
 
         hotelRepository.save(hotel);
@@ -101,6 +111,12 @@ public class HotelService {
         Hotel hotel = hotelRepository.findById(roomDTO.getHotelId())
                 .orElseThrow(() -> new RuntimeException("Hotel not found"));
 
+        Img img = null;
+        if (roomDTO.getImgId() != null) {
+            img = imgRepository.findById(roomDTO.getImgId())
+                    .orElseThrow(() -> new RuntimeException("Image not found"));
+        }
+
         Room room = Room.builder()
                 .name(roomDTO.getName())
                 .price(roomDTO.getPrice())
@@ -108,8 +124,35 @@ public class HotelService {
                 .detail(roomDTO.getDetail())
                 .maxPeople(roomDTO.getMaxPeople())
                 .hotel(hotel)
+                .img(img)
                 .build();
 
         roomRepository.save(room);
+    }
+
+    @Transactional
+    public Long saveImage(MultipartFile image) throws IOException {
+
+        String uploadDir = "C:/path/to/upload/directory/";
+        Path uploadPath = Paths.get(uploadDir);
+
+        // 디렉토리가 존재하지 않는 경우 생성
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        // 파일 이름 생성 및 경로 설정
+        String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+        Path filePath = uploadPath.resolve(fileName);
+
+        Files.copy(image.getInputStream(), filePath);
+
+
+        Img img = Img.builder()
+                .path(filePath.toString())
+                .build();
+        imgRepository.save(img);
+
+        return img.getId();
     }
 }

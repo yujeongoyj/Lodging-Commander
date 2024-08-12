@@ -4,11 +4,13 @@ import com.hotel.lodgingCommander.dto.*;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.service.HotelService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +19,6 @@ import java.util.Map;
 @RequestMapping("/properties")
 public class AddHotelController {
 
-    // 임시 User 객체 생성
     private User getTemporaryUser() {
         User user = new User();
         user.setId(1L);
@@ -37,8 +38,6 @@ public class AddHotelController {
     public ResponseEntity<Map<String, Long>> saveAddress(@RequestBody AddressDTO addressDTO, HttpSession session) {
         Long addressId = hotelService.saveAddress(addressDTO);
         session.setAttribute("addressId", addressId);
-        System.out.println("AddressDTO in controller: " + addressDTO);
-
 
         Map<String, Long> response = new HashMap<>();
         response.put("addressId", addressId);
@@ -50,7 +49,6 @@ public class AddHotelController {
     public ResponseEntity<Map<String, Long>> saveCategory(@RequestBody CategoryDTO categoryDTO, HttpSession session) {
         Long categoryId = hotelService.saveCategory(categoryDTO);
         Long addressId = (Long) session.getAttribute("addressId");
-        System.out.println(addressId);
         session.setAttribute("categoryId", categoryId);
 
         Map<String, Long> response = new HashMap<>();
@@ -58,95 +56,79 @@ public class AddHotelController {
         response.put("addressId", addressId);
 
         return ResponseEntity.ok(response);
-}
-
-
-/*    @PostMapping("/category")
-    public String saveCategory(@RequestBody CategoryDTO categoryDTO, HttpSession session) {
-    Long addressId = (Long) session.getAttribute("addressId");
-    if(addressId == null) {
-        return "redirect:/error";
-    }
-    Long categoryId = hotelService.saveCategory(categoryDTO);
-    session.setAttribute("categoryId", categoryId);
-    return "redirect:/properties/hotel?categoryId=" + categoryId;
-   }*/
-
-@GetMapping("/hotel")
-public String showHotelForm(HttpSession session, Model model) {
-    Long addressId = (Long) session.getAttribute("addressId");
-    Long categoryId = (Long) session.getAttribute("categoryId");
-
-    if (addressId == null || categoryId == null) {
-        return "redirect:/error";
-    }
-    HotelDTO hotelDTO = new HotelDTO();
-    hotelDTO.setAddressId(addressId);
-    hotelDTO.setCategoryId(categoryId);
-
-    model.addAttribute("hotelDTO", hotelDTO);
-    System.out.println(addressId);
-    return "hotel-form";
-}
-
-
-@PostMapping("/hotel")
-public String saveHotel(@ModelAttribute HotelDTO hotelDTO, HttpSession session) {
-    Long addressId = (Long) session.getAttribute("addressId");
-    Long categoryId = (Long) session.getAttribute("categoryId");
-    System.out.println(addressId);
-    if (addressId == null || categoryId == null) {
-        return "redirect:/error";
     }
 
-    User user = getTemporaryUser(); // 임시로 User 객체 가져오기
 
-    hotelDTO.setAddressId(addressId);
-    hotelDTO.setCategoryId(categoryId);
+    @PostMapping("/hotel")
+    public ResponseEntity<Map<String, Long>> saveHotel(@RequestBody HotelDTO hotelDTO, HttpSession session) {
+        Long hotelId = hotelService.saveHotel(hotelDTO, getTemporaryUser());
+        session.setAttribute("hotelId", hotelId);
 
-    long hotelId = hotelService.saveHotel(hotelDTO, user);
-    session.setAttribute("hotelId", hotelId);
-    return "redirect:/properties/room?hotelId=" + hotelId;
-}
-
-@PostMapping("/facility")
-public ResponseEntity<Map<String, Long>> saveFacility(@RequestBody FacilityDTO facilityDTO, HttpSession session) {
-    Long hotelId = (Long) session.getAttribute("hotelId");
-    if (hotelId == null) {
-        return ResponseEntity.badRequest().build();
+        Map<String, Long> response = new HashMap<>();
+        response.put("hotelId", hotelId);
+        return ResponseEntity.ok(response);
     }
 
-    facilityDTO.setHotelId(hotelId);
-    hotelService.saveFacility(facilityDTO);
+    @PostMapping("/facility")
+    public ResponseEntity<Map<String, Long>> saveFacility(@RequestParam("hotelId") Long hotelId, @RequestBody FacilityDTO facilityDTO) {
+        if (hotelId == null) {
+            return ResponseEntity.badRequest().build();
+        }
 
-    Map<String, Long> response = new HashMap<>();
-    response.put("hotelId", hotelId);
+        facilityDTO.setHotelId(hotelId);
+        hotelService.saveFacility(facilityDTO);
 
-    return ResponseEntity.ok(response);
-}
+        Map<String, Long> response = new HashMap<>();
+        response.put("hotelId", hotelId);
+
+        return ResponseEntity.ok(response);
+    }
 
 
-@GetMapping("/room")
-public String showRoomForm(HttpSession session, Model model) {
-    Long hotelId = (Long) session.getAttribute("hotelId");
-    RoomDTO roomDTO = new RoomDTO();
-    roomDTO.setHotelId(hotelId);
 
-    model.addAttribute("roomDTO", new RoomDTO());
-    return "room-form";
-}
 
-@PostMapping("/room")
-public String saveRoom(@ModelAttribute RoomDTO roomDTO, HttpSession session) {
-    Long hotelId = (Long) session.getAttribute("hotelId");
-    roomDTO.setHotelId(hotelId);
+    @PostMapping("/room")
+    public ResponseEntity<Map<String, Long>> saveRoom(
+            @RequestParam("name") String name,
+            @RequestParam("price") int price,
+            @RequestParam("detail") String detail,
+            @RequestParam("maxPeople") int maxPeople,
+            @RequestParam("hotelId") Long hotelId,
+            @RequestParam(value = "imgId", required = false) Long imgId) {
 
-    hotelService.saveRoom(roomDTO);
-    return "redirect:/properties/success";
-}
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setName(name);
+        roomDTO.setPrice(price);
+        roomDTO.setDetail(detail);
+        roomDTO.setMaxPeople(maxPeople);
+        roomDTO.setHotelId(hotelId);
+        roomDTO.setQuantity(1);
 
-@GetMapping("/success")
-public String showSuccessPage() {
-    return "success";
-}
+        if (imgId != null) {
+            roomDTO.setImgId(imgId);
+        }
+
+
+        hotelService.saveRoom(roomDTO);
+        Map<String, Long> response = new HashMap<>();
+        response.put("roomId", roomDTO.getId());
+
+        return ResponseEntity.ok(response);
+    }
+
+
+    @PostMapping("/uploadImage")
+    public ResponseEntity<Map<String, Long>> uploadImage(@RequestParam("image") MultipartFile image) {
+        try {
+            Long imgId = hotelService.saveImage(image);
+            Map<String, Long> response = new HashMap<>();
+            response.put("imgId", imgId);
+            return ResponseEntity.ok(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
 }
