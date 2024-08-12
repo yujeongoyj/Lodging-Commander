@@ -12,8 +12,10 @@ const CategoryForm = () => {
             const response = await axios.post('http://localhost:8080/properties/category', {name});
             const categoryId = response.data.categoryId;
             const addressId = response.data.addressId
+
             console.log(addressId)
-            navigate(`/FacilityForm?&addressId=${addressId}categoryId=${categoryId}`);
+           // navigate(`/FacilityForm?&addressId=${addressId}&categoryId=${categoryId}`);
+
 
         } catch (error) {
             console.error('Error saving category', error);

@@ -13,7 +13,7 @@ function App() {
                   <Route path="/" element={<AddressForm />} />
                   <Route path="/AddressForm" element={<AddressForm />} />
                   <Route path="/CategoryForm" element={<CategoryForm />} />
-                  <Route path="/FacilityFrom" element={<FacilityForm />} />
+                  <Route path="/FacilityForm" element={<FacilityForm />} />
               </Routes>
           </Router>
       </div>
