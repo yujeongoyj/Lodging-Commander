@@ -1,21 +1,14 @@
 package com.hotel.lodgingCommander.service;
-
-import com.hotel.lodgingCommander.dto.KakaoTokenDto;
-import com.hotel.lodgingCommander.dto.LogInResponseDTO;
 import com.hotel.lodgingCommander.dto.UserDTO;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.entity.enums.UserGrade;
 import com.hotel.lodgingCommander.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
+
 import java.util.Optional;
 
 @Service

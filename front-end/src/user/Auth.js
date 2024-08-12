@@ -4,7 +4,6 @@ import {Button, Container, FormControl, Table, Alert, Col, Row, ButtonGroup} fro
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
-import KAKAOLogin from "./KAKAOLogin";
 
 let Auth = () => {
     let [inputs, setInputs] = useState({
@@ -103,7 +102,6 @@ let Auth = () => {
                     </form>
                 </Col>
             </Row>
-            <KAKAOLogin/>
         </Container>
     );
 };

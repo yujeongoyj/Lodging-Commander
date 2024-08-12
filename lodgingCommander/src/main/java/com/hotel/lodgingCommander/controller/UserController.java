@@ -1,10 +1,8 @@
 package com.hotel.lodgingCommander.controller;
 
-import com.hotel.lodgingCommander.dto.LogInResponseDTO;
 import com.hotel.lodgingCommander.dto.UserDTO;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
