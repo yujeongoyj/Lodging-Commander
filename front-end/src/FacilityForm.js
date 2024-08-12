@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 
 const FacilityForm = () => {
     const [facilities, setFacilities] = useState({
@@ -52,69 +53,29 @@ const FacilityForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Free WiFi:
-                <input type="checkbox" name="freeWifi" checked={facilities.freeWifi} onChange={handleChange} />
-            </label>
-            <label>
-                Non-Smoking:
-                <input type="checkbox" name="nonSmoking" checked={facilities.nonSmoking} onChange={handleChange} />
-            </label>
-            <label>
-                Air Conditioning:
-                <input type="checkbox" name="airConditioning" checked={facilities.airConditioning} onChange={handleChange} />
-            </label>
-            <label>
-                Laundry Facilities:
-                <input type="checkbox" name="laundryFacilities" checked={facilities.laundryFacilities} onChange={handleChange} />
-            </label>
-            <label>
-                Free Parking:
-                <input type="checkbox" name="freeParking" checked={facilities.freeParking} onChange={handleChange} />
-            </label>
-            <label>
-                24-Hour Front Desk:
-                <input type="checkbox" name="twentyFourHourFrontDesk" checked={facilities.twentyFourHourFrontDesk} onChange={handleChange} />
-            </label>
-            <label>
-                Breakfast:
-                <input type="checkbox" name="breakfast" checked={facilities.breakfast} onChange={handleChange} />
-            </label>
-            <label>
-                Airport Shuttle:
-                <input type="checkbox" name="airportShuttle" checked={facilities.airportShuttle} onChange={handleChange} />
-            </label>
-            <label>
-                Spa:
-                <input type="checkbox" name="spa" checked={facilities.spa} onChange={handleChange} />
-            </label>
-            <label>
-                Bar:
-                <input type="checkbox" name="bar" checked={facilities.bar} onChange={handleChange} />
-            </label>
-            <label>
-                Swimming Pool:
-                <input type="checkbox" name="swimmingPool" checked={facilities.swimmingPool} onChange={handleChange} />
-            </label>
-            <label>
-                Gym:
-                <input type="checkbox" name="gym" checked={facilities.gym} onChange={handleChange} />
-            </label>
-            <label>
-                EV Charging Station:
-                <input type="checkbox" name="evChargingStation" checked={facilities.evChargingStation} onChange={handleChange} />
-            </label>
-            <label>
-                Pet Friendly:
-                <input type="checkbox" name="petFriendly" checked={facilities.petFriendly} onChange={handleChange} />
-            </label>
-            <label>
-                Restaurant:
-                <input type="checkbox" name="restaurant" checked={facilities.restaurant} onChange={handleChange} />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
+        <Container className="mt-4">
+            <h4>5/5 단계</h4>
+            <h2>편의시설</h2>
+            <Form onSubmit={handleSubmit} style={{'margin-top':'5%'}}>
+                <Row>
+                    {Object.keys(facilities).map((facility) => (
+                        <Col md={6} lg={4} key={facility} className="mb-3">
+                            <Form.Check
+                                type="checkbox"
+                                id={facility}
+                                label={facility.split(/(?=[A-Z])/).join(' ')}
+                                name={facility}
+                                checked={facilities[facility]}
+                                onChange={handleChange}
+                            />
+                        </Col>
+                    ))}
+                </Row>
+                <div className="d-flex justify-content-end mt-3">
+                    <Button variant="primary" type="submit">제출</Button>
+                </div>
+            </Form>
+        </Container>
     );
 };
 

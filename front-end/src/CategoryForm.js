@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
+import {Container, Form, Button, Row, Col} from 'react-bootstrap';
 
 const CategoryForm = () => {
     const [name, setName] = useState('');
@@ -20,7 +21,7 @@ const CategoryForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/properties/category', { name });
+            const response = await axios.post('http://localhost:8080/properties/category', {name});
             console.log(response);
             const categoryId = response.data.categoryId;
             if (addressId) {
@@ -35,16 +36,27 @@ const CategoryForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Category Name"
-                required
-            />
-            <button type="submit">Next</button>
-        </form>
+        <Container className="mt-4">
+            <h4>2/5 단계</h4>
+            <h2>기본 정보 등록부터 시작해 보겠습니다</h2>
+            <Form onSubmit={handleSubmit} style={{'margin-top':'5%'}}>
+                <Form.Group as={Row} className="mb-3" controlId="formAddress">
+                    <Form.Label column sm={2}>숙박시설 종류 (ex. 호텔)</Form.Label>
+                    <Col sm={10}>
+                        <Form.Control
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="Category Name"
+                            required
+                        />
+                    </Col>
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    다음
+                </Button>
+            </Form>
+        </Container>
     );
 };
 
