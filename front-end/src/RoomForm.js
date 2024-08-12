@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 
 const RoomForm = () => {
-    // 초기 상태에 한 개의 방 폼 포함시킴
     const [rooms, setRooms] = useState([{ name: '', price: 0, detail: '', maxPeople: 0, imgId: null }]);
     const [hotelId, setHotelId] = useState(null);
     const [addressId, setAddressId] = useState(null);
@@ -63,6 +63,11 @@ const RoomForm = () => {
         setRooms([...rooms, { name: '', price: 0, detail: '', maxPeople: 0, imgId: null }]);
     };
 
+    const removeRoomForm = (index) => {
+        const newRooms = rooms.filter((_, i) => i !== index);
+        setRooms(newRooms);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -75,7 +80,6 @@ const RoomForm = () => {
                 formData.append('hotelId', hotelId);
 
                 if (rooms[i].imgId) {
-
                     formData.append('imgId', rooms[i].imgId);
                 }
 
@@ -92,64 +96,80 @@ const RoomForm = () => {
         }
     };
 
-
-
     return (
-        <form onSubmit={handleSubmit}>
-            {rooms.map((room, index) => (
-                <div key={index}>
-                    <div>
-                        <label>객실 이름:</label>
-                        <input
-                            type="text"
-                            value={room.name}
-                            onChange={(e) => handleRoomChange(index, 'name', e.target.value)}
-                            placeholder="객실 이름"
-                            required
-                        />
+        <Container className="mt-4">
+            <h4>4/5 단계</h4>
+            <h3>객실 정보 등록</h3>
+            <Form onSubmit={handleSubmit} style={{'margin-top':'5%'}}>
+                {rooms.map((room, index) => (
+                    <div key={index} className="mb-3 p-3 border rounded">
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={2}>객실 이름</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="text"
+                                    value={room.name}
+                                    onChange={(e) => handleRoomChange(index, 'name', e.target.value)}
+                                    placeholder="객실 이름"
+                                    required
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={2}>가격</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="number"
+                                    value={room.price}
+                                    onChange={(e) => handleRoomChange(index, 'price', Number(e.target.value))}
+                                    placeholder="가격"
+                                    required
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={2}>상세정보</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    as="textarea"
+                                    value={room.detail}
+                                    onChange={(e) => handleRoomChange(index, 'detail', e.target.value)}
+                                    placeholder="상세정보"
+                                    required
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={2}>최대 인원</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="number"
+                                    value={room.maxPeople}
+                                    onChange={(e) => handleRoomChange(index, 'maxPeople', Number(e.target.value))}
+                                    placeholder="최대 인원"
+                                    required
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={2}>이미지 업로드</Form.Label>
+                            <Col sm={10}>
+                                <input
+                                    type="file"
+                                    onChange={(e) => handleImageChange(index, e)}
+                                    accept="image/*"
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Button variant="danger" onClick={() => removeRoomForm(index)}>삭제</Button>
                     </div>
-                    <div>
-                        <label>가격:</label>
-                        <input
-                            type="number"
-                            value={room.price}
-                            onChange={(e) => handleRoomChange(index, 'price', Number(e.target.value))}
-                            placeholder="가격"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>상세정보:</label>
-                        <textarea
-                            value={room.detail}
-                            onChange={(e) => handleRoomChange(index, 'detail', e.target.value)}
-                            placeholder="상세정보"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>최대 인원:</label>
-                        <input
-                            type="number"
-                            value={room.maxPeople}
-                            onChange={(e) => handleRoomChange(index, 'maxPeople', Number(e.target.value))}
-                            placeholder="최대 인원"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label>이미지 업로드:</label>
-                        <input
-                            type="file"
-                            onChange={(e) => handleImageChange(index, e)}
-                            accept="image/*"
-                        />
-                    </div>
+                ))}
+                <div className="d-flex justify-content-between mt-3">
+                    <Button variant="secondary" onClick={addRoomForm}>객실 추가</Button>
+                    <Button variant="primary" type="submit">다음 단계로</Button>
                 </div>
-            ))}
-            <button type="button" onClick={addRoomForm}>객실 추가</button>
-            <button type="submit">다음 단계로</button>
-        </form>
+            </Form>
+        </Container>
     );
 };
 

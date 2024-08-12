@@ -136,12 +136,10 @@ public class HotelService {
         String uploadDir = "C:/path/to/upload/directory/";
         Path uploadPath = Paths.get(uploadDir);
 
-        // 디렉토리가 존재하지 않는 경우 생성
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
 
-        // 파일 이름 생성 및 경로 설정
         String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
         Path filePath = uploadPath.resolve(fileName);
 

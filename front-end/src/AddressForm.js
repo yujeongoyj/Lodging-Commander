@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button, Row, Col, Alert } from 'react-bootstrap';
-import Header from "./Header";
+
 
 const AddressForm = () => {
     const [address, setAddress] = useState('');
@@ -37,7 +37,7 @@ const AddressForm = () => {
             <h4>1/5 단계</h4>
             <h2>기본 정보 등록부터 시작해 보겠습니다</h2>
             {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} style={{'margin-top':'5%'}}>
                 <Form.Group as={Row} className="mb-3" controlId="formAddress">
                     <Form.Label column sm={2}>주소</Form.Label>
                     <Col sm={10}>
