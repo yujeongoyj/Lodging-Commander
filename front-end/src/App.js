@@ -8,6 +8,7 @@ import HotelForm from "./HotelForm";
 import RoomForm from "./RoomForm";
 import AddHotelSuccess from "./AddHotelSuccess";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from "./Header";
 
 
 
@@ -16,7 +17,8 @@ function App() {
       <div className="App">
           <Router>
               <Routes>
-                  <Route path="/" element={<AddressForm />} />
+                  <Route path="/" element={<Header />} />
+                  <Route path="/AddressForm" element={<AddressForm />} />
                   <Route path="/AddressForm" element={<AddressForm />} />
                   <Route path="/CategoryForm" element={<CategoryForm />} />
                   <Route path="/FacilityForm" element={<FacilityForm />} />
