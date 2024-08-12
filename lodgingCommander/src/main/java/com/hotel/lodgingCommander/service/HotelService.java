@@ -147,9 +147,9 @@ public class HotelService {
 
         Files.copy(image.getInputStream(), filePath);
 
-        // 이미지 정보 저장 (데이터베이스)
+
         Img img = Img.builder()
-                .path(filePath.toString()) // 또는 filePath.toAbsolutePath().toString()
+                .path(filePath.toString())
                 .build();
         imgRepository.save(img);
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -21,9 +21,17 @@ const FacilityForm = () => {
         restaurant: false,
     });
 
+    const [hotelId, setHotelId] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
 
-
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const hotelIdFromParams = queryParams.get('hotelId');
+        if (hotelIdFromParams) {
+            setHotelId(hotelIdFromParams);
+        }
+    }, [location.search]);
 
     const handleChange = (e) => {
         const { name, checked } = e.target;
@@ -36,8 +44,8 @@ const FacilityForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`http://localhost:8080/properties/facilities`, { ...facilities });
-            navigate('/success');
+            await axios.post(`http://localhost:8080/properties/facility?hotelId=${hotelId}`, facilities);
+            navigate('/AddHotelSuccess');
         } catch (error) {
             console.error('Error saving facilities', error);
         }

@@ -6,6 +6,8 @@ import CategoryForm from "./CategoryForm";
 import FacilityForm from "./FacilityForm";
 import HotelForm from "./HotelForm";
 import RoomForm from "./RoomForm";
+import AddHotelSuccess from "./AddHotelSuccess";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -20,6 +22,7 @@ function App() {
                   <Route path="/FacilityForm" element={<FacilityForm />} />
                   <Route path="/HotelForm" element={<HotelForm />} />
                   <Route path="/RoomForm" element={<RoomForm />} />
+                  <Route path="/AddHotelSuccess" element={<AddHotelSuccess />} />
               </Routes>
           </Router>
       </div>

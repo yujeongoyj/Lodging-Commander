@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const RoomForm = () => {
-    const [rooms, setRooms] = useState([{ name: '', price: 0, detail: '', maxPeople: 0, imgId: null }]); // 초기 상태에 한 개의 방 폼 포함
+    // 초기 상태에 한 개의 방 폼 포함시킴
+    const [rooms, setRooms] = useState([{ name: '', price: 0, detail: '', maxPeople: 0, imgId: null }]);
     const [hotelId, setHotelId] = useState(null);
     const [addressId, setAddressId] = useState(null);
     const [categoryId, setCategoryId] = useState(null);
@@ -46,7 +47,7 @@ const RoomForm = () => {
                     },
                 });
 
-                const imgId = response.data.imgId; // 서버에서 반환된 imgId
+                const imgId = response.data.imgId;
 
                 const newRooms = [...rooms];
                 newRooms[index].imgId = imgId;
@@ -66,16 +67,23 @@ const RoomForm = () => {
         e.preventDefault();
         try {
             for (let i = 0; i < rooms.length; i++) {
-                const roomDTO = {
-                    name: rooms[i].name,
-                    price: rooms[i].price,
-                    detail: rooms[i].detail,
-                    maxPeople: rooms[i].maxPeople,
-                    hotelId: hotelId,
-                    imgId: rooms[i].imgId,
-                };
+                const formData = new FormData();
+                formData.append('name', rooms[i].name);
+                formData.append('price', rooms[i].price);
+                formData.append('detail', rooms[i].detail);
+                formData.append('maxPeople', rooms[i].maxPeople);
+                formData.append('hotelId', hotelId);
 
-                await axios.post('http://localhost:8080/properties/room', roomDTO);
+                if (rooms[i].imgId) {
+
+                    formData.append('imgId', rooms[i].imgId);
+                }
+
+                await axios.post('http://localhost:8080/properties/room', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
             }
 
             navigate(`/FacilityForm?addressId=${addressId}&categoryId=${categoryId}&hotelId=${hotelId}`);
@@ -83,6 +91,8 @@ const RoomForm = () => {
             console.error('Error saving rooms', error);
         }
     };
+
+
 
     return (
         <form onSubmit={handleSubmit}>
