@@ -2,7 +2,7 @@ package com.hotel.lodgingCommander.controller;
 
 import com.hotel.lodgingCommander.dto.*;
 import com.hotel.lodgingCommander.entity.User;
-import com.hotel.lodgingCommander.service.HotelService;
+import com.hotel.lodgingCommander.service.AddHotelService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,16 +27,16 @@ public class AddHotelController {
     }
 
 
-    private final HotelService hotelService;
+    private final AddHotelService addHotelService;
 
-    public AddHotelController(HotelService hotelService) {
-        this.hotelService = hotelService;
+    public AddHotelController(AddHotelService addHotelService) {
+        this.addHotelService = addHotelService;
     }
 
 
     @PostMapping("/address")
     public ResponseEntity<Map<String, Long>> saveAddress(@RequestBody AddressDTO addressDTO, HttpSession session) {
-        Long addressId = hotelService.saveAddress(addressDTO);
+        Long addressId = addHotelService.saveAddress(addressDTO);
         session.setAttribute("addressId", addressId);
 
         Map<String, Long> response = new HashMap<>();
@@ -47,7 +47,7 @@ public class AddHotelController {
 
     @PostMapping("/category")
     public ResponseEntity<Map<String, Long>> saveCategory(@RequestBody CategoryDTO categoryDTO, HttpSession session) {
-        Long categoryId = hotelService.saveCategory(categoryDTO);
+        Long categoryId = addHotelService.saveCategory(categoryDTO);
         Long addressId = (Long) session.getAttribute("addressId");
         session.setAttribute("categoryId", categoryId);
 
@@ -61,7 +61,7 @@ public class AddHotelController {
 
     @PostMapping("/hotel")
     public ResponseEntity<Map<String, Long>> saveHotel(@RequestBody HotelDTO hotelDTO, HttpSession session) {
-        Long hotelId = hotelService.saveHotel(hotelDTO, getTemporaryUser());
+        Long hotelId = addHotelService.saveHotel(hotelDTO, getTemporaryUser());
         session.setAttribute("hotelId", hotelId);
 
         Map<String, Long> response = new HashMap<>();
@@ -76,7 +76,7 @@ public class AddHotelController {
         }
 
         facilityDTO.setHotelId(hotelId);
-        hotelService.saveFacility(facilityDTO);
+        addHotelService.saveFacility(facilityDTO);
 
         Map<String, Long> response = new HashMap<>();
         response.put("hotelId", hotelId);
@@ -109,7 +109,7 @@ public class AddHotelController {
         }
 
 
-        hotelService.saveRoom(roomDTO);
+        addHotelService.saveRoom(roomDTO);
         Map<String, Long> response = new HashMap<>();
         response.put("roomId", roomDTO.getId());
 
@@ -120,7 +120,7 @@ public class AddHotelController {
     @PostMapping("/uploadImage")
     public ResponseEntity<Map<String, Long>> uploadImage(@RequestParam("image") MultipartFile image) {
         try {
-            Long imgId = hotelService.saveImage(image);
+            Long imgId = addHotelService.saveImage(image);
             Map<String, Long> response = new HashMap<>();
             response.put("imgId", imgId);
             return ResponseEntity.ok(response);

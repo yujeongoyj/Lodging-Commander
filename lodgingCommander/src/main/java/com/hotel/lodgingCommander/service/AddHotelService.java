@@ -13,17 +13,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
-public class HotelService {
+public class AddHotelService {
 
     private final AddressRepository addressRepository;
     private final RoomRepository roomRepository;
-    private final HotelRepository hotelRepository;
+    private final AddHotelRepository hotelRepository;
     private final CategoryRepository categoryRepository;
     private final FacilityRepository facilityRepository;
     private final ImgRepository imgRepository;
 
-    public HotelService(AddressRepository addressRepository, RoomRepository roomRepository,
-                        HotelRepository hotelRepository, CategoryRepository categoryRepository, FacilityRepository facilityRepository
+    public AddHotelService(AddressRepository addressRepository, RoomRepository roomRepository,
+                           AddHotelRepository hotelRepository, CategoryRepository categoryRepository, FacilityRepository facilityRepository
     , ImgRepository imgRepository) {
         this.addressRepository = addressRepository;
         this.roomRepository = roomRepository;
