@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
-@Controller
+@RestController
 @RequestMapping("/properties")
 public class AddHotelController {
 
@@ -35,9 +35,9 @@ public class AddHotelController {
 
 
     @PostMapping("/address")
-    public ResponseEntity<Map<String, Long>> saveAddress(@RequestBody AddressDTO addressDTO, HttpSession session) {
+    public ResponseEntity<Map<String, Long>> saveAddress(@RequestBody AddressDTO addressDTO) {
         Long addressId = addHotelService.saveAddress(addressDTO);
-        session.setAttribute("addressId", addressId);
+
 
         Map<String, Long> response = new HashMap<>();
         response.put("addressId", addressId);
@@ -46,23 +46,19 @@ public class AddHotelController {
     }
 
     @PostMapping("/category")
-    public ResponseEntity<Map<String, Long>> saveCategory(@RequestBody CategoryDTO categoryDTO, HttpSession session) {
+    public ResponseEntity<Map<String, Long>> saveCategory(@RequestBody CategoryDTO categoryDTO) {
         Long categoryId = addHotelService.saveCategory(categoryDTO);
-        Long addressId = (Long) session.getAttribute("addressId");
-        session.setAttribute("categoryId", categoryId);
 
         Map<String, Long> response = new HashMap<>();
         response.put("categoryId", categoryId);
-        response.put("addressId", addressId);
 
         return ResponseEntity.ok(response);
     }
 
 
     @PostMapping("/hotel")
-    public ResponseEntity<Map<String, Long>> saveHotel(@RequestBody HotelDTO hotelDTO, HttpSession session) {
+    public ResponseEntity<Map<String, Long>> saveHotel(@RequestBody HotelDTO hotelDTO) {
         Long hotelId = addHotelService.saveHotel(hotelDTO, getTemporaryUser());
-        session.setAttribute("hotelId", hotelId);
 
         Map<String, Long> response = new HashMap<>();
         response.put("hotelId", hotelId);
