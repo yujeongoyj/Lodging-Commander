@@ -4,22 +4,16 @@ import com.hotel.lodgingCommander.dto.*;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.service.AddHotelService;
 import com.hotel.lodgingCommander.service.UserService;
-import jakarta.servlet.http.HttpSession;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -45,6 +39,12 @@ public class AddHotelController {
         response.put("addressId", addressId);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/category")
+    public ResponseEntity<List<CategoryDTO>> getAllCategories() {
+        List<CategoryDTO> categories = addHotelService.getAllCategories();
+        return ResponseEntity.ok(categories);
     }
 
     @PostMapping("/category")

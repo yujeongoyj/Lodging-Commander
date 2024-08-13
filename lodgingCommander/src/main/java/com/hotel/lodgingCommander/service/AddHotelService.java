@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AddHotelService {
@@ -24,7 +26,7 @@ public class AddHotelService {
 
     public AddHotelService(AddressRepository addressRepository, AddRoomRepository addRoomRepository,
                            AddHotelRepository hotelRepository, AddCategoryRepository addCategoryRepository, AddFacilityRepository addFacilityRepository
-    , AddImgRepository addImgRepository) {
+            , AddImgRepository addImgRepository) {
         this.addressRepository = addressRepository;
         this.addRoomRepository = addRoomRepository;
         this.hotelRepository = hotelRepository;
@@ -45,6 +47,16 @@ public class AddHotelService {
         addressRepository.save(address);
         System.out.println("AddressID: " + address.getId());
         return address.getId();
+    }
+
+
+    @Transactional
+    public List<CategoryDTO> getAllCategories() {
+        List<Category> categories = addCategoryRepository.findAll();
+
+        return categories.stream()
+                .map(category -> new CategoryDTO(category.getId(), category.getName()))
+                .collect(Collectors.toList());
     }
 
     @Transactional
