@@ -3,6 +3,7 @@ package com.hotel.lodgingCommander.controller;
 import com.hotel.lodgingCommander.dto.UserDTO;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ public class UserController {
 
     private final UserService USER_SERVICE;
 
+    @Autowired
     public UserController(UserService userService) {
         USER_SERVICE = userService;
     }

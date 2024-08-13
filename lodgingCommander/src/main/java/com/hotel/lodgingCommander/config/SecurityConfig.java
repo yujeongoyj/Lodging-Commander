@@ -30,11 +30,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/user/**").permitAll()
-                                .requestMatchers("/logIn").permitAll()
+//                                .requestMatchers("/logIn").permitAll()
+                                .requestMatchers("/hotel/search").permitAll()
+                                .requestMatchers("/rooms").permitAll()
+                                .requestMatchers("/static/*").permitAll()
+                                .requestMatchers("/log.png").permitAll()
                                 .anyRequest().authenticated())
                 .formLogin((form) ->
                         form
-                                .loginPage("/LogIn")
+//                                .loginPage("/LogIn")
                                 .usernameParameter("email")
                                 .passwordParameter("password")
                                 .loginProcessingUrl("/user/auth")
