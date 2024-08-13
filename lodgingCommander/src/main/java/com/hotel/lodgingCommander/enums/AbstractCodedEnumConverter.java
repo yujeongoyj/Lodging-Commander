@@ -1,7 +1,6 @@
 package com.hotel.lodgingCommander.enums;
 
 import jakarta.persistence.AttributeConverter;
-
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -10,6 +9,7 @@ public abstract class AbstractCodedEnumConverter<T extends Enum<T> & CodeEnum<E>
 
     public AbstractCodedEnumConverter(Class<T> clazz) {
         this.clazz = clazz;
+
     }
 
     @Override
