@@ -5,13 +5,18 @@ import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.service.AddHotelService;
 import com.hotel.lodgingCommander.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -20,13 +25,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/properties")
 public class AddHotelController {
-
- /*   private User getTemporaryUser() {
-        User user = new User();
-        user.setId(1L);
-
-        return user;
-    }*/
 
 
     private final AddHotelService addHotelService;
@@ -93,6 +91,7 @@ public class AddHotelController {
             @RequestParam("detail") String detail,
             @RequestParam("maxPeople") int maxPeople,
             @RequestParam("hotelId") Long hotelId,
+            @RequestParam("quantity") Integer quantity,
             @RequestParam(value = "imgId", required = false) Long imgId) {
 
         RoomDTO roomDTO = new RoomDTO();
@@ -101,7 +100,7 @@ public class AddHotelController {
         roomDTO.setDetail(detail);
         roomDTO.setMaxPeople(maxPeople);
         roomDTO.setHotelId(hotelId);
-        roomDTO.setQuantity(1);
+        roomDTO.setQuantity(quantity);
 
         if (imgId != null) {
             roomDTO.setImgId(imgId);
@@ -128,6 +127,15 @@ public class AddHotelController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+/*    @GetMapping("/uploads/{fileName:.+}")
+    public ResponseEntity<Resource> getImage(@PathVariable String fileName) {
+        Path filePath = Paths.get("static/uploads").resolve(fileName);
+        Resource resource = new FileSystemResource(filePath.toFile());
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(resource);
+    }*/
 
 
 }

@@ -133,7 +133,7 @@ public class AddHotelService {
     @Transactional
     public Long saveImage(MultipartFile image) throws IOException {
 
-        String uploadDir = "C:/path/to/upload/directory/";
+        String uploadDir = "src/main/resources/static/uploads";
         Path uploadPath = Paths.get(uploadDir);
 
         if (!Files.exists(uploadPath)) {
@@ -147,7 +147,7 @@ public class AddHotelService {
 
 
         Img img = Img.builder()
-                .path(filePath.toString())
+                .path("http://localhost8080/uploads/" + fileName)
                 .build();
         addImgRepository.save(img);
 

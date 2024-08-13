@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 
 const RoomForm = () => {
-    const [rooms, setRooms] = useState([{ name: '', price: 0, detail: '', maxPeople: 0, imgId: null }]);
+    const [rooms, setRooms] = useState([{ name: '', price: 0, detail: '', maxPeople: 1, quantity:1, imgId: null }]);
     const [hotelId, setHotelId] = useState(null);
     const [addressId, setAddressId] = useState(null);
     const [categoryId, setCategoryId] = useState(null);
@@ -59,7 +59,7 @@ const RoomForm = () => {
     };
 
     const addRoomForm = () => {
-        setRooms([...rooms, { name: '', price: 0, detail: '', maxPeople: 0, imgId: null }]);
+        setRooms([...rooms, { name: '', price: 0, detail: '', maxPeople: 1, quantity:1 ,  imgId: null }]);
     };
 
     const removeRoomForm = (index) => {
@@ -76,6 +76,7 @@ const RoomForm = () => {
                 formData.append('price', rooms[i].price);
                 formData.append('detail', rooms[i].detail);
                 formData.append('maxPeople', rooms[i].maxPeople);
+                formData.append('quantity', rooms[i].quantity)
                 formData.append('hotelId', hotelId);
 
                 if (rooms[i].imgId) {
@@ -144,6 +145,19 @@ const RoomForm = () => {
                                     onChange={(e) => handleRoomChange(index, 'maxPeople', Number(e.target.value))}
                                     placeholder="최대 인원"
                                     required
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3">
+                            <Form.Label column sm={2}>방 수량</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="number"
+                                    value={room.quantity}
+                                    onChange={(e) => handleRoomChange(index, 'quantity', Number(e.target.value))}
+                                    placeholder="방 수량"
+                                    required
+
                                 />
                             </Col>
                         </Form.Group>
