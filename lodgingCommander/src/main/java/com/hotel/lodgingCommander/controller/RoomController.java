@@ -15,7 +15,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class RoomController {
 
-    private RoomService roomService;
+    private RoomService ROOM_SERVICE;
 
     @GetMapping("/rooms")
     public ResponseEntity<Map<String, Object>> getRoomList(@RequestParam Long hotelId,
@@ -23,7 +23,7 @@ public class RoomController {
                                                            @RequestParam LocalDate checkOutDate) {
         Map<String, Object> response = new HashMap<>();
 
-        response.put("roomList", roomService.getRoomsWithBookingStatus(hotelId, checkInDate, checkOutDate));
+        response.put("roomList", ROOM_SERVICE.getRoomsWithBookingStatus(hotelId, checkInDate, checkOutDate));
         return ResponseEntity.ok(response);
     }
 }

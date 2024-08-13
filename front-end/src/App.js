@@ -6,21 +6,25 @@ import AuthFail from "./user/AuthFail";
 import Info from "./user/Info";
 import Update from "./user/Update";
 import Home from "./user/Home";
-import Header from "./Header";
 import Details from "./hotel/Details";
+import Cart from "./cart/Cart";
+import StartPage from "./home/StartPage";
+import Header from "./home/component/Header";
 
 function App() {
     return (
         <div>
             <Header/>
             <Routes>
-                <Route path="/" element={<Auth/>}/>
+                <Route path="/" element={<StartPage/>}/>
                 <Route path="/user/register" element={<Register/>}/>
                 <Route path="/user/update" element={<Update/>}/>
                 <Route path="/user/info" element={<Info/>}/>
                 <Route path="/user/authSuccess" element={<Home/>}/>
                 <Route path="/user/authFail" element={<AuthFail/>}/>
                 <Route path="/hotel/details/:id" element={<Details/>}/>
+                <Route path="/cart" element={<Cart/>}/>
+                <Route path="/Auth" element={<Auth/>}/>
             </Routes>
         </div>
     );

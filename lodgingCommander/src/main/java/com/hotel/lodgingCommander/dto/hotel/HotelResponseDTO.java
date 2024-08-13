@@ -1,4 +1,4 @@
-package com.hotel.lodgingCommander.model.hotel;
+package com.hotel.lodgingCommander.dto.hotel;
 
 import lombok.Data;
 

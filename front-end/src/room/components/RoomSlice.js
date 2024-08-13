@@ -1,12 +1,11 @@
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
-import React, {useState} from "react";
+import React from "react";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSignInAlt} from '@fortawesome/free-solid-svg-icons';
 import * as calculate from '../../js/calculate';
 import {FaExclamationTriangle} from 'react-icons/fa';
 
-let RoomSlice = ({room, checkInDate, checkOutDate}) => {
-    let [userInfo, setUserInfo] = useState('a');
+let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
 
     let originalPrice = calculate.calculatePrice(checkInDate, checkOutDate, room.price);
     let discountedPrice = userInfo ? calculate.calculateDiscountedPrice(originalPrice, userInfo.userGrade) : originalPrice;

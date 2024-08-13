@@ -1,8 +1,10 @@
-package com.hotel.lodgingCommander.model.room;
+package com.hotel.lodgingCommander.dto.room;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Map;
 
 @Data
 @AllArgsConstructor

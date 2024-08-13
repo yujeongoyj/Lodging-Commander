@@ -1,4 +1,4 @@
-package com.hotel.lodgingCommander.model.cart;
+package com.hotel.lodgingCommander.dto.cart;
 
 import com.hotel.lodgingCommander.entity.Cart;
 import com.hotel.lodgingCommander.entity.enums.UserGrade;

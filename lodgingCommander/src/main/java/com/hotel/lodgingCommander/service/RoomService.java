@@ -1,6 +1,6 @@
 package com.hotel.lodgingCommander.service;
 
-import com.hotel.lodgingCommander.model.room.RoomResponseDTO;
+import com.hotel.lodgingCommander.dto.room.RoomResponseDTO;
 import com.hotel.lodgingCommander.repository.RoomRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

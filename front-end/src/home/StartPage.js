@@ -1,16 +1,19 @@
-import React, { useMemo, useState, useCallback } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import React, {useCallback, useMemo, useState} from 'react';
+import {Col, Container, Row} from 'react-bootstrap';
 import axios from 'axios';
 import HotelSearchForm from '../hotel/components/HotelSearchForm';
 import SearchFilters from "../hotel/SearchFilters";
 import HotelList from "../hotel/HotelList";
 import List from "./component/List";
 import Paging from "./component/Paging";
-import Header from "./component/Header";
+import {useLocation} from "react-router-dom";
 
 let StartPage = () => {
-    let [userInfo, setUserInfo] = useState(null);
-    let [searchResults, setSearchResults] = useState({ searchList: [] });
+
+    let location = useLocation()
+    const userInfo = location.state?.userData || null;
+
+    let [searchResults, setSearchResults] = useState({searchList: []});
     let [showSearchResult, setShowSearchResult] = useState(false);
     let [checkInDate, setCheckInDate] = useState('');
     let [checkOutDate, setCheckOutDate] = useState('');
@@ -43,8 +46,10 @@ let StartPage = () => {
         }
 
         try {
-            let response = await axios.get('http://localhost:8080/search', {
-                params: { location, checkInDate, checkOutDate, guests, rooms }
+            let response = await axios.get('http://localhost:8080/hotel/search', {
+                params: {location, checkInDate, checkOutDate, guests, rooms},
+            }, {
+                withCredentials: true
             });
 
             setSearchResults(response.data);
@@ -88,7 +93,7 @@ let StartPage = () => {
     }, []);
 
     let filteredHotels = useMemo(() => {
-        let { searchList } = searchResults;
+        let {searchList} = searchResults;
         if (!Array.isArray(searchList)) return [];
 
         return searchList
@@ -110,9 +115,8 @@ let StartPage = () => {
 
     return (
         <Container>
-            <Row className='mb-3 mt-3'><Header /></Row>
             <Row>
-                <HotelSearchForm onSearch={handleSearch} />
+                <HotelSearchForm onSearch={handleSearch}/>
             </Row>
             {showSearchResult ? (
                 <>
@@ -152,7 +156,7 @@ let StartPage = () => {
                 </>
             ) : (
                 <Row>
-                    <List />
+                    <List/>
                 </Row>
             )}
         </Container>

@@ -4,7 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ae7492c-3a22-4697-8fa3-6630e60bc3ff" name="Changes" comment="user duplicated issue" />
+    <list default="true" id="1ae7492c-3a22-4697-8fa3-6630e60bc3ff" name="Changes" comment="user duplicated issue">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/cart/Cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/cart/components/CartSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/cart/components/CartSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/cart/components/PaySlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/cart/components/PaySlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/home/StartPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/home/StartPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/home/component/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/home/component/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/hotel/Details.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/hotel/Details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/hotel/components/HotelSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/hotel/components/HotelSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/room/RoomList.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/room/RoomList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/room/components/RoomSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/room/components/RoomSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/CartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/HotelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/HotelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/PayController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/RoomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/model/PaymentRequest/PaymentResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/model/cart/CartResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/dto/cart/CartResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/model/hotel/HotelResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/dto/hotel/HotelResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/model/room/RoomResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/dto/room/RoomResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/repository/HotelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/repository/HotelRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/repository/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/repository/RoomRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/HotelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/HotelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/RoomService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,8 +93,10 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;cheongha&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/project/Lodging-Commander&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/USER/Desktop/새 폴더&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -113,6 +143,7 @@
       <workItem from="1723443633291" duration="899000" />
       <workItem from="1723444692011" duration="2115000" />
       <workItem from="1723460821440" duration="909000" />
+      <workItem from="1723509011164" duration="184000" />
     </task>
     <task id="LOCAL-00001" summary="user duplicated issue">
       <option name="closed" value="true" />

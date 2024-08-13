@@ -1,8 +1,7 @@
 package com.hotel.lodgingCommander.repository;
 
-import com.hotel.lodgingCommander.entity.Cart;
 import com.hotel.lodgingCommander.entity.Room;
-import com.hotel.lodgingCommander.model.room.RoomResponseDTO;
+import com.hotel.lodgingCommander.dto.room.RoomResponseDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +17,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     int findMinPriceByHotelId(@Param("hotelId") Long hotelId);
 
 
-    @Query("SELECT new com.hotel.lodgingCommander.model.room.RoomResponseDTO(" +
+    @Query("SELECT new com.hotel.lodgingCommander.dto.room.RoomResponseDTO(" +
             "r.id, " +
             "r.name, " +
             "r.maxPeople, " +

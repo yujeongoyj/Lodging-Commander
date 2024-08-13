@@ -5,14 +5,14 @@ import { FaExclamationTriangle, FaTrash } from 'react-icons/fa';
 import dayjs from 'dayjs';
 import * as calculate from '../../js/calculate';
 
-let CartSlice = ({ cart, moveToSingle, onDelete, handleCheckboxChange, isSelected, isDisabled }) => {
+let CartSlice = ({ cart, moveToSingle, onDelete, handleCheckboxChange, isSelected, isDisabled ,userInfo}) => {
     let today = dayjs().startOf('day');
     let checkInDate = dayjs(cart.checkInDate);
 
     let isSoldOut = checkInDate.isBefore(today);
 
     let originalPrice = calculate.calculatePrice(cart.checkInDate, cart.checkOutDate, cart.price);
-    let discountedPrice = calculate.calculateDiscountedPrice(originalPrice, cart.userGrade);
+    let discountedPrice = calculate.calculateDiscountedPrice(originalPrice, userInfo.grade);
 
     return (
         <Card className="mb-4 position-relative">
@@ -89,7 +89,7 @@ let CartSlice = ({ cart, moveToSingle, onDelete, handleCheckboxChange, isSelecte
                                             <h4 className="mb-0 text-danger">
                                                 ₩ {new Intl.NumberFormat().format(discountedPrice)}
                                             </h4>
-                                            <span style={{ fontSize: '0.75rem' }}>({cart.userGrade} 등급 할인 적용)</span>
+                                            <span style={{ fontSize: '0.75rem' }}>({userInfo.grade} 등급 할인 적용)</span>
                                         </Col>
                                     </Row>
                                 </td>

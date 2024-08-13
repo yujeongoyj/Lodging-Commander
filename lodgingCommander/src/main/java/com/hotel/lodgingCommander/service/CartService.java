@@ -1,6 +1,6 @@
 package com.hotel.lodgingCommander.service;
 
-import com.hotel.lodgingCommander.model.cart.CartResponseDTO;
+import com.hotel.lodgingCommander.dto.cart.CartResponseDTO;
 import com.hotel.lodgingCommander.repository.CartRepository;
 import com.hotel.lodgingCommander.repository.ReviewRepository;
 import lombok.AllArgsConstructor;

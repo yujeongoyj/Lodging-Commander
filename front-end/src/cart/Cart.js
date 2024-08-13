@@ -1,110 +1,117 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Col, Container, Row } from "react-bootstrap";
-import CartSlice from "./components/CartSlice";
-import PaySlice from "./components/PaySlice";
+import React, {useEffect, useState} from 'react';
+import {Card, Col, Container, Row} from 'react-bootstrap';
+import CartSlice from './components/CartSlice';
+import PaySlice from './components/PaySlice';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from "react-router-dom";
-import Header from "../home/component/Header";
+import {useLocation, useNavigate} from 'react-router-dom';
 import * as calculate from '../js/calculate';
 
 let Cart = () => {
-    let [data, setData] = useState({ cartList: [] });
+    let location = useLocation();
+    let userInfo = location.state?.userData;
+    let [cartList, setCartList] = useState({cartList: []});
     let [selectedRoom, setSelectedRoom] = useState(null);
     let [totalDiscountedPrice, setTotalDiscountedPrice] = useState(0);
+    let navigate = useNavigate();
 
     useEffect(() => {
-        let selectList = async () => {
-            let resp = await axios
-                .post('http://localhost:8080/cart/1', {
+        let fetchCartData = async () => {
+            try {
+                let resp = await axios.post(`http://localhost:8080/cart/${userInfo.id}`, {
                     withCredentials: true
-                })
-                .catch((e) => {
-                    console.error("There was a problem fetching the cart data:", e);
                 });
-            if (resp && resp.status === 200) {
-                setData(resp.data);
+
+                if (resp.status === 200) {
+                    setCartList(resp.data);
+                } else {
+                    setCartList({cartList: [], message: 'Error', detailMessage: 'Could not fetch data'});
+                }
+            } catch (error) {
+                setCartList({cartList: [], message: 'Error', detailMessage: 'Could not fetch data'});
+                console.error('Error fetching cart data:', error);
             }
         };
-        selectList();
-    }, []);
+
+        if (userInfo) {
+            fetchCartData();
+        }
+    }, [userInfo]);
 
     useEffect(() => {
         if (selectedRoom) {
-            let price = calculate.calculateDiscountedPrice(calculate.calculatePrice(selectedRoom.checkInDate, selectedRoom.checkOutDate, selectedRoom.price), selectedRoom.userGrade);
+            let price = calculate.calculateDiscountedPrice(
+                calculate.calculatePrice(selectedRoom.checkInDate, selectedRoom.checkOutDate, selectedRoom.price),
+                userInfo.grade
+            );
             setTotalDiscountedPrice(price);
         } else {
             setTotalDiscountedPrice(0);
         }
-    }, [selectedRoom]);
+    }, [selectedRoom, userInfo]);
 
     let handleCheckboxChange = (room, isChecked) => {
-        if (isChecked) {
-            setSelectedRoom(room);
-        } else {
-            setSelectedRoom(null);
-        }
+        setSelectedRoom(isChecked ? room : null);
     };
 
-    let navigate = useNavigate();
-
-    let moveToSingle = (id) => {
-        navigate('/showOne/' + id);
-    };
-
-    let onDelete = async (id) => {
+    let handleDelete = async (id) => {
         try {
-            let resp = await axios.post('http://localhost:8080/cart/delete', { id: id });
+            let resp = await axios.post('http://localhost:8080/cart/delete', {id});
             if (resp.status === 200) {
                 alert(resp.data.alertMessage);
-                console.log('Item deleted successfully');
                 navigate('/cart');
             } else {
                 console.error('Failed to delete the item');
             }
         } catch (error) {
-            console.error('Error occurred while deleting the item:', error);
+            console.error('Error deleting the item:', error);
         }
     };
 
+
     return (
         <Container>
-            <Row>
-                <Header/>
-            </Row>
-            <Row>
-                <Col sm={8}>
-                    <Card className="mb-4">
-                        <Card.Body>
-                            <Card.Title>
-                                장바구니 갯수({data.cartList.length})
-                            </Card.Title>
-                        </Card.Body>
-                    </Card>
-                    {data.cartList.length === 0 ? (
-                        <Card className="mb-4">
-                            <Card.Body className={'text-center'}>
-                                <p>{data.message}</p>
-                                <p>{data.detailMessage}</p>
-                            </Card.Body>
-                        </Card>
-                    ) : (
-                        data.cartList.map(cart => (
-                            <CartSlice
-                                cart={cart}
-                                key={cart.id}
-                                moveToSingle={moveToSingle}
-                                onDelete={onDelete}
-                                handleCheckboxChange={handleCheckboxChange}
-                                isSelected={selectedRoom?.id === cart.id}
-                                isDisabled={selectedRoom && selectedRoom.id !== cart.id}
-                            />
-                        ))
-                    )}
-                </Col>
-                <Col sm={4}>
-                    <PaySlice totalDiscountedPrice={totalDiscountedPrice} selectedRoom={selectedRoom} />
-                </Col>
+            <Row className="my-4">
+                {userInfo ? (
+                    <>
+                        <Col sm={8}>
+                            <Card className="mb-4">
+                                <Card.Body>
+                                    <Card.Title>
+                                        장바구니 갯수 ({cartList.cartList ? cartList.cartList.length : 0})
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                            {!cartList.cartList ? (
+                                <Card className="mb-4">
+                                    <Card.Body className="text-center">
+                                        <p>장바구니가 비어 있습니다</p>
+                                        <p>숙소를 검색하고 다음 여행 계획을 세워 보세요</p>
+                                    </Card.Body>
+                                </Card>
+                            ) : (
+                                cartList.cartList.map((cart) => (
+                                    <CartSlice
+                                        cart={cart}
+                                        key={cart.id}
+                                        moveToSingle={() => navigate(`/showOne/${cart.id}`)}
+                                        onDelete={handleDelete}
+                                        handleCheckboxChange={handleCheckboxChange}
+                                        isSelected={selectedRoom?.id === cart.id}
+                                        isDisabled={selectedRoom && selectedRoom.id !== cart.id}
+                                        userInfo={userInfo}
+                                    />
+                                ))
+                            )}
+                        </Col>
+                        <Col sm={4}>
+                            <PaySlice totalDiscountedPrice={totalDiscountedPrice} selectedRoom={selectedRoom}
+                                      userInfo={userInfo}/>
+                        </Col>
+                    </>
+                ):(
+                  <h1 className='text-center'>LOGIN이 필요합니다.</h1>
+                )}
             </Row>
         </Container>
     );

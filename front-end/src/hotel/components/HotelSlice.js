@@ -9,22 +9,26 @@ import {useNavigate} from "react-router-dom";
 
 let HotelSlice = ({hotel, checkInDate, checkOutDate, userInfo}) => {
     let originalPrice = calculate.calculatePrice(checkInDate, checkOutDate, hotel.minPrice);
-    let discountedPrice = userInfo ? calculate.calculateDiscountedPrice(originalPrice, userInfo.userGrade) : originalPrice;
+    let discountedPrice = userInfo ? calculate.calculateDiscountedPrice(originalPrice, userInfo.grade) : originalPrice;
 
     let navigate = useNavigate();
 
-    let handleClick = () => {
-        navigate(`/showOneHotel/${hotel.id}`, {
-            state: {
-                checkInDate,
-                checkOutDate
-            }
-        });
+    let handleClick = (pgaeName) => {
+        if (pgaeName === 'hotel') {
+            navigate(`/hotel/details/${hotel.id}`, {
+                state: {
+                    checkInDate,
+                    checkOutDate
+                }
+            });
+        } else {
+            navigate('/Auth')
+        }
     };
 
     return (
         <Container>
-            <Card className="mb-4 position-relative" onClick={handleClick}>
+            <Card className="mb-4 position-relative">
                 <Row>
                     <Col sm={4}>
                         <Carousel>
@@ -41,7 +45,7 @@ let HotelSlice = ({hotel, checkInDate, checkOutDate, userInfo}) => {
                     </Col>
                     <Col sm={8}>
                         <Card.Body>
-                            <Card.Title className="mb-3">
+                            <Card.Title className="mb-3" onClick={() => handleClick('hotel')}>
                                 {hotel.hotelName}
                             </Card.Title>
                             <Card.Text>
@@ -71,14 +75,14 @@ let HotelSlice = ({hotel, checkInDate, checkOutDate, userInfo}) => {
                                                     ₩ {new Intl.NumberFormat().format(discountedPrice)}
                                                 </h5>
                                                 <span
-                                                    style={{fontSize: '0.75rem'}}>({userInfo.userGrade} 등급 할인 적용)</span>
+                                                    style={{fontSize: '0.75rem'}}>({userInfo.grade} 등급 할인 적용)</span>
                                             </>
                                         ) : (
                                             <>
                                                 <p className="mb-1 text-muted">
                                                     <h4>₩ {new Intl.NumberFormat().format(originalPrice)}</h4>
                                                 </p>
-                                                <Button variant="primary">
+                                                <Button variant="primary" onClick={() => handleClick('logIn')}>
                                                     <FontAwesomeIcon icon={faSignInAlt}
                                                                      style={{marginRight: '0.5rem'}}/>
                                                     로그인하여 추가 할인 받기
