@@ -10,6 +10,7 @@ const RoomForm = () => {
     const [categoryId, setCategoryId] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
+    let userInfo = location.state?.userData
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -42,9 +43,7 @@ const RoomForm = () => {
 
             try {
                 const response = await axios.post('http://localhost:8080/properties/uploadImage', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
+                    withCredentials: true
                 });
 
                 const imgId = response.data.imgId;
@@ -83,18 +82,15 @@ const RoomForm = () => {
                     formData.append('imgId', rooms[i].imgId);
                 }
 
-                await axios.post('http://localhost:8080/properties/room', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
+                await axios.post('http://localhost:8080/properties/room', formData,{ withCredentials: true});
             }
 
-            navigate(`/FacilityForm?addressId=${addressId}&categoryId=${categoryId}&hotelId=${hotelId}`);
+            navigate(`/FacilityForm?addressId=${addressId}&categoryId=${categoryId}&hotelId=${hotelId}`,{state : {userData:userInfo}});
         } catch (error) {
             console.error('Error saving rooms', error);
         }
     };
+
 
     return (
         <Container className="mt-4">

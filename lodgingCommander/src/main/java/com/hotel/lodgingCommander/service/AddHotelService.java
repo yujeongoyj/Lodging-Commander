@@ -72,7 +72,7 @@ public class AddHotelService {
                 .tel(hotelDTO.getTel())
                 .grade(hotelDTO.getGrade())
                 .detail(hotelDTO.getDetail())
-                .user(user) // 지금은 임시 User 객체 설정
+                .user(user)
                 .build();
 
         hotelRepository.save(hotel);

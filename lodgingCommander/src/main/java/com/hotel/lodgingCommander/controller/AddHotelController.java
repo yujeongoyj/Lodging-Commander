@@ -3,6 +3,7 @@ package com.hotel.lodgingCommander.controller;
 import com.hotel.lodgingCommander.dto.*;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.service.AddHotelService;
+import com.hotel.lodgingCommander.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,24 +14,27 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/properties")
 public class AddHotelController {
 
-    private User getTemporaryUser() {
+ /*   private User getTemporaryUser() {
         User user = new User();
         user.setId(1L);
 
         return user;
-    }
+    }*/
 
 
     private final AddHotelService addHotelService;
+    private final UserService userService;
 
-    public AddHotelController(AddHotelService addHotelService) {
+    public AddHotelController(AddHotelService addHotelService, UserService userService) {
         this.addHotelService = addHotelService;
+        this.userService = userService;
     }
 
 
@@ -58,11 +62,12 @@ public class AddHotelController {
 
     @PostMapping("/hotel")
     public ResponseEntity<Map<String, Long>> saveHotel(@RequestBody HotelDTO hotelDTO) {
-        Long hotelId = addHotelService.saveHotel(hotelDTO, getTemporaryUser());
-
+        User user = userService.getUserById(hotelDTO.getUserId());
+        Long hotelId =  addHotelService.saveHotel(hotelDTO, user);
         Map<String, Long> response = new HashMap<>();
         response.put("hotelId", hotelId);
         return ResponseEntity.ok(response);
+
     }
 
     @PostMapping("/facility")
@@ -79,8 +84,6 @@ public class AddHotelController {
 
         return ResponseEntity.ok(response);
     }
-
-
 
 
     @PostMapping("/room")

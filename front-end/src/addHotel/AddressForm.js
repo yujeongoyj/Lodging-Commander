@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Container, Form, Button, Row, Col, Alert } from 'react-bootstrap';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {Container, Form, Button, Row, Col, Alert} from 'react-bootstrap';
 
 
 const AddressForm = () => {
@@ -11,7 +11,12 @@ const AddressForm = () => {
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     const [error, setError] = useState('');
+
     const navigate = useNavigate();
+
+    let location = useLocation();
+    let userInfo = location.state?.userData;
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,9 +28,17 @@ const AddressForm = () => {
                 latitude: parseFloat(latitude),
                 longitude: parseFloat(longitude),
             };
-            const response = await axios.post('http://localhost:8080/properties/address', data);
+            const response = await axios.post(`http://localhost:8080/properties/address`, data, {
+                withCredentials: true
+            });
             const addressId = response.data.addressId;
-            navigate(`/CategoryForm?addressId=${addressId}`);
+            navigate(`/CategoryForm?addressId=${addressId}`, {
+                state: {
+                    addressId: addressId,
+                    userData: userInfo
+                }
+            });
+
         } catch (error) {
             setError('Error saving address');
             console.error('Error saving address', error);
@@ -37,7 +50,7 @@ const AddressForm = () => {
             <h4>1/5 단계</h4>
             <h2>기본 정보 등록부터 시작해 보겠습니다</h2>
             {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit} style={{'margin-top':'5%'}}>
+            <Form onSubmit={handleSubmit} style={{'margin-top': '5%'}}>
                 <Form.Group as={Row} className="mb-3" controlId="formAddress">
                     <Form.Label column sm={2}>주소</Form.Label>
                     <Col sm={10}>

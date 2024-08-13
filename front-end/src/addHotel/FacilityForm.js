@@ -45,7 +45,8 @@ const FacilityForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`http://localhost:8080/properties/facility?hotelId=${hotelId}`, facilities);
+            await axios.post(`http://localhost:8080/properties/facility?hotelId=${hotelId}`, facilities,
+                { withCredentials: true});
             navigate('/AddHotelSuccess');
         } catch (error) {
             console.error('Error saving facilities', error);

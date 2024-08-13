@@ -8,6 +8,7 @@ const CategoryForm = () => {
     const [addressId, setAddressId] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
+    let userInfo = location.state?.userData
 
 
     useEffect(() => {
@@ -21,11 +22,16 @@ const CategoryForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/properties/category', {name});
+            const response = await axios.post('http://localhost:8080/properties/category', {name},
+                { withCredentials: true});
             console.log(response);
             const categoryId = response.data.categoryId;
             if (addressId) {
-                navigate(`/HotelForm?addressId=${addressId}&categoryId=${categoryId}`);
+                navigate(`/HotelForm?addressId=${addressId}&categoryId=${categoryId}`, {
+                    state : {
+                        userData: userInfo
+                    }
+                });
             } else {
                 console.error('Address ID is missing');
             }

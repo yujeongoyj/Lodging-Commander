@@ -12,6 +12,7 @@ const HotelForm = () => {
     const [categoryId, setCategoryId] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
+    let userInfo = location.state?.userData
 
 
     useEffect(() => {
@@ -36,15 +37,21 @@ const HotelForm = () => {
                 grade,
                 detail,
                 addressId,
-                categoryId
+                categoryId,
+                userId: userInfo.id
             };
 
-            const response = await axios.post('http://localhost:8080/properties/hotel', hotelDTO);
+            const response = await axios.post('http://localhost:8080/properties/hotel', hotelDTO, {
+                withCredentials: true
+            });
             console.log(response);
 
 
             const hotelId = response.data.hotelId;
-            navigate(`/RoomForm?addressId=${addressId}&categoryId=${categoryId}&hotelId=${hotelId}`);
+            navigate(`/RoomForm?addressId=${addressId}&categoryId=${categoryId}&hotelId=${hotelId}`, {
+                state: {userData: userInfo}
+            });
+
 
         } catch (error) {
             console.error('Error saving hotel', error);
