@@ -16,21 +16,21 @@ import java.nio.file.Paths;
 public class AddHotelService {
 
     private final AddressRepository addressRepository;
-    private final RoomRepository roomRepository;
+    private final AddRoomRepository addRoomRepository;
     private final AddHotelRepository hotelRepository;
-    private final CategoryRepository categoryRepository;
-    private final FacilityRepository facilityRepository;
-    private final ImgRepository imgRepository;
+    private final AddCategoryRepository addCategoryRepository;
+    private final AddFacilityRepository addFacilityRepository;
+    private final AddImgRepository addImgRepository;
 
-    public AddHotelService(AddressRepository addressRepository, RoomRepository roomRepository,
-                           AddHotelRepository hotelRepository, CategoryRepository categoryRepository, FacilityRepository facilityRepository
-    , ImgRepository imgRepository) {
+    public AddHotelService(AddressRepository addressRepository, AddRoomRepository addRoomRepository,
+                           AddHotelRepository hotelRepository, AddCategoryRepository addCategoryRepository, AddFacilityRepository addFacilityRepository
+    , AddImgRepository addImgRepository) {
         this.addressRepository = addressRepository;
-        this.roomRepository = roomRepository;
+        this.addRoomRepository = addRoomRepository;
         this.hotelRepository = hotelRepository;
-        this.categoryRepository = categoryRepository;
-        this.facilityRepository = facilityRepository;
-        this.imgRepository = imgRepository;
+        this.addCategoryRepository = addCategoryRepository;
+        this.addFacilityRepository = addFacilityRepository;
+        this.addImgRepository = addImgRepository;
     }
 
     @Transactional
@@ -52,7 +52,7 @@ public class AddHotelService {
         Category category = Category.builder()
                 .name(categoryDTO.getName())
                 .build();
-        categoryRepository.save(category);
+        addCategoryRepository.save(category);
         return category.getId();
     }
 
@@ -62,7 +62,7 @@ public class AddHotelService {
         Address address = addressRepository.findById(hotelDTO.getAddressId())
                 .orElseThrow(() -> new RuntimeException("Address not found"));
 
-        Category category = categoryRepository.findById(hotelDTO.getCategoryId())
+        Category category = addCategoryRepository.findById(hotelDTO.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
         Hotel hotel = Hotel.builder()
@@ -103,7 +103,7 @@ public class AddHotelService {
                 .restaurant(facilityDTO.getRestaurant())
                 .build();
 
-        facilityRepository.save(facility);
+        addFacilityRepository.save(facility);
     }
 
     @Transactional
@@ -113,7 +113,7 @@ public class AddHotelService {
 
         Img img = null;
         if (roomDTO.getImgId() != null) {
-            img = imgRepository.findById(roomDTO.getImgId())
+            img = addImgRepository.findById(roomDTO.getImgId())
                     .orElseThrow(() -> new RuntimeException("Image not found"));
         }
 
@@ -127,7 +127,7 @@ public class AddHotelService {
                 .img(img)
                 .build();
 
-        roomRepository.save(room);
+        addRoomRepository.save(room);
     }
 
     @Transactional
@@ -149,7 +149,7 @@ public class AddHotelService {
         Img img = Img.builder()
                 .path(filePath.toString())
                 .build();
-        imgRepository.save(img);
+        addImgRepository.save(img);
 
         return img.getId();
     }
