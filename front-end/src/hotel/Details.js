@@ -7,7 +7,7 @@ import RoomList from "../room/RoomList";
 
 let Details = () => {
     let location = useLocation();
-    let userInfo = location.state.userData ? location.state.userData : null;
+    let userInfo = location.state.userData ||  null;
     let checkOutDate = location.state.checkOutDate; // 중복 선언 제거
     let checkInDate = location.state.checkInDate; // 중복 선언 제거
 
@@ -15,15 +15,20 @@ let Details = () => {
     let [hotel, setHotel] = useState(null);
 
     useEffect(() => {
-        axios.get(`/hotel/details/${id}`)
-            .then(response => {
+        const fetchHotelDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/hotel/details/${id}`, { withCredentials: true });
                 setHotel(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            } catch (error) {
+                console.error('Error fetching hotel details:', error);
+            }
+        };
+        if (id) {
+            fetchHotelDetails();
+        }
     }, [id]);
 
+    console.log(hotel)
     if (!hotel) return <div>Loading...</div>;
 
     return (
@@ -79,14 +84,21 @@ let Details = () => {
                 <Col md={12}>
                     <h4>호텔 편의 시설</h4>
                     <ul>
-                        {hotel.amenities.map((amenity, index) => (
-                            <li key={index}>{amenity}</li>
-                        ))} {/* 호텔 편의 시설 리스트 */}
+                        {/*{hotel.amenities.map((amenity, index) => (*/}
+                        {/*    <li key={index}>{amenity}</li>*/}
+                        {/*))} /!* 호텔 편의 시설 리스트 *!/*/}
                     </ul>
                 </Col>
             </Row>
             <Row>
-                <RoomList userInfo={userInfo} checkInDate={checkInDate} checkOutDate={checkOutDate} hoteId={hotel.id}/>
+                <Col sm={9}>
+                    <Row>
+                        <h4>Room List</h4>
+                    </Row>
+                    <Row>
+                        <RoomList userInfo={userInfo} checkInDate={checkInDate} checkOutDate={checkOutDate} hotelId={hotel.id}/>
+                    </Row>
+                </Col>
             </Row>
         </Container>
     );
