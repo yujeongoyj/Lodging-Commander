@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Container, Form, Button, Row, Col, Alert } from 'react-bootstrap';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {Container, Form, Button, Row, Col, Alert} from 'react-bootstrap';
+import {any} from "prop-types";
 
 const AddressForm2 = () => {
     const [address, setAddress] = useState('');
@@ -18,11 +19,32 @@ const AddressForm2 = () => {
 
     useEffect(() => {
         const loadDaumPostcodeScript = () => {
-            const script = document.createElement('script');
-            script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-            script.async = true;
-            document.body.appendChild(script);
-            script.onload = () => {
+            const postmapScript = document.createElement('script');
+            postmapScript.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+            postmapScript.async = true;
+
+            const mapScript = document.createElement('script');
+            mapScript.src = '//dapi.kakao.com/v2/maps/sdk.js?appkey=2352038d1f2d9450032dd17ae632df20&libraries=services'
+
+            const mapContainer = document.getElementById('map'),
+                mapOption = {
+                    center: new window.daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+                    level: 5 // 지도의 확대 레벨
+                };
+
+            //지도를 미리 생성
+            const map = new window.daum.maps.Map(mapContainer, mapOption);
+
+            const geocoder = new window.daum.maps.services.Geocoder();
+
+            const marker = new window.daum.maps.Marker({
+                position: new window.daum.maps.LatLng(37.537187, 127.005476),
+                map: map
+            });
+
+
+            document.body.appendChild(postmapScript);
+            postmapScript.onload = () => {
                 if (window.daum && window.daum.Postcode) {
                     window.daum.Postcode({
                         oncomplete: function (data) {
@@ -121,7 +143,7 @@ const AddressForm2 = () => {
             <h4>1/5 단계</h4>
             <h2>기본 정보 등록부터 시작해 보겠습니다</h2>
             {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit} style={{ marginTop: '5%' }}>
+            <Form onSubmit={handleSubmit} style={{marginTop: '5%'}}>
                 <Form.Group as={Row} className="mb-3" controlId="formPostCode">
                     <Form.Label column sm={2}>우편번호</Form.Label>
                     <Col sm={10}>
@@ -196,6 +218,7 @@ const AddressForm2 = () => {
                         />
                     </Col>
                 </Form.Group>
+                <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
                 <Button variant="primary" type="submit">
                     다음
                 </Button>
