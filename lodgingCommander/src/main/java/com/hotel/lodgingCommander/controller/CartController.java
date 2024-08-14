@@ -18,7 +18,7 @@ public class CartController {
 
     private CartService CART_SERVICE;
 
-    @PostMapping("/cart/{userId}")
+    @GetMapping("/cart/{userId}")
     public ResponseEntity<Map<String, Object>> list(@PathVariable Long userId) {
         Map<String, Object> response = new HashMap<>();
         List<CartResponseDTO> cartsByUserId = CART_SERVICE.getCartsByUserId(userId);

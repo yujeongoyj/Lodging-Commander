@@ -18,7 +18,7 @@ let Cart = () => {
     useEffect(() => {
         let fetchCartData = async () => {
             try {
-                let resp = await axios.post(`http://localhost:8080/cart/${userInfo.id}`, {
+                let resp = await axios.get(`http://localhost:8080/cart/${userInfo.id}`, {
                     withCredentials: true
                 });
 
@@ -56,7 +56,9 @@ let Cart = () => {
 
     let handleDelete = async (id) => {
         try {
-            let resp = await axios.post('http://localhost:8080/cart/delete', {id});
+            let resp = await axios.post('http://localhost:8080/cart/delete', {id},{
+                withCredentials: true
+            });
             if (resp.status === 200) {
                 alert(resp.data.alertMessage);
                 navigate('/cart');

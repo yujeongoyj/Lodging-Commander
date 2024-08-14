@@ -1,6 +1,7 @@
 package com.hotel.lodgingCommander.service;
 
 import com.hotel.lodgingCommander.dto.room.RoomResponseDTO;
+import com.hotel.lodgingCommander.entity.Room;
 import com.hotel.lodgingCommander.repository.RoomRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,5 @@ public class RoomService {
         List<RoomResponseDTO> roomsWithBookingStatus = roomRepository.findRoomsWithBookingStatus(hotelId, checkInDate, checkOutDate);
         return roomsWithBookingStatus;
     }
+
 }

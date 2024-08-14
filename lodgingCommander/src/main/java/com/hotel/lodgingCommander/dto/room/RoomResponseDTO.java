@@ -19,4 +19,6 @@ public class RoomResponseDTO {
     private String imgPath;
 
     private String hotelName;
+
+    private Long hotelId;
 }

@@ -23,6 +23,7 @@ let PaySlice = ({ totalDiscountedPrice, selectedRoom, userInfo }) => {
                     <Row>
                         <Col>
                             <Button
+                                className='justify-content-lg-center'
                                 variant="primary"
                                 size="lg"
                                 onClick={handlePayment}

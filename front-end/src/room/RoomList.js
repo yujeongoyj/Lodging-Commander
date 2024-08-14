@@ -5,7 +5,6 @@ import axios from "axios";
 
 let RoomList = ({userInfo, checkInDate,checkOutDate, hotelId}) => {
     let [data, setData] = useState({roomList: []})
-
     useEffect(() => {
         let selectList = async () => {
             // if (!hotelId || !checkInDate || !checkOutDate) return;
@@ -29,12 +28,18 @@ let RoomList = ({userInfo, checkInDate,checkOutDate, hotelId}) => {
         };
         selectList();
     }, [hotelId,checkInDate,checkOutDate]);
+
     return (
         <Container fluid>
             <Row className="custom-row">
-                {data.roomList.map((room, index) => (
+                {data.roomList.map((room) => (
                     <Col md={4} key={room.id} className="custom-col mb-2">
-                        <RoomSlice room={room} checkOutDate={checkOutDate} checkInDate={checkInDate} userInfo={userInfo}/>
+                        <RoomSlice
+                            room={room}
+                            checkOutDate={checkOutDate}
+                            checkInDate={checkInDate}
+                            userInfo={userInfo}
+                        />
                     </Col>
                 ))}
             </Row>
