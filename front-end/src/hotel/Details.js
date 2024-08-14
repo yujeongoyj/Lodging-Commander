@@ -66,9 +66,6 @@ let Details = () => {
                             <Card.Text>
                                 체크인: {checkInDate} 체크아웃: {checkOutDate} {/* 숙박 일자 */}
                             </Card.Text>
-                            <Card.Text>
-                                <strong>₩{hotel.price}</strong> 1박당 {/* 1박당 가격을 호텔 데이터에서 가져오기 */}
-                            </Card.Text>
                             <Button variant="primary" block>예약하기</Button>
                         </Card.Body>
                     </Card>

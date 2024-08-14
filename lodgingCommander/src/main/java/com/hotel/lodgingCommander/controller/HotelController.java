@@ -21,7 +21,9 @@ public class HotelController {
 
     @GetMapping("details/{id}")
     public ResponseEntity<Hotel> details(@PathVariable Long id) {
+        System.out.println(id);
         return ResponseEntity.ok(HOTEL_SERVICE.getHotelById(id));
+
     }
 
     @GetMapping("/search")

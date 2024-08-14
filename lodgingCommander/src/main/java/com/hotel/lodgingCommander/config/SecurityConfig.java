@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/user/**").permitAll()
-//                                .requestMatchers("/logIn").permitAll()
+                                .requestMatchers("/logIn").permitAll()
                                 .requestMatchers("/hotel/search").permitAll()
                                 .requestMatchers("/rooms").permitAll()
                                 .requestMatchers("/static/*").permitAll()
