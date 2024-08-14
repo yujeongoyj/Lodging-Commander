@@ -2,6 +2,7 @@ package com.hotel.lodgingCommander.controller;
 
 import com.hotel.lodgingCommander.entity.Hotel;
 import com.hotel.lodgingCommander.dto.hotel.HotelResponseDTO;
+import com.hotel.lodgingCommander.service.FacilityService;
 import com.hotel.lodgingCommander.service.HotelService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,10 +21,10 @@ public class HotelController {
     private HotelService HOTEL_SERVICE;
 
     @GetMapping("details/{id}")
-    public ResponseEntity<Hotel> details(@PathVariable Long id) {
-        System.out.println(id);
-        return ResponseEntity.ok(HOTEL_SERVICE.getHotelById(id));
-
+    public ResponseEntity<Map<String,Object>> details(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("hotel",HOTEL_SERVICE.getHotelById(id));
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/search")
