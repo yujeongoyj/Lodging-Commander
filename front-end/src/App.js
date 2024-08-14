@@ -33,6 +33,8 @@ function App() {
           <Route path="/hotel/details/:id" element={<Details/>}/>
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/Auth" element={<Auth/>}/>
+
+          {/*유정 컴포넌트 */}
           <Route path="/AddressForm" element={<AddressForm/>}/>
           <Route path="/AddressForm2" element={<AddressForm2/>}/>
           <Route path="/AddressForm3" element={<AddressForm3/>}/>

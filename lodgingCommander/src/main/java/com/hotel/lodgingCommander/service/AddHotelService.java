@@ -159,7 +159,7 @@ public class AddHotelService {
 
 
         Img img = Img.builder()
-                .path("http://localhost8080/uploads/" + fileName)
+                .path("http://localhost:8080/uploads/" + fileName)
                 .build();
         addImgRepository.save(img);
 
