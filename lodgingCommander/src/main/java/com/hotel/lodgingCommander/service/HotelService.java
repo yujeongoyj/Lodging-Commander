@@ -25,8 +25,8 @@ public class HotelService {
     private FacilityService FACILITY_SERVICE;
 
 
-    public Hotel getHotelById(Long id) {
-        return HOTEL_REPOSITORY.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found"));
+    public HotelResponseDTO getHotelById(Long id) {
+        return convertToDTO(HOTEL_REPOSITORY.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found")));
     }
 
     @Transactional(readOnly = true)
