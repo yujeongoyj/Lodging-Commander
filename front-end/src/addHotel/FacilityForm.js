@@ -25,6 +25,7 @@ const FacilityForm = () => {
     const [hotelId, setHotelId] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
+    let userInfo = location.state?.userData
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -47,7 +48,7 @@ const FacilityForm = () => {
         try {
             await axios.post(`http://localhost:8080/properties/facility?hotelId=${hotelId}`, facilities,
                 { withCredentials: true});
-            navigate('/AddHotelSuccess');
+            navigate('/AddHotelSuccess', {state: {userData:userInfo}});
         } catch (error) {
             console.error('Error saving facilities', error);
         }
