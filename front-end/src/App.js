@@ -16,8 +16,6 @@ import FacilityForm from "./addHotel/FacilityForm";
 import HotelForm from "./addHotel/HotelForm";
 import RoomForm from "./addHotel/RoomForm";
 import AddHotelSuccess from "./addHotel/AddHotelSuccess";
-import AddressForm2 from "./addHotel/AddressForm2";
-import AddressForm3 from "./addHotel/AddressForm3";
 
 function App() {
   return (
@@ -36,8 +34,6 @@ function App() {
 
           {/*유정 컴포넌트 */}
           <Route path="/AddressForm" element={<AddressForm/>}/>
-          <Route path="/AddressForm2" element={<AddressForm2/>}/>
-          <Route path="/AddressForm3" element={<AddressForm3/>}/>
           <Route path="/CategoryForm" element={<CategoryForm/>}/>
           <Route path="/FacilityForm" element={<FacilityForm/>}/>
           <Route path="/HotelForm" element={<HotelForm/>}/>
