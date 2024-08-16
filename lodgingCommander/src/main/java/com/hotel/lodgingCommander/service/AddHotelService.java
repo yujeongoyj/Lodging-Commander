@@ -3,6 +3,7 @@ package com.hotel.lodgingCommander.service;
 import com.hotel.lodgingCommander.dto.*;
 import com.hotel.lodgingCommander.entity.*;
 import com.hotel.lodgingCommander.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -165,4 +166,6 @@ public class AddHotelService {
 
         return img.getId();
     }
+
+
 }

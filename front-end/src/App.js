@@ -17,6 +17,7 @@ import HotelForm from "./addHotel/HotelForm";
 import RoomForm from "./addHotel/RoomForm";
 import AddHotelSuccess from "./addHotel/AddHotelSuccess";
 import AddressForm2 from "./addHotel/AddressForm2";
+import ModifyHotel from "./addHotel/ModifyHotel";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="/HotelForm" element={<HotelForm/>}/>
           <Route path="/RoomForm" element={<RoomForm/>}/>
           <Route path="/AddHotelSuccess" element={<AddHotelSuccess/>}/>
+          <Route path="/ModifyHotel" element={<ModifyHotel/>}/>
         </Routes>
       </div>
   );

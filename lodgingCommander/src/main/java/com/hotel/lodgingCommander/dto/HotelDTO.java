@@ -1,5 +1,6 @@
 package com.hotel.lodgingCommander.dto;
 
+import com.hotel.lodgingCommander.entity.Hotel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,4 +19,7 @@ public class HotelDTO {
     private String tel;
     private int grade;
     private String detail;
+
+    public HotelDTO(Hotel hotel) {
+    }
 }

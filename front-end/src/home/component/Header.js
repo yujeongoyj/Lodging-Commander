@@ -53,7 +53,7 @@ let Header = () => {
                                                 <NavDropdown.Item onClick={() => changePage('AddressForm2')}>
                                                     숙소 등록
                                                 </NavDropdown.Item>
-                                                <NavDropdown.Item href="#action/3.2">
+                                                <NavDropdown.Item onClick={() => changePage('ModifyHotel')}>
                                                     내 숙소 관리
                                                 </NavDropdown.Item>
                                                 <NavDropdown.Item href="#action/3.2">
