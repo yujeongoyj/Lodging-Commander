@@ -1,29 +1,57 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {useLocation, useParams} from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Card, Carousel, Col, Container, Row} from "react-bootstrap";
+import { useLocation, useParams } from 'react-router-dom';
+import { Button, Card, Carousel, Col, Container, Row, ListGroup, Spinner, Alert } from "react-bootstrap";
 import RoomList from "../room/RoomList";
+import Kakao from "./components/Kakao";
 
-let Details = () => {
-    let location = useLocation();
-    let userInfo = location.state.userData ? location.state.userData : null;
-    let checkOutDate = location.state.checkOutDate; // 중복 선언 제거
-    let checkInDate = location.state.checkInDate; // 중복 선언 제거
+const Details = () => {
+    const location = useLocation();
+    const userInfo = location.state?.userData || null;
+    const checkOutDate = location.state?.checkOutDate;
+    const checkInDate = location.state?.checkInDate;
 
-    let {id} = useParams();
-    let [hotel, setHotel] = useState(null);
+    const { id } = useParams();
+    const [hotel, setHotel] = useState(null);
+    const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        axios.get(`/hotel/details/${id}`)
-            .then(response => {
+        const fetchHotelDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/hotel/details/${id}`, { withCredentials: true });
                 setHotel(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            } catch (error) {
+                console.error('Error fetching hotel details:', error);
+                setError('호텔 정보를 가져오는 데 오류가 발생했습니다.');
+            }
+        };
+
+        const fetchReviews = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/review/hotel/${id}`, { withCredentials: true });
+                if (response.status === 200) {
+                    setReviews(response.data.reviews || []);
+                } else {
+                    throw new Error('서버 오류');
+                }
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+                setError('리뷰를 가져오는 데 오류가 발생했습니다.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (id) {
+            fetchHotelDetails();
+            fetchReviews();
+        }
     }, [id]);
 
+    if (loading) return <Spinner animation="border" variant="primary" />;
+    if (error) return <Alert variant="danger">{error}</Alert>;
     if (!hotel) return <div>Loading...</div>;
 
     return (
@@ -57,12 +85,12 @@ let Details = () => {
                 <Col md={5}>
                     <Card>
                         <Card.Body>
-                            <Card.Title>{hotel.name}</Card.Title> {/* 호텔 이름을 호텔 데이터에서 가져오기 */}
+                            <Card.Title>{hotel.name}</Card.Title>
                             <Card.Text>
-                                체크인: {checkInDate} 체크아웃: {checkOutDate} {/* 숙박 일자 */}
+                                체크인: {checkInDate} 체크아웃: {checkOutDate}
                             </Card.Text>
                             <Card.Text>
-                                <strong>₩{hotel.price}</strong> 1박당 {/* 1박당 가격을 호텔 데이터에서 가져오기 */}
+                                <strong>₩{hotel.price}</strong> 1박당
                             </Card.Text>
                             <Button variant="primary" block>예약하기</Button>
                         </Card.Body>
@@ -72,21 +100,49 @@ let Details = () => {
             <Row className="mt-5">
                 <Col md={12}>
                     <h3>호텔 설명</h3>
-                    <p>{hotel.description}</p> {/* 호텔 설명 */}
+                    <p>{hotel.description}</p>
+                </Col>
+                <Col>
+                    <Kakao id={id}/>
                 </Col>
             </Row>
             <Row className="mt-3">
                 <Col md={12}>
                     <h4>호텔 편의 시설</h4>
                     <ul>
-                        {hotel.amenities.map((amenity, index) => (
-                            <li key={index}>{amenity}</li>
-                        ))} {/* 호텔 편의 시설 리스트 */}
+                        {/*{hotel.amenities.map((amenity, index) => (*/}
+                        {/*    <li key={index}>{amenity}</li>*/}
+                        {/*))}*/}
                     </ul>
                 </Col>
             </Row>
             <Row>
-                <RoomList userInfo={userInfo} checkInDate={checkInDate} checkOutDate={checkOutDate} hoteId={hotel.id}/>
+                <Col sm={9}>
+                    <Row>
+                        <h4>Room List</h4>
+                    </Row>
+                    <Row>
+                        <RoomList userInfo={userInfo} checkInDate={checkInDate} checkOutDate={checkOutDate} hotelId={hotel.id}/>
+                    </Row>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h4>호텔 리뷰</h4>
+                    {reviews.length === 0 ? (
+                        <Alert variant="info">작성된 리뷰가 없습니다.</Alert>
+                    ) : (
+                        <ListGroup>
+                            {reviews.map((review) => (
+                                <ListGroup.Item key={review.id}>
+                                    <h5>작성자: {review.userName}</h5>
+                                    <p>{review.content}</p>
+                                    <p><strong>평점:</strong> {review.rating}</p>
+                                </ListGroup.Item>
+                            ))}
+                        </ListGroup>
+                    )}
+                </Col>
             </Row>
         </Container>
     );

@@ -13,6 +13,7 @@ let StartPage = () => {
     let location = useLocation()
     const userInfo = location.state?.userData || null;
 
+    let [searchLocation, setSearchLocation] = useState('');
     let [searchResults, setSearchResults] = useState({searchList: []});
     let [showSearchResult, setShowSearchResult] = useState(false);
     let [checkInDate, setCheckInDate] = useState('');
@@ -39,6 +40,7 @@ let StartPage = () => {
         "24시간 프론트 데스크": false,
     });
 
+
     let handleSearch = useCallback(async (location, checkInDate, checkOutDate, guests, rooms) => {
         if (!location || !checkInDate || !checkOutDate || !guests || !rooms) {
             alert('모든 조건들을 입력해 주세요.');
@@ -53,10 +55,12 @@ let StartPage = () => {
             });
 
             setSearchResults(response.data);
+            setSearchLocation(location);
             setCheckInDate(checkInDate);
             setCheckOutDate(checkOutDate);
             setShowSearchResult(true);
             setCurrentPage(1);
+            console.log(searchLocation)
         } catch (error) {
             console.error('검색 중 오류 발생:', error);
             alert('검색 중 오류가 발생했습니다. 다시 시도해 주세요.');
@@ -91,6 +95,7 @@ let StartPage = () => {
         setSelectedFacilities(facilities);
         setCurrentPage(1);
     }, []);
+    console.log(location)
 
     let filteredHotels = useMemo(() => {
         let {searchList} = searchResults;
@@ -122,6 +127,7 @@ let StartPage = () => {
                 <>
                     <Row>
                         <Col sm={3}>
+                            {/*여기다가 위치고정 지도(검색어 받아오기)*/}
                             <SearchFilters
                                 filter={filter}
                                 handleFilterChange={handleFilterChange}
@@ -132,6 +138,7 @@ let StartPage = () => {
                                 onCategoryChange={handleCategoryChange}
                                 selectedFacilities={selectedFacilities}
                                 onFacilityChange={handleFacilityChange}
+                                location={searchLocation} // location 전달
                             />
                         </Col>
                         <Col sm={9}>

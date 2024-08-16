@@ -1,20 +1,21 @@
 import React from 'react';
-import {Button, Card, Carousel, Col, Container, Row} from 'react-bootstrap';
+import { Button, Card, Carousel, Col, Container, Row } from 'react-bootstrap';
 import StarRating from '../../cart/components/StarRating';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSignInAlt} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import * as calculate from '../../js/calculate';
 import HotelFacility from './HotelFacility';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import LikeList from './LikeList'; // LikeList 컴포넌트 import
 
-let HotelSlice = ({hotel, checkInDate, checkOutDate, userInfo}) => {
+let HotelSlice = ({ hotel, checkInDate, checkOutDate, userInfo, onLikeChange }) => {
     let originalPrice = calculate.calculatePrice(checkInDate, checkOutDate, hotel.minPrice);
     let discountedPrice = userInfo ? calculate.calculateDiscountedPrice(originalPrice, userInfo.grade) : originalPrice;
 
     let navigate = useNavigate();
 
-    let handleClick = (pgaeName) => {
-        if (pgaeName === 'hotel') {
+    let handleClick = (pageName) => {
+        if (pageName === 'hotel') {
             navigate(`/hotel/details/${hotel.id}`, {
                 state: {
                     checkInDate,
@@ -22,10 +23,10 @@ let HotelSlice = ({hotel, checkInDate, checkOutDate, userInfo}) => {
                 }
             });
         } else {
-            navigate('/Auth')
+            navigate('/Auth');
         }
     };
-
+    console.log(userInfo.id,hotel.id)
     return (
         <Container>
             <Card className="mb-4 position-relative">
@@ -45,13 +46,26 @@ let HotelSlice = ({hotel, checkInDate, checkOutDate, userInfo}) => {
                     </Col>
                     <Col sm={8}>
                         <Card.Body>
-                            <Card.Title className="mb-3" onClick={() => handleClick('hotel')}>
-                                {hotel.hotelName}
-                            </Card.Title>
+                            <Row className="align-items-center">
+                                <Col xs={9}>
+                                    <Card.Title className="mb-3" onClick={() => handleClick('hotel')}>
+                                        {hotel.hotelName}
+                                    </Card.Title>
+                                </Col>
+                                <Col xs={3} className="text-end">
+                                    {userInfo && (
+                                        <LikeList
+                                            hotelId={hotel.id}
+                                            userId={userInfo.id}
+                                            onLikeChange={onLikeChange} // 찜 목록이 변경될 때 호출되는 콜백 함수
+                                        />
+                                    )}
+                                </Col>
+                            </Row>
                             <Card.Text>
                                 <Row className="mb-2">
                                     <Col>
-                                        <StarRating grade={hotel.grade}/>
+                                        <StarRating grade={hotel.grade} />
                                     </Col>
                                     <Col className="text-end">
                                         이용후기 {new Intl.NumberFormat().format(hotel.reviewCount)}건
@@ -59,11 +73,11 @@ let HotelSlice = ({hotel, checkInDate, checkOutDate, userInfo}) => {
                                 </Row>
                                 <Row className="mb-3">
                                     <Col>
-                                        <HotelFacility amenities={hotel.facilities || {}}/>
+                                        <HotelFacility amenities={hotel.facilities || {}} />
                                     </Col>
                                     <Col className="text-end">
                                         <p className="mb-1 text-muted">
-                                            <span style={{fontSize: '0.875rem'}}>1박당 가격: </span>
+                                            <span style={{ fontSize: '0.875rem' }}>1박당 가격: </span>
                                             ₩ {new Intl.NumberFormat().format(hotel.minPrice)}
                                         </p>
                                         {userInfo ? (
@@ -75,7 +89,7 @@ let HotelSlice = ({hotel, checkInDate, checkOutDate, userInfo}) => {
                                                     ₩ {new Intl.NumberFormat().format(discountedPrice)}
                                                 </h5>
                                                 <span
-                                                    style={{fontSize: '0.75rem'}}>({userInfo.grade} 등급 할인 적용)</span>
+                                                    style={{ fontSize: '0.75rem' }}>({userInfo.grade} 등급 할인 적용)</span>
                                             </>
                                         ) : (
                                             <>
@@ -84,7 +98,7 @@ let HotelSlice = ({hotel, checkInDate, checkOutDate, userInfo}) => {
                                                 </p>
                                                 <Button variant="primary" onClick={() => handleClick('logIn')}>
                                                     <FontAwesomeIcon icon={faSignInAlt}
-                                                                     style={{marginRight: '0.5rem'}}/>
+                                                                     style={{ marginRight: '0.5rem' }} />
                                                     로그인하여 추가 할인 받기
                                                 </Button>
                                             </>

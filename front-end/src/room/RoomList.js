@@ -32,7 +32,7 @@ let RoomList = ({userInfo, checkInDate,checkOutDate, hotelId}) => {
     return (
         <Container fluid>
             <Row className="custom-row">
-                {data.roomList.map((room, index) => (
+                {data.roomList.map((room) => (
                     <Col md={4} key={room.id} className="custom-col mb-2">
                         <RoomSlice room={room} checkOutDate={checkOutDate} checkInDate={checkInDate} userInfo={userInfo}/>
                     </Col>

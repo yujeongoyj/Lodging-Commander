@@ -10,6 +10,8 @@ import Details from "./hotel/Details";
 import Cart from "./cart/Cart";
 import StartPage from "./home/StartPage";
 import Header from "./home/component/Header";
+import LikeList2 from "./likelist/LikeList2";
+import Reviewlist from "./Reviewlist";
 
 function App() {
     return (
@@ -25,6 +27,8 @@ function App() {
                 <Route path="/hotel/details/:id" element={<Details/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/Auth" element={<Auth/>}/>
+                <Route path="/favorites" element={<LikeList2 />} />
+                <Route path="/reviews" element={<Reviewlist/>}></Route>
             </Routes>
         </div>
     );
