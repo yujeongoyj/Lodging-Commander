@@ -29,7 +29,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             "h.id) " +
             "FROM Room r " +
             "INNER JOIN Hotel h ON h.id = r.hotel.id " +
-            "INNER JOIN Img i ON i.id = r.img.id " +
+            "INNER JOIN Img i ON i.id = r.img.id  " +
             "LEFT JOIN BookingList bl ON r.id = bl.room.id " +
             "AND bl.checkInDate >= :checkInDate " +
             "AND bl.checkOutDate <= :checkOutDate " +
