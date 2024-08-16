@@ -2,9 +2,11 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useLocation, useParams} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card, Carousel, Col, Container, Row} from "react-bootstrap";
+import {Alert, Card, Carousel, Col, Container, ListGroup, Row, Spinner} from "react-bootstrap";
 import RoomList from "../room/RoomList";
 import HotelFacility from "./components/HotelFacility";
+import Kakao from "./components/Kakao";
+
 
 let Details = () => {
     let location = useLocation();
@@ -14,18 +16,21 @@ let Details = () => {
 
     let {id} = useParams();
     let [hotel, setHotel] = useState({hotel: {}});
+    const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
 
     useEffect(() => {
         const fetchHotelDetails = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/hotel/details/${id}`, { withCredentials: true });
-                setHotel(response.data);
+                setHotel(response.data.hotel);
+                console.log(response.data)
             } catch (error) {
                 console.error('Error fetching hotel details:', error);
-                setError('호텔 정보를 가져오는 데 오류가 발생했습니다.');
             }
         };
-
         const fetchReviews = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/review/hotel/${id}`, { withCredentials: true });
@@ -46,11 +51,15 @@ let Details = () => {
             fetchHotelDetails();
             fetchReviews();
         }
+
     }, [id]);
 
+    if (!hotel) return <div>Loading...</div>;
     if (loading) return <Spinner animation="border" variant="primary" />;
     if (error) return <Alert variant="danger">{error}</Alert>;
     if (!hotel) return <div>Loading...</div>;
+
+
 
     return (
         <Container className="mt-5">
@@ -73,12 +82,11 @@ let Details = () => {
                         <Card.Body>
                             <Card.Title>{hotel.hotelName}</Card.Title> {/* 호텔 이름을 호텔 데이터에서 가져오기 */}
                             <Card.Text>
-                                체크인: {checkInDate} 체크아웃: {checkOutDate}
+                                체크인: {checkInDate} 체크아웃: {checkOutDate} {/* 숙박 일자 */}
                             </Card.Text>
                             <Card.Text>
                                 <strong>₩ {new Intl.NumberFormat().format(hotel.minPrice)}</strong> (1박당 최저가격) {/* 1박당 가격을 호텔 데이터에서 가져오기 */}
                             </Card.Text>
-                            <Button variant="primary" block>예약하기</Button>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -96,7 +104,7 @@ let Details = () => {
                 <Col md={12}>
                     <h4>호텔 편의 시설</h4>
                     <ul>
-                       <HotelFacility amenities={hotel.facilities}/>
+                        <HotelFacility amenities={hotel.facilities}/>
                     </ul>
                 </Col>
             </Row>

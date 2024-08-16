@@ -32,14 +32,15 @@ public class HotelController {
 
     @GetMapping("details/like/{id}")
     public ResponseEntity<Map<String, String>> getHotelDetails(@PathVariable Long id) {
-        Hotel hotel = HOTEL_SERVICE.getHotelById(id);
+        HotelResponseDTO hotel = HOTEL_SERVICE.getHotelById(id);
         Map<String, String> response = new HashMap<>();
         response.put("id", String.valueOf(hotel.getId()));
-        response.put("hotelName", hotel.getName());
+        response.put("hotelName", hotel.getHotelName());
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("details/map/{hotelId}")
+
     public MapDTO getAddressByHotelId(@PathVariable Long hotelId) {
         return HOTEL_SERVICE.getAddressByHotelId(hotelId);
     }

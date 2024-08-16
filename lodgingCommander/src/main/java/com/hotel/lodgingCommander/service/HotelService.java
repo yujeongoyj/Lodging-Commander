@@ -1,8 +1,10 @@
 package com.hotel.lodgingCommander.service;
 
+import com.hotel.lodgingCommander.entity.Address;
 import com.hotel.lodgingCommander.entity.Facility;
 import com.hotel.lodgingCommander.entity.Hotel;
 import com.hotel.lodgingCommander.dto.hotel.HotelResponseDTO;
+import com.hotel.lodgingCommander.model.MapDTO;
 import com.hotel.lodgingCommander.repository.HotelRepository;
 import com.hotel.lodgingCommander.repository.ImgRepository;
 import com.hotel.lodgingCommander.repository.ReviewRepository;
@@ -24,10 +26,6 @@ public class HotelService {
     private ReviewRepository REVIEW_REPOSITORY;
     private ImgRepository IMG_REPOSITORY;
     private FacilityService FACILITY_SERVICE;
-
-    public Hotel getHotelById(Long id) {
-        return HOTEL_REPOSITORY.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found"));
-    }
 
     public HotelResponseDTO getHotelById(Long id) {
         return convertToDTO(HOTEL_REPOSITORY.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found")));
