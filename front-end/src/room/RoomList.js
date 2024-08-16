@@ -1,14 +1,13 @@
-import {Col, Container, Row} from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import RoomSlice from "./components/RoomSlice";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-let RoomList = ({userInfo, checkInDate,checkOutDate, hotelId}) => {
-    let [data, setData] = useState({roomList: []})
-
+let RoomList = ({ userInfo, checkInDate, checkOutDate, hotelId }) => {
+    let [data, setData] = useState({ roomList: [] });
     useEffect(() => {
         let selectList = async () => {
-            // if (!hotelId || !checkInDate || !checkOutDate) return;
+            if (!hotelId || !checkInDate || !checkOutDate) return;
 
             try {
                 let resp = await axios.get('http://localhost:8080/rooms', {
@@ -28,18 +27,28 @@ let RoomList = ({userInfo, checkInDate,checkOutDate, hotelId}) => {
             }
         };
         selectList();
-    }, [hotelId,checkInDate,checkOutDate]);
+    }, [hotelId, checkInDate, checkOutDate]);
+
     return (
         <Container fluid>
             <Row className="custom-row">
-                {data.roomList.map((room, index) => (
-                    <Col md={4} key={room.id} className="custom-col mb-2">
-                        <RoomSlice room={room} checkOutDate={checkOutDate} checkInDate={checkInDate} userInfo={userInfo}/>
-                    </Col>
-                ))}
+                {data.roomList && data.roomList.length > 0 ? (
+                    data.roomList.map((room) => (
+                        <Col md={4} key={room.id} className="custom-col mb-2">
+                            <RoomSlice
+                                room={room}
+                                checkOutDate={checkOutDate}
+                                checkInDate={checkInDate}
+                                userInfo={userInfo}
+                            />
+                        </Col>
+                    ))
+                ) : (
+                    <p>No rooms available for the selected dates.</p>
+                )}
             </Row>
         </Container>
-    )
+    );
 }
 
-export default RoomList
+export default RoomList;

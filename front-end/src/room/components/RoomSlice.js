@@ -4,9 +4,14 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSignInAlt} from '@fortawesome/free-solid-svg-icons';
 import * as calculate from '../../js/calculate';
 import {FaExclamationTriangle} from 'react-icons/fa';
+import {useNavigate} from "react-router-dom";
 
 let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
+    let navigate = useNavigate()
 
+    let goToLogIn = () =>{
+        navigate('/Auth')
+    }
     let originalPrice = calculate.calculatePrice(checkInDate, checkOutDate, room.price);
     let discountedPrice = userInfo ? calculate.calculateDiscountedPrice(originalPrice, userInfo.userGrade) : originalPrice;
 
@@ -68,8 +73,8 @@ let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
                                                 </Row>
                                             </>
                                         ) : (
-                                            <Button variant="primary" size="sm" style={{ fontSize: '0.85rem' }}>
-                                                <FontAwesomeIcon icon={faSignInAlt} style={{ marginRight: '0.5rem' }} />
+                                            <Button variant="primary" size="sm" style={{ fontSize: '0.85rem' }} onClick={goToLogIn} >
+                                                <FontAwesomeIcon icon={faSignInAlt} style={{ marginRight: '0.5rem' }}/>
                                                 로그인 하여 추가 할인 받기
                                             </Button>
                                         )}

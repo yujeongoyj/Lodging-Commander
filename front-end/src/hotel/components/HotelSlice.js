@@ -17,6 +17,7 @@ let HotelSlice = ({hotel, checkInDate, checkOutDate, userInfo}) => {
         if (pgaeName === 'hotel') {
             navigate(`/hotel/details/${hotel.id}`, {
                 state: {
+                    userData:userInfo,
                     checkInDate,
                     checkOutDate
                 }

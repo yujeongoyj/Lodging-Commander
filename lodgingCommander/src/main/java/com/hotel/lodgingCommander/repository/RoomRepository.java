@@ -25,7 +25,8 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             "r.detail, " +
             "CASE WHEN COALESCE(COUNT(bl.room.id), 0) = r.quantity THEN true ELSE false END, " +
             "i.path," +
-            "h.name) " +
+            "h.name," +
+            "h.id) " +
             "FROM Room r " +
             "INNER JOIN Hotel h ON h.id = r.hotel.id " +
             "INNER JOIN Img i ON i.id = r.img.id " +
