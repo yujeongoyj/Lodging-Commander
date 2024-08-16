@@ -34,8 +34,6 @@ function App() {
           <Route path="/hotel/details/:id" element={<Details/>}/>
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/Auth" element={<Auth/>}/>
-
-          {/*유정 컴포넌트 */}
           <Route path="/AddressForm" element={<AddressForm/>}/>
           <Route path="/AddressForm2" element={<AddressForm2/>}/>
           <Route path="/CategoryForm" element={<CategoryForm/>}/>
@@ -43,11 +41,8 @@ function App() {
           <Route path="/HotelForm" element={<HotelForm/>}/>
           <Route path="/RoomForm" element={<RoomForm/>}/>
           <Route path="/AddHotelSuccess" element={<AddHotelSuccess/>}/>
-            <Route path="/favorites" element={<LikeList2 />} />
-            <Route path="/reviews" element={<Reviewlist/>}></Route>
-
-            {/*은석*/}
-            
+          <Route path="/favorites" element={<LikeList2 />} />
+          <Route path="/reviews" element={<Reviewlist/>}></Route>
         </Routes>
       </div>
   );

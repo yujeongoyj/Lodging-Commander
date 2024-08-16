@@ -19,6 +19,7 @@ public class CartService {
     @Transactional(readOnly = true)
     public List<CartResponseDTO> getCartsByUserId(Long userId) {
         List<Object[]> carts = cartRepository.findCartWithAvailabilityByUserId(userId);
+        System.out.println("roomId:"+carts.get(0)[11]);;
         return carts.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -38,6 +39,8 @@ public class CartService {
         dto.setGrade(((Number) result[8]).intValue()); // h.grade
         dto.setUserGrade((String) result[9]);         // u.grade AS userGrade
         dto.setIsAvailable(((Number) result[10]).intValue() == 1); // isAvailable
+
+        dto.setRoomId(((Number) result[11]).longValue()); // r.id AS roomId
 
         dto.setReviewCount(reviewRepository.countByHotel_Id(dto.getHotelId()));
         return dto;
