@@ -7,7 +7,6 @@ const Header = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-
     const userInfo = location.state?.userData || null;
     console.log("location", location.state);
 
@@ -42,15 +41,11 @@ const Header = () => {
                             {userInfo ? (
                                 <>
                                     <Row>
-
-
-
                                         <Col>
                                             <NavDropdown title={`${userInfo.nickname}님 환영합니다.`} id="collapsible-nav-dropdown" className="text-end">
                                                 <NavDropdown.Item href="#action/3.1">다가오는 예약</NavDropdown.Item>
                                                 <NavDropdown.Item href="#action/3.2">내 정보 수정</NavDropdown.Item>
                                                 <NavDropdown.Item onClick={() => changePage('AddressForm2')}>
-
                                                     숙소 등록
                                                 </NavDropdown.Item>                                                
                                                 <NavDropdown.Item href="#action/3.2">내 숙소 관리</NavDropdown.Item>

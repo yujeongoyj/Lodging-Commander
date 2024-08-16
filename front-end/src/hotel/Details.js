@@ -6,6 +6,7 @@ import RoomList from "../room/RoomList";
 import HotelFacility from "./components/HotelFacility";
 import {getTodayDate} from "../js/day";
 import {Alert, Card, Carousel, Col, Container, ListGroup, Row, Spinner} from "react-bootstrap";
+import Kakao from "./components/Kakao";
 
 const Details = () => {
     const getNextDate = (date) => {
@@ -38,7 +39,7 @@ const Details = () => {
         };
         const fetchReviews = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/review/hotel/${id}`, { withCredentials: true });
+                const response = await axios.get(`http://localhost:8080/review/hotel/${id}`, {withCredentials: true});
                 if (response.status === 200) {
                     setReviews(response.data.reviews || []);
                 } else {
@@ -62,10 +63,9 @@ const Details = () => {
     const isFormValid = checkInDate && checkOutDate && new Date(checkInDate) <= new Date(checkOutDate);
 
     if (!hotel) return <div>Loading...</div>;
-    if (loading) return <Spinner animation="border" variant="primary" />;
+    if (loading) return <Spinner animation="border" variant="primary"/>;
     if (error) return <Alert variant="danger">{error}</Alert>;
     if (!hotel) return <div>Loading...</div>;
-
 
 
     return (
