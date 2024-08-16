@@ -61,10 +61,6 @@ const Info = () => {
                         <td>{userData?.role}</td>
                     </tr>
                     <tr>
-                        <td>추가 데이터</td>
-                        <td>{JSON.stringify(data)}</td>
-                    </tr>
-                    <tr>
                         <td colSpan={2}>
                             <ButtonGroup className="gap-3">
                                 <Button onClick={onUpdate}>회원수정</Button>

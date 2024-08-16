@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Col, Container, FormControl, Row, Table} from "react-bootstrap";
+import '../css/user/Register.css';
 
 function Register() {
     const [user, setUser] = useState({
@@ -13,6 +14,8 @@ function Register() {
         role: 'USER'
     });
 
+    const [alertVisible, setAlertVisible] = useState(false);
+
     const handleChange = (e) => {
         const {id, value} = e.target;
         setUser({...user, [id]: value});
@@ -21,10 +24,12 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/user/register', user);
-            console.log(response)
-            alert('회원가입 완료');
-            window.location.href = '/';
+            await axios.post('http://localhost:8080/user/register', user);
+            setAlertVisible(true);
+            setTimeout(() => {
+                setAlertVisible(false);
+                window.location.href = '/';
+            }, 4000);  // 4초 후에 alert가 사라지고 페이지가 이동
         } catch (error) {
             console.error(error);
         }
@@ -34,6 +39,11 @@ function Register() {
         <Container>
             <Row className="justify-content-center">
                 <Col xs={13} sm={10} md={6} lg={5}>
+                    {alertVisible && (
+                        <div className="alert-container">
+                            회원가입 완료
+                        </div>
+                    )}
                     <form onSubmit={handleSubmit}>
                         <Table striped hover bordered>
                             <thead className={"text-center"}>
@@ -94,7 +104,6 @@ function Register() {
                             </tr>
                             </tbody>
                         </Table>
-
                     </form>
                 </Col>
             </Row>

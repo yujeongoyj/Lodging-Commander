@@ -1,5 +1,5 @@
 package com.hotel.lodgingCommander.service;
-import com.hotel.lodgingCommander.dto.UserDTO;
+import com.hotel.lodgingCommander.dto.user.UserDTO;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.entity.enums.UserGrade;
 import com.hotel.lodgingCommander.repository.UserRepository;

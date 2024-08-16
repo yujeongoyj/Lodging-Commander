@@ -1,7 +1,7 @@
 package com.hotel.lodgingCommander.service;
 
-import com.hotel.lodgingCommander.dto.CustomUserDetails;
-import com.hotel.lodgingCommander.dto.UserDTO;
+import com.hotel.lodgingCommander.dto.user.CustomUserDetails;
+import com.hotel.lodgingCommander.dto.user.UserDTO;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

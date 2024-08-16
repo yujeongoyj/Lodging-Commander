@@ -1,6 +1,6 @@
 package com.hotel.lodgingCommander.controller;
 
-import com.hotel.lodgingCommander.dto.UserDTO;
+import com.hotel.lodgingCommander.dto.user.UserDTO;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

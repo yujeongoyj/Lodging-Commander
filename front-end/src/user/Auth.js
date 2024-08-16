@@ -16,7 +16,6 @@ let Auth = () => {
 
     let onChange = (e) => {
         let {name, value} = e.target;
-        console.log(name, value)
         setInputs({
             ...inputs, [name]: value
         });
