@@ -1,24 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, FloatingLabel, Form, Row} from 'react-bootstrap';
 import {FaSearch} from 'react-icons/fa';
+import {getTodayDate} from "../../js/day";
 import SearchFilters from "../SearchFilters";
 
 let HotelSearchForm = ({onSearch}) => {
-    let [location, setLocation] = useState('');//이거 가져와야되는데.....
-    let [checkInDate, setCheckInDate] = useState(getTodayDate());
+    let [location, setLocation] = useState('');
+    let [checkInDate, setCheckInDate] = useState(getTodayDate);
     let [checkOutDate, setCheckOutDate] = useState('');
     let [guests, setGuests] = useState(1);
     let [rooms, setRooms] = useState(1);
 
     let [minDate, setMinDate] = useState(getTodayDate);
 
-    function getTodayDate() {
-        let today = new Date();
-        let year = today.getFullYear();
-        let month = (today.getMonth() + 1).toString().padStart(2, '0');
-        let day = today.getDate().toString().padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    }
 
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -71,7 +65,7 @@ let HotelSearchForm = ({onSearch}) => {
                             <Form.Control
                                 type="date"
                                 value={checkInDate}
-                                min={getTodayDate()}
+                                min={getTodayDate}
                                 onChange={(e) => {
                                     setCheckInDate(e.target.value);
                                     if (new Date(e.target.value) > new Date(checkOutDate)) {

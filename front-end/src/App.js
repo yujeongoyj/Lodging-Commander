@@ -21,36 +21,31 @@ import LikeList2 from "./likelist/LikeList2";
 import Reviewlist from "./Reviewlist";
 
 function App() {
-  return (
-      <div>
-        <Header/>
-        <Routes>
-          <Route path="/" element={<StartPage/>}/>
-          <Route path="/user/register" element={<Register/>}/>
-          <Route path="/user/update" element={<Update/>}/>
-          <Route path="/user/info" element={<Info/>}/>
-          <Route path="/user/authSuccess" element={<Home/>}/>
-          <Route path="/user/authFail" element={<AuthFail/>}/>
-          <Route path="/hotel/details/:id" element={<Details/>}/>
-          <Route path="/cart" element={<Cart/>}/>
-          <Route path="/Auth" element={<Auth/>}/>
-
-          {/*유정 컴포넌트 */}
-          <Route path="/AddressForm" element={<AddressForm/>}/>
-          <Route path="/AddressForm2" element={<AddressForm2/>}/>
-          <Route path="/CategoryForm" element={<CategoryForm/>}/>
-          <Route path="/FacilityForm" element={<FacilityForm/>}/>
-          <Route path="/HotelForm" element={<HotelForm/>}/>
-          <Route path="/RoomForm" element={<RoomForm/>}/>
-          <Route path="/AddHotelSuccess" element={<AddHotelSuccess/>}/>
-            <Route path="/favorites" element={<LikeList2 />} />
-            <Route path="/reviews" element={<Reviewlist/>}></Route>
-
-            {/*은석*/}
-            
-        </Routes>
-      </div>
-  );
+    return (
+        <div>
+            <Header/>
+            <Routes>
+                <Route path="/" element={<StartPage/>}/>
+                <Route path="/user/register" element={<Register/>}/>
+                <Route path="/user/update" element={<Update/>}/>
+                <Route path="/user/info" element={<Info/>}/>
+                <Route path="/user/authSuccess" element={<Home/>}/>
+                <Route path="/user/authFail" element={<AuthFail/>}/>
+                <Route path="/hotel/details/:id" element={<Details/>}/>
+                <Route path="/cart" element={<Cart/>}/>
+                <Route path="/Auth" element={<Auth/>}/>
+                <Route path="/AddressForm" element={<AddressForm/>}/>
+                <Route path="/AddressForm2" element={<AddressForm2/>}/>
+                <Route path="/CategoryForm" element={<CategoryForm/>}/>
+                <Route path="/FacilityForm" element={<FacilityForm/>}/>
+                <Route path="/HotelForm" element={<HotelForm/>}/>
+                <Route path="/RoomForm" element={<RoomForm/>}/>
+                <Route path="/AddHotelSuccess" element={<AddHotelSuccess/>}/>
+                <Route path="/favorites" element={<LikeList2 />} />
+                <Route path="/reviews" element={<Reviewlist/>}></Route>
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
