@@ -1,5 +1,6 @@
 package com.hotel.lodgingCommander.controller;
 
+import com.hotel.lodgingCommander.dto.cart.CartRequestDTO;
 import com.hotel.lodgingCommander.dto.cart.CartResponseDTO;
 import com.hotel.lodgingCommander.service.CartService;
 import lombok.AllArgsConstructor;
@@ -36,5 +37,14 @@ public class CartController {
 
         response.put("alertMessage", "장바구니에서 삭제 되었습니다.");
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/cart/add/{id}")
+    public void addCart(@PathVariable Long id, @RequestBody CartRequestDTO requestDTO) {
+        try {
+            CART_SERVICE.insert(requestDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

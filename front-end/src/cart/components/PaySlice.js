@@ -1,13 +1,24 @@
 import React from 'react';
 import {Button, Card, Col, Container, Row} from 'react-bootstrap';
+import {useNavigate} from "react-router-dom";
 
 // Toss Payments 클라이언트 키
 
 let PaySlice = ({ totalDiscountedPrice, selectedRoom, userInfo }) => {
+    let navigate = useNavigate();
 
     let handlePayment = async () => {
         if (!selectedRoom || totalDiscountedPrice <= 0) return;
-        // 상민님 장바구니 추가 로직
+
+        navigate(`/booking/${selectedRoom.roomId}`, {
+            state: {
+                userData: userInfo,
+                formDate: {
+                    checkInDate: selectedRoom.checkInDate,
+                    checkOutDate: selectedRoom.checkOutDate
+                }
+            }
+        })
     };
 
     return (

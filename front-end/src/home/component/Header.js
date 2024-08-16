@@ -46,7 +46,9 @@ let Header = () => {
                                         </Col>
                                         <Col>
                                             <NavDropdown title="MyPage" id="collapsible-nav-dropdown" className='text-end'>
-                                                <NavDropdown.Item href="#action/3.1">다가오는 예약</NavDropdown.Item>
+                                                <NavDropdown.Item onClick={() => changePage('bookingList')}>
+                                                    내 예약
+                                                </NavDropdown.Item>
                                                 <NavDropdown.Item href="#action/3.2">
                                                     내 정보 수정
                                                 </NavDropdown.Item>

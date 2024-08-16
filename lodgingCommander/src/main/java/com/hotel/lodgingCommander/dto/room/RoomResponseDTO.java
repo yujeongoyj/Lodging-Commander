@@ -17,8 +17,6 @@ public class RoomResponseDTO {
     private String detail;
     private boolean reservable;
     private String imgPath;
-
     private String hotelName;
-
     private Long hotelId;
 }

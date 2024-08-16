@@ -41,5 +41,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             @Param("checkInDate") LocalDate checkInDate,
             @Param("checkOutDate") LocalDate checkOutDate);
 
+    @Query("select r from Room r where r.id = ?1")
+    Room findRoomById(Long id);
 
 }

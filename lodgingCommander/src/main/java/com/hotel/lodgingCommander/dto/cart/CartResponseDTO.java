@@ -21,4 +21,5 @@ public class CartResponseDTO {
     private String userGrade;
     private Boolean isAvailable;
     private int reviewCount;
+    private Long roomId;
 }

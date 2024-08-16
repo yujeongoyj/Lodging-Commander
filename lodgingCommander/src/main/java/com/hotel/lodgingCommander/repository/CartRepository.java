@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
-    @Query(value = "SELECT c.id, h.name AS hotelName, r.name AS roomName, c.checkin_date AS checkInDate, c.checkout_date AS checkOutDate, r.price, i.path AS imgPath, h.id AS hotelId, h.grade, u.grade AS userGrade, " +
+    @Query(value = "SELECT c.id, h.name AS hotelName, r.name AS roomName, c.checkin_date AS checkInDate, c.checkout_date AS checkOutDate, r.price, i.path AS imgPath, h.id AS hotelId, h.grade, u.grade AS userGrade, r.id AS roomId, " +
             "CASE " +
             "    WHEN r.quantity > (SELECT COUNT(bl.id) " +
             "                      FROM booking_list bl " +
