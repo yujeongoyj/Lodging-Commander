@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, FloatingLabel, Form, Row} from 'react-bootstrap';
 import {FaSearch} from 'react-icons/fa';
 import {getTodayDate} from "../../js/day";
+import SearchFilters from "../SearchFilters";
 
 let HotelSearchForm = ({onSearch}) => {
     let [location, setLocation] = useState('');
@@ -44,13 +45,13 @@ let HotelSearchForm = ({onSearch}) => {
         }
     }, [checkInDate]);
 
-
+    console.log(location)
     return (
         <Container className="d-flex justify-content-center">
             <Form onSubmit={handleSubmit} className="w-100">
                 <Row className="mb-3 justify-content-center">
                     <Col xs="auto">
-                        <FloatingLabel label="지역" controlId="location" className="mb-3">
+                        <FloatingLabel label="지역" controlId="ㄴㄷㅁㄱㅊlocation" className="mb-3">
                             <Form.Control
                                 type="text"
                                 placeholder="지역을 입력하세요"

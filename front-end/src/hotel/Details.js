@@ -7,6 +7,10 @@ import RoomList from "../room/RoomList";
 import HotelFacility from "./components/HotelFacility";
 import {FaSearch} from 'react-icons/fa';
 import {getTodayDate} from "../js/day";
+import {Alert, Card, Carousel, Col, Container, ListGroup, Row, Spinner} from "react-bootstrap";
+import RoomList from "../room/RoomList";
+import HotelFacility from "./components/HotelFacility";
+import Kakao from "./components/Kakao";
 
 const Details = () => {
     const getNextDate = (date) => {
@@ -14,17 +18,18 @@ const Details = () => {
         nextDay.setDate(nextDay.getDate() + 1);
         return nextDay.toISOString().split('T')[0];
     };
-
     const location = useLocation();
-    const {id} = useParams();
-
     const userInfo = location.state?.userData || null;
     const initialCheckInDate = location.state?.checkInDate || getTodayDate();
     const initialCheckOutDate = location.state?.checkOutDate || getNextDate(getTodayDate());
 
     const [checkInDate, setCheckInDate] = useState(initialCheckInDate);
     const [checkOutDate, setCheckOutDate] = useState(initialCheckOutDate);
-    const [hotel, setHotel] = useState({hotel: {}});
+    let {id} = useParams();
+    let [hotel, setHotel] = useState({hotel: {}});
+    const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchHotelDetails = async () => {
@@ -36,14 +41,37 @@ const Details = () => {
                 console.error('Error fetching hotel details:', error);
             }
         };
+        const fetchReviews = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/review/hotel/${id}`, { withCredentials: true });
+                if (response.status === 200) {
+                    setReviews(response.data.reviews || []);
+                } else {
+                    throw new Error('서버 오류');
+                }
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+                setError('리뷰를 가져오는 데 오류가 발생했습니다.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
         if (id) {
             fetchHotelDetails();
+            fetchReviews();
         }
+
     }, [id]);
 
     const isFormValid = checkInDate && checkOutDate && new Date(checkInDate) <= new Date(checkOutDate);
 
     if (!hotel) return <div>Loading...</div>;
+    if (loading) return <Spinner animation="border" variant="primary" />;
+    if (error) return <Alert variant="danger">{error}</Alert>;
+    if (!hotel) return <div>Loading...</div>;
+
+
 
     return (
         <Container className="mt-5">
@@ -79,6 +107,9 @@ const Details = () => {
                 <Col md={12}>
                     <h3>호텔 설명</h3>
                     <p>{hotel.detail}</p>
+                </Col>
+                <Col>
+                    <Kakao id={id}/>
                 </Col>
             </Row>
             <Row className="mt-3">
@@ -127,6 +158,24 @@ const Details = () => {
                         <RoomList userInfo={userInfo} checkInDate={checkInDate} checkOutDate={checkOutDate}
                                   hotelId={hotel.id}/>
                     </Row>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h4>호텔 리뷰</h4>
+                    {reviews.length === 0 ? (
+                        <Alert variant="info">작성된 리뷰가 없습니다.</Alert>
+                    ) : (
+                        <ListGroup>
+                            {reviews.map((review) => (
+                                <ListGroup.Item key={review.id}>
+                                    <h5>작성자: {review.userName}</h5>
+                                    <p>{review.content}</p>
+                                    <p><strong>평점:</strong> {review.rating}</p>
+                                </ListGroup.Item>
+                            ))}
+                        </ListGroup>
+                    )}
                 </Col>
             </Row>
         </Container>

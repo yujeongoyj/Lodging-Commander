@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>호텔 목록</title>
+</head>
+<body>
+<h1>호텔 목록</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>이름</th>
+        <th>전화번호</th>
+        <th>상세정보</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="hotel : ${hotels}">
+        <td th:text="${hotel.id}"></td>
+        <td th:text="${hotel.name}"></td>
+        <td th:text="${hotel.tel}"></td>
+        <td th:text="${hotel.detail}"></td>
+        <td><a th:href="@{/properties/{id}(id=${hotel.id})}">상세보기</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

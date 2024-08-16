@@ -10,7 +10,15 @@ import Details from "./hotel/Details";
 import Cart from "./cart/Cart";
 import StartPage from "./home/StartPage";
 import Header from "./home/component/Header";
-import ServerAuth from "./ServerAuth";
+import AddressForm from "./addHotel/AddressForm";
+import CategoryForm from "./addHotel/CategoryForm";
+import FacilityForm from "./addHotel/FacilityForm";
+import HotelForm from "./addHotel/HotelForm";
+import RoomForm from "./addHotel/RoomForm";
+import AddHotelSuccess from "./addHotel/AddHotelSuccess";
+import AddressForm2 from "./addHotel/AddressForm2";
+import LikeList2 from "./likelist/LikeList2";
+import Reviewlist from "./Reviewlist";
 
 function App() {
     return (
@@ -26,7 +34,15 @@ function App() {
                 <Route path="/hotel/details/:id" element={<Details/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/Auth" element={<Auth/>}/>
-                <Route path="/serverAuth" element={<ServerAuth/>}/>
+                <Route path="/AddressForm" element={<AddressForm/>}/>
+                <Route path="/AddressForm2" element={<AddressForm2/>}/>
+                <Route path="/CategoryForm" element={<CategoryForm/>}/>
+                <Route path="/FacilityForm" element={<FacilityForm/>}/>
+                <Route path="/HotelForm" element={<HotelForm/>}/>
+                <Route path="/RoomForm" element={<RoomForm/>}/>
+                <Route path="/AddHotelSuccess" element={<AddHotelSuccess/>}/>
+                <Route path="/favorites" element={<LikeList2 />} />
+                <Route path="/reviews" element={<Reviewlist/>}></Route>
             </Routes>
         </div>
     );

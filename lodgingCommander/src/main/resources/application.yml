@@ -1,12 +1,33 @@
-server:
-  port: 8080
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/lodgingCommander
     username: root
     password: 1234
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    check-template-location: true
+
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        name: JSESSIONID
+        http-only: true
+        secure: false
+      timeout: 30m
+
+
+  security:
+    user:
+      name: a
+      password: a
+
+    filter:
+      dispatcher-types: async, error, request
 
   jpa:
     hibernate:
