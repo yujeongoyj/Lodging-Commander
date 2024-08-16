@@ -2,15 +2,10 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useLocation, useParams} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Card, Carousel, Col, Container, FloatingLabel, Form, Row} from "react-bootstrap";
 import RoomList from "../room/RoomList";
 import HotelFacility from "./components/HotelFacility";
-import {FaSearch} from 'react-icons/fa';
 import {getTodayDate} from "../js/day";
 import {Alert, Card, Carousel, Col, Container, ListGroup, Row, Spinner} from "react-bootstrap";
-import RoomList from "../room/RoomList";
-import HotelFacility from "./components/HotelFacility";
-import Kakao from "./components/Kakao";
 
 const Details = () => {
     const getNextDate = (date) => {
