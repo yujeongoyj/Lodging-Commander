@@ -20,52 +20,55 @@ const AddressForm3 = () => {
     const userInfo = location.state?.userData;
 
     useEffect(() => {
-        // Kakao Maps API와 Daum Postcode API를 비동기적으로 로드합니다.
-        const loadScripts = () => {
-            // Kakao Maps API 스크립트 로드
-            const mapScript = document.createElement('script');
-            mapScript.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=2352038d1f2d9450032dd17ae632df20&libraries=services';
-            mapScript.async = true;
-            document.body.appendChild(mapScript);
-
-            // Daum Postcode API 스크립트 로드
-            const postmapScript = document.createElement('script');
-            postmapScript.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-            postmapScript.async = true;
-            document.body.appendChild(postmapScript);
-
-            // 두 스크립트가 모두 로드된 후 초기화
-            const scriptsLoaded = new Promise((resolve) => {
-                mapScript.onload = postmapScript.onload = resolve;
-            });
-
-            scriptsLoaded.then(() => {
-                if (window.daum && window.daum.maps && window.daum.Postcode) {
-                    const mapContainer = document.getElementById('map');
-                    const mapOption = {
-                        center: new window.daum.maps.LatLng(37.537187, 127.005476),
-                        level: 5
-                    };
-
-                    const kakaoMap = new window.daum.maps.Map(mapContainer, mapOption);
-                    const kakaoGeocoder = new window.daum.maps.services.Geocoder();
-                    const kakaoMarker = new window.daum.maps.Marker({
-                        position: new window.daum.maps.LatLng(37.537187, 127.005476),
-                        map: kakaoMap
-                    });
-
-                    setMap(kakaoMap);
-                    setMarker(kakaoMarker);
-                    setGeocoder(kakaoGeocoder);
-                }
-            }).catch(err => {
-                setError('스크립트 로드 중 오류가 발생했습니다.');
-                console.error('스크립트 로드 오류', err);
-            });
+        const loadKakaoMapsScript = () => {
+            const script = document.createElement('script');
+            script.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=2352038d1f2d9450032dd17ae632df20&libraries=services';
+            script.async = true;
+            script.onload = () => {
+                initializeMap();
+            };
+            script.onerror = () => {
+                setError('Kakao Maps API 로드 오류');
+            };
+            document.body.appendChild(script);
         };
 
-        loadScripts();
+        const loadPostcodeScript = () => {
+            const script = document.createElement('script');
+            script.src = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+            script.async = true;
+            script.onerror = () => {
+                setError('Daum Postcode API 로드 오류');
+            };
+            document.body.appendChild(script);
+        };
+
+        loadKakaoMapsScript();
+        loadPostcodeScript();
     }, []);
+
+    const initializeMap = () => {
+        if (window.daum && window.daum.maps) {
+            const mapContainer = document.getElementById('map');
+            const mapOption = {
+                center: new window.daum.maps.LatLng(37.537187, 127.005476),
+                level: 5
+            };
+
+            const kakaoMap = new window.daum.maps.Map(mapContainer, mapOption);
+            const kakaoGeocoder = new window.daum.maps.services.Geocoder();
+            const kakaoMarker = new window.daum.maps.Marker({
+                position: new window.daum.maps.LatLng(37.537187, 127.005476),
+                map: kakaoMap
+            });
+
+            setMap(kakaoMap);
+            setMarker(kakaoMarker);
+            setGeocoder(kakaoGeocoder);
+        } else {
+            setError('Kakao Maps API가 로드되지 않았습니다.');
+        }
+    };
 
     const handlePostcodeSearch = () => {
         if (window.daum && window.daum.Postcode) {
@@ -105,9 +108,11 @@ const AddressForm3 = () => {
                                 setLongitude(result.x);
 
                                 // 지도와 마커 업데이트
-                                map.setCenter(coords);
-                                marker.setPosition(coords);
-                                document.getElementById('map').style.display = 'block';
+                                if (map) {
+                                    map.setCenter(coords);
+                                    marker.setPosition(coords);
+                                    document.getElementById('map').style.display = 'block';
+                                }
                             } else {
                                 setError('주소 검색에 실패했습니다.');
                             }
@@ -115,6 +120,8 @@ const AddressForm3 = () => {
                     }
                 }
             }).open();
+        } else {
+            setError('Daum Postcode API가 로드되지 않았습니다.');
         }
     };
 
@@ -199,7 +206,33 @@ const AddressForm3 = () => {
                         />
                     </Col>
                 </Form.Group>
-                <div id="map" style={{ width: '100%', height: '400px', display: 'none' }}></div>
+                <Form.Group as={Row} className="mb-3" controlId="formLatitude">
+                    <Form.Label column sm={2}>위도</Form.Label>
+                    <Col sm={10}>
+                        <Form.Control
+                            type="number"
+                            step="any"
+                            value={latitude}
+                            onChange={(e) => setLatitude(e.target.value)}
+                            placeholder="위도"
+                            required
+                        />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="formLongitude">
+                    <Form.Label column sm={2}>경도</Form.Label>
+                    <Col sm={10}>
+                        <Form.Control
+                            type="number"
+                            step="any"
+                            value={longitude}
+                            onChange={(e) => setLongitude(e.target.value)}
+                            placeholder="경도"
+                            required
+                        />
+                    </Col>
+                </Form.Group>
+                <div id="map" style={{ height: '400px', width: '100%' }}></div>
                 <Button variant="primary" type="submit">
                     다음
                 </Button>
