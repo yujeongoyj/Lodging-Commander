@@ -82,4 +82,5 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             @Param("guests") int guests,
             @Param("rooms") int rooms
     );
+
 }

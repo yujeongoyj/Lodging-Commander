@@ -2,6 +2,7 @@ package com.hotel.lodgingCommander.controller;
 
 import com.hotel.lodgingCommander.entity.Hotel;
 import com.hotel.lodgingCommander.dto.hotel.HotelResponseDTO;
+import com.hotel.lodgingCommander.model.MapDTO;
 import com.hotel.lodgingCommander.service.HotelService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,6 +17,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping({"/hotel/"})
+@CrossOrigin(origins = "http://localhost:3000")
 public class HotelController {
     private HotelService HOTEL_SERVICE;
 
@@ -24,6 +26,19 @@ public class HotelController {
         return ResponseEntity.ok(HOTEL_SERVICE.getHotelById(id));
     }
 
+    @GetMapping("details/like/{id}")
+    public ResponseEntity<Map<String, String>> getHotelDetails(@PathVariable Long id) {
+        Hotel hotel = HOTEL_SERVICE.getHotelById(id);
+        Map<String, String> response = new HashMap<>();
+        response.put("id", String.valueOf(hotel.getId()));
+        response.put("hotelName", hotel.getName());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("details/map/{hotelId}")
+    public MapDTO getAddressByHotelId(@PathVariable Long hotelId) {
+        return HOTEL_SERVICE.getAddressByHotelId(hotelId);
+    }
     @GetMapping("/search")
     public ResponseEntity<Map<String, Object>> getSearchList(
             @RequestParam(name = "location") String location,
@@ -50,4 +65,6 @@ public class HotelController {
 
         return ResponseEntity.ok(response);
     }
+
+
 }
