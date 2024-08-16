@@ -1,71 +1,79 @@
-package com.hotel.lodgingCommander.controller;
+        package com.hotel.lodgingCommander.controller;
 
-import com.hotel.lodgingCommander.model.LikeListDTO;
-import com.hotel.lodgingCommander.model.MapDTO;
-import com.hotel.lodgingCommander.service.HotelService;
-import com.hotel.lodgingCommander.service.LikeListService;
-import lombok.Getter;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+        import com.hotel.lodgingCommander.model.LikeListDTO;
+        import com.hotel.lodgingCommander.service.LikeListService;
+        import lombok.RequiredArgsConstructor;
+        import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+        import java.util.HashMap;
+        import java.util.List;
+        import java.util.Map;
 
-@Controller
-@CrossOrigin(origins ="http://localhost:3000")
-@RequestMapping("/likelist")
-public class LikeListController {
+        @RestController
+        @CrossOrigin(origins = "http://localhost:3000")
+        @RequestMapping("/likelist")
+        @RequiredArgsConstructor
+        public class LikeListController {
 
-    private final HotelService hotelService;
-    private LikeListService likeListService;
+            private final LikeListService likeListService;
 
+            @PostMapping("/add")
+            public Map<String, Object> addLike(@RequestBody LikeListDTO likeListDTO) {
+                Map<String, Object> resultMap = new HashMap<>();
+                try {
+                    likeListService.addLike(likeListDTO);
+                    resultMap.put("userId", likeListDTO.getUserId());
+                    resultMap.put("hotelId", likeListDTO.getHotelId());
+                    resultMap.put("result", "success");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    resultMap.put("result", "fail");
+                }
+                return resultMap;
+            }
 
-    public LikeListController(HotelService hotelService) {
-        this.hotelService = hotelService;
-    }
+            @PostMapping("/remove")
+            public Map<String, Object> removeLike(@RequestBody LikeListDTO likeListDTO) {
+                Map<String, Object> resultMap = new HashMap<>();
+                try {
+                    likeListService.removeLike(likeListDTO);
+                    resultMap.put("result", "success");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    resultMap.put("result", "fail");
+                }
+                return resultMap;
+            }
 
-    @GetMapping("/{id}")
-    public Map<String, Object> likeList(@PathVariable Long id) {
-        LikeListDTO likeListDTO;
-        HotelService hotelService;
+            @GetMapping("/user/{userId}")
+            public List<LikeListDTO> getLikesByUserId(@PathVariable long userId) {
+                return likeListService.getLikesByUserId(userId);
+            }
+            // 좋아요 상태 조회
+            @GetMapping("/{userId}/{hotelId}")
+            public Map<String, Object> getLikeStatus(@PathVariable Long userId, @PathVariable Long hotelId) {
+                Map<String, Object> resultMap = new HashMap<>();
+                try {
+                    boolean isLiked = likeListService.findByUserIdAndHotelId(userId, hotelId) != null;
+                    resultMap.put("isLiked", isLiked);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    resultMap.put("error", "Failed to fetch like status");
+                }
+                return resultMap;
+            }
 
-        // MapDTO를 HashMap으로 변환하여 반환합니다.
-        Map<String, Object> resultMap = new HashMap<>();
-        //resultMap.put("id", likeListDTO.getId());
-
-        return resultMap;
-    }
-
-    @PostMapping("/add")
-    public HashMap<String, Object> addLike(@RequestBody LikeListDTO likeListDTO) {
-        HashMap<String, Object> resultMap = new HashMap<>();
-        try {
-            likeListService.addLike(likeListDTO);
-            resultMap.put("result", "success");
-        } catch (Exception e) {
-            e.printStackTrace();
-            resultMap.put("result", "fail");
+            // 찜목록에서 좋아요 삭제
+            @DeleteMapping("/{id}")
+            public Map<String, Object> removeLikeById(@PathVariable Long id) {
+                Map<String, Object> resultMap = new HashMap<>();
+                try {
+                    likeListService.removeLikeById(id);
+                    resultMap.put("result", "success");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    resultMap.put("result", "fail");
+                }
+                return resultMap;
+            }
         }
-        return resultMap;
-    }
-
-
-    @PostMapping("/remove")
-    public HashMap<String, Object> removeLike(@RequestBody LikeListDTO likeListDTO) {
-        HashMap<String, Object> resultMap = new HashMap<>();
-        try {
-            likeListService.removeLike(likeListDTO);
-            resultMap.put("result", "success");
-        } catch (Exception e) {
-            e.printStackTrace();
-            resultMap.put("result", "fail");
-        }
-        return resultMap;
-    }
-
-    @GetMapping("/user/{userId}")
-    public List<LikeListDTO> getLikesByUserId(@PathVariable long userId) {
-        return likeListService.getLikesByUserId(userId);
-    }
-}
