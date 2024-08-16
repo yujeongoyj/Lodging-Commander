@@ -10,6 +10,7 @@ import Details from "./hotel/Details";
 import Cart from "./cart/Cart";
 import StartPage from "./home/StartPage";
 import Header from "./home/component/Header";
+import ServerAuth from "./ServerAuth";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/hotel/details/:id" element={<Details/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/Auth" element={<Auth/>}/>
+                <Route path="/serverAuth" element={<ServerAuth/>}/>
             </Routes>
         </div>
     );

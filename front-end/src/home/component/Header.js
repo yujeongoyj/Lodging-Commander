@@ -7,7 +7,7 @@ let Header = () => {
     let navigate = useNavigate();
 
     let userInfo = location.state?.userData || null;
-    console.log("location",location.state)
+    console.log("location", location.state)
 
     let changePage = (pageName) => {
         navigate('/' + pageName, {state: {userData: userInfo}});
@@ -41,12 +41,9 @@ let Header = () => {
                             {userInfo ? (
                                 <>
                                     <Row>
-                                        <Col>
-                                            {userInfo.nickname}님 환영합니다.
-                                        </Col>
-                                        <Col>
-                                            <NavDropdown title="MyPage" id="collapsible-nav-dropdown" className='text-end'>
-                                                <NavDropdown.Item href="#action/3.1">다가오는 예약</NavDropdown.Item>
+                                        <Col className='text-end'>
+                                            <NavDropdown title={`${userInfo.nickname}님 환영합니다.`} id="collapsible-nav-dropdown">
+                                            <NavDropdown.Item href="#action/3.1">다가오는 예약</NavDropdown.Item>
                                                 <NavDropdown.Item href="#action/3.2">
                                                     내 정보 수정
                                                 </NavDropdown.Item>
@@ -77,7 +74,7 @@ let Header = () => {
                                     </Row>
                                 </>
                             ) : (
-                                <Nav.Link onClick={()=>changePage('Auth')}>LOGIN</Nav.Link>
+                                <Nav.Link onClick={() => changePage('Auth')}>LOGIN</Nav.Link>
                             )}
                         </Nav>
                     </Navbar.Collapse>

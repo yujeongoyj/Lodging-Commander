@@ -3,7 +3,8 @@ import {Button, Card, Col, Container, Row} from 'react-bootstrap';
 
 // Toss Payments 클라이언트 키
 
-let PaySlice = ({ totalDiscountedPrice, selectedRoom, userInfo }) => {
+let PaySlice = ({totalDiscountedPrice, selectedRoom, userInfo}) => {
+
 
     let handlePayment = async () => {
         if (!selectedRoom || totalDiscountedPrice <= 0) return;

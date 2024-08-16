@@ -1,10 +1,12 @@
-import { Col, Container, Row } from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import RoomSlice from "./components/RoomSlice";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
-let RoomList = ({ userInfo, checkInDate, checkOutDate, hotelId }) => {
-    let [data, setData] = useState({ roomList: [] });
+let RoomList = ({userInfo, checkInDate, checkOutDate, hotelId}) => {
+    let [data, setData] = useState({roomList: []});
+
+
     useEffect(() => {
         let selectList = async () => {
             if (!hotelId || !checkInDate || !checkOutDate) return;
@@ -16,7 +18,7 @@ let RoomList = ({ userInfo, checkInDate, checkOutDate, hotelId }) => {
                         checkInDate: checkInDate,
                         checkOutDate: checkOutDate
                     }
-                },{
+                }, {
                     withCredentials: true
                 });
                 if (resp.status === 200) {
