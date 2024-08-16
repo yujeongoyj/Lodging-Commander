@@ -11,7 +11,7 @@ import Kakao from "./components/Kakao";
 let Details = () => {
     let location = useLocation();
     let userInfo = location.state.userData ||  null;
-    let checkOutDate = location.state.checkOutDate; // 중복 선언 제거
+    let checkOutDate = location.state.checkOutDate ; // 중복 선언 제거
     let checkInDate = location.state.checkInDate; // 중복 선언 제거
 
     let {id} = useParams();
