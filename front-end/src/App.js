@@ -17,6 +17,8 @@ import HotelForm from "./addHotel/HotelForm";
 import RoomForm from "./addHotel/RoomForm";
 import AddHotelSuccess from "./addHotel/AddHotelSuccess";
 import AddressForm2 from "./addHotel/AddressForm2";
+import Booking from "./booking/Booking";
+import BookingList from "./booking/BookingList";
 import LikeList2 from "./likelist/LikeList2";
 import Reviewlist from "./Reviewlist";
 
@@ -34,6 +36,8 @@ function App() {
           <Route path="/hotel/details/:id" element={<Details/>}/>
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/Auth" element={<Auth/>}/>
+
+          {/*유정 컴포넌트 */}
           <Route path="/AddressForm" element={<AddressForm/>}/>
           <Route path="/AddressForm2" element={<AddressForm2/>}/>
           <Route path="/CategoryForm" element={<CategoryForm/>}/>
@@ -43,6 +47,10 @@ function App() {
           <Route path="/AddHotelSuccess" element={<AddHotelSuccess/>}/>
           <Route path="/favorites" element={<LikeList2 />} />
           <Route path="/reviews" element={<Reviewlist/>}></Route>
+
+          {/*상민 컴포넌트*/}
+          <Route path="/booking/:id" element={<Booking/>}/>
+          <Route path="/bookingList" element={<BookingList/>}/>
         </Routes>
       </div>
   );

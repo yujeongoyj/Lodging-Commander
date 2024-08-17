@@ -1,5 +1,6 @@
 package com.hotel.lodgingCommander.controller;
 
+import com.hotel.lodgingCommander.dto.cart.CartRequestDTO;
 import com.hotel.lodgingCommander.dto.cart.CartResponseDTO;
 import com.hotel.lodgingCommander.service.CartService;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,4 +50,12 @@ public class CartController {
         }
     }
 
+    @PostMapping("/cart/add/{id}")
+    public void addCart(@PathVariable Long id, @RequestBody CartRequestDTO requestDTO) {
+        try {
+            CART_SERVICE.insert(requestDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

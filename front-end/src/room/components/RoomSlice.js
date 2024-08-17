@@ -5,6 +5,7 @@ import {faSignInAlt} from '@fortawesome/free-solid-svg-icons';
 import * as calculate from '../../js/calculate';
 import {FaExclamationTriangle} from 'react-icons/fa';
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
     let navigate = useNavigate()
@@ -14,6 +15,37 @@ let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
     }
     let originalPrice = calculate.calculatePrice(checkInDate, checkOutDate, room.price);
     let discountedPrice = userInfo ? calculate.calculateDiscountedPrice(originalPrice, userInfo.userGrade) : originalPrice;
+
+    let wrapData = {
+        roomId: room.id,
+        userId: userInfo.id,
+        checkInDate,
+        checkOutDate,
+    }
+
+    let goToBooking = () => {
+        navigate(`/booking/${room.id}`, {
+            state: {
+                userData: userInfo,
+                formDate: {
+                    checkInDate: checkInDate,
+                    checkOutDate: checkOutDate
+                }
+            }
+        })
+    }
+
+    let addCart = async (e) => {
+        e.preventDefault();
+        try {
+            let request = await axios.post(`http://localhost:8080/cart/add/${room.id}`, wrapData,{withCredentials: true});
+            if (request.status !== undefined) {
+                navigate(`/cart`, {state: {userData: userInfo}})
+            }
+        } catch (e) {
+            console.error("cart error", e);
+        }
+    }
 
     return (
         <Container>
@@ -60,14 +92,13 @@ let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
                                     <Col sm={5} className="d-flex flex-column justify-content-end align-items-end">
                                         {userInfo ? (
                                             <>
-                                                {/*상민님 버튼 핸들러 구현하셔야 해요~*/}
                                                 <Row className="mb-2">
-                                                    <Button variant="primary" size="sm" style={{ backgroundColor: '#007bff', borderColor: '#007bff' }}>
+                                                    <Button variant="primary" size="sm" style={{ backgroundColor: '#007bff', borderColor: '#007bff' }} onClick={goToBooking}>
                                                         구매하기
                                                     </Button>
                                                 </Row>
                                                 <Row>
-                                                    <Button variant="success" size="sm" style={{ backgroundColor: '#28a745', borderColor: '#28a745' }}>
+                                                    <Button variant="success" size="sm" style={{ backgroundColor: '#28a745', borderColor: '#28a745' }} onClick={addCart}>
                                                         장바구니
                                                     </Button>
                                                 </Row>

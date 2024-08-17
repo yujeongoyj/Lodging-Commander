@@ -1,0 +1,28 @@
+/* 08.13 sangmin added this file */
+
+.peopleCounter{
+    display: flex;
+    justify-content: space-around;
+}
+.peopleCounter>button{
+    position: relative;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(0, 0, 0, 0.175);
+    border-radius: 100%;
+    background-color: #fff;
+}
+.peopleCounter>button:hover{background-color: rgba(0, 0, 0, 0.05);}
+.peopleCounter>button:disabled{opacity: 0.35;}
+.peopleCounter>button:disabled:hover{background-color: #fff;}
+.peopleCounter>button>svg{
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+.peopleCounter>button>svg>path{fill:#212529;}
+.peopleCounter>input{
+    text-align: right;
+    border: none;
+}
+.peopleCounter>input:hover{cursor: unset;}
+.peopleCounter>input:focus{outline: none;}

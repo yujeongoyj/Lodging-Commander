@@ -1,8 +1,15 @@
 package com.hotel.lodgingCommander.service;
 
+import com.hotel.lodgingCommander.dto.cart.CartRequestDTO;
 import com.hotel.lodgingCommander.dto.cart.CartResponseDTO;
+import com.hotel.lodgingCommander.entity.Cart;
+import com.hotel.lodgingCommander.entity.Room;
+import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.repository.CartRepository;
 import com.hotel.lodgingCommander.repository.ReviewRepository;
+import com.hotel.lodgingCommander.repository.RoomRepository;
+import com.hotel.lodgingCommander.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +23,12 @@ public class CartService {
     private CartRepository cartRepository;
     private ReviewRepository reviewRepository;
 
+    private RoomRepository roomRepository;
+    private UserRepository userRepository;
+
     @Transactional(readOnly = true)
     public List<CartResponseDTO> getCartsByUserId(Long userId) {
         List<Object[]> carts = cartRepository.findCartWithAvailabilityByUserId(userId);
-        System.out.println("roomId:"+carts.get(0)[11]);;
         return carts.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -46,9 +55,25 @@ public class CartService {
         return dto;
     }
 
-
     @Transactional
     public void delete(Long id) {
         cartRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void insert(CartRequestDTO requestDTO) {
+        User user = userRepository.findById(requestDTO.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("User Not Found"));
+        Room room = roomRepository.findById(requestDTO.getRoomId())
+                .orElseThrow(() -> new EntityNotFoundException("Room Not Found"));
+        Cart cartEntity = Cart.builder()
+                .id(requestDTO.getId())
+                .checkInDate(requestDTO.getCheckInDate())
+                .checkOutDate(requestDTO.getCheckOutDate())
+                .room(room)
+                .user(user)
+                .build();
+        cartRepository.save(cartEntity);
+        cartRepository.deleteById(requestDTO.getId());
     }
 }
