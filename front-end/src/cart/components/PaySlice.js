@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom";
 let PaySlice = ({ totalDiscountedPrice, selectedRoom, userInfo }) => {
     let navigate = useNavigate();
 
+    console.log(selectedRoom);
+
     let handlePayment = async () => {
         if (!selectedRoom || totalDiscountedPrice <= 0) return;
 
@@ -14,7 +16,8 @@ let PaySlice = ({ totalDiscountedPrice, selectedRoom, userInfo }) => {
                 formDate: {
                     checkInDate: selectedRoom.checkInDate,
                     checkOutDate: selectedRoom.checkOutDate
-                }
+                },
+                cartId: selectedRoom.id
             }
         })
     };

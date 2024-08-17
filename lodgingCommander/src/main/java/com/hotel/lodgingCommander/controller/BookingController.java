@@ -3,6 +3,7 @@ package com.hotel.lodgingCommander.controller;
 import com.hotel.lodgingCommander.dto.bookingList.BookingListRequestDTO;
 import com.hotel.lodgingCommander.dto.room.RoomResponseDTO;
 import com.hotel.lodgingCommander.service.BookingService;
+import com.hotel.lodgingCommander.service.CartService;
 import com.hotel.lodgingCommander.service.FacilityService;
 import com.hotel.lodgingCommander.service.RoomService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,8 @@ public class BookingController {
     private final BookingService BOOKING_SERVICE;
     private final RoomService ROOM_SERVICE;
     private final FacilityService FACILITY_SERVICE;
+    private final CartService CART_SERVICE;
+
 
     @RequestMapping("/booking/{id}")
     public ResponseEntity<Map<String, Object>> responseBooking(@PathVariable("id") Long roomId) {
@@ -33,6 +36,9 @@ public class BookingController {
     public void requestBooking(@PathVariable Long id, @RequestBody BookingListRequestDTO requestDTO) {
         try {
             BOOKING_SERVICE.createBooking(requestDTO);
+            if (requestDTO.getCartId() != null) {
+                CART_SERVICE.delete(requestDTO.getCartId());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

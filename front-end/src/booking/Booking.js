@@ -16,6 +16,7 @@ const Booking = () => {
 
     const userInfo = location.state?.userData;
     const formDate = location.state?.formDate;
+    const cartId = location.state?.cartId || null;
 
     const params = useParams();
     const roomId = parseInt(params.id);
@@ -32,6 +33,7 @@ const Booking = () => {
         roomId: roomId,
         checkInDate: formDate?.checkInDate || '',
         checkOutDate: formDate?.checkOutDate || '',
+        cartId: cartId,
     });
 
     useEffect(() => {
@@ -74,6 +76,10 @@ const Booking = () => {
         navigate('/bookingList', {state: {userData: userInfo}})
     };
 
+    const goLogin = () => {
+        navigate("/Auth");
+    }
+
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -90,7 +96,12 @@ const Booking = () => {
 
     return (
         <Container>
-            {userInfo && formDate ? (
+            {!userInfo && !formDate ? (
+                <div style={{textAlign: 'center'}}>
+                    <h4 className={'mb-3'}>로그인 후 이용해주세요.</h4>
+                    <Button onClick={goLogin}>로그인</Button>
+                </div>
+            ) : (
                 <>
                     <Row>
                         <Col className={"mb-3"}>
@@ -181,8 +192,6 @@ const Booking = () => {
                         </Col>
                     </Row>
                 </>
-            ):(
-                <h4 style={{ textAlign: "center" }}>잘못된 접근입니다. 다시 시도해주세요.</h4>
             )}
         </Container>
     )

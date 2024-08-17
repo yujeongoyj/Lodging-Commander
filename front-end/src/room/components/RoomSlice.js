@@ -14,7 +14,7 @@ let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
         navigate('/Auth')
     }
     let originalPrice = calculate.calculatePrice(checkInDate, checkOutDate, room.price);
-    let discountedPrice = userInfo ? calculate.calculateDiscountedPrice(originalPrice, userInfo.userGrade) : originalPrice;
+    let discountedPrice = userInfo ? calculate.calculateDiscountedPrice(originalPrice, userInfo.grade) : originalPrice;
 
     let wrapData = {
         roomId: room.id,
