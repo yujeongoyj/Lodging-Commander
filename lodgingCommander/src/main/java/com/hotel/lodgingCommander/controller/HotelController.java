@@ -1,6 +1,5 @@
 package com.hotel.lodgingCommander.controller;
 
-import com.hotel.lodgingCommander.entity.Hotel;
 import com.hotel.lodgingCommander.dto.hotel.HotelResponseDTO;
 import com.hotel.lodgingCommander.model.MapDTO;
 import com.hotel.lodgingCommander.service.HotelService;
@@ -21,12 +20,10 @@ import java.util.Map;
 public class HotelController {
     private HotelService HOTEL_SERVICE;
 
-
-
     @GetMapping("details/{id}")
-    public ResponseEntity<Map<String,Object>> details(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> details(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
-        response.put("hotel",HOTEL_SERVICE.getHotelById(id));
+        response.put("hotel", HOTEL_SERVICE.getHotelById(id));
         return ResponseEntity.ok(response);
     }
 
