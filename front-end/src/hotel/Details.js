@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RoomList from "../room/RoomList";
 import HotelFacility from "./components/HotelFacility";
 import {getTodayDate} from "../js/day";
-import {Alert, Card, Carousel, Col, Container, ListGroup, Row, Spinner} from "react-bootstrap";
+import {Form, Alert, Card, Carousel, Col, Container, FloatingLabel, ListGroup, Row, Spinner} from "react-bootstrap";
 import Kakao from "./components/Kakao";
 
 const Details = () => {
