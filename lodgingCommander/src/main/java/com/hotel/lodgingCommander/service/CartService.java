@@ -58,6 +58,7 @@ public class CartService {
     @Transactional
     public void delete(Long id) {
         cartRepository.deleteById(id);
+        // 해당 기능으로 카트에 담긴 cart 대상이 결제되고 난 뒤(booking) 성공적으로 결제가 된 뒤에 cartId 를 통해 해당 메서드 또는 리포지토리로 삭제해주기
     }
 
     @Transactional
@@ -74,6 +75,5 @@ public class CartService {
                 .user(user)
                 .build();
         cartRepository.save(cartEntity);
-        cartRepository.deleteById(requestDTO.getId());
     }
 }
