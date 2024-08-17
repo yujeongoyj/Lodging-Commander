@@ -43,11 +43,9 @@ const Header = () => {
                                     <Row>
                                         <Col>
                                             <NavDropdown title={`${userInfo.nickname}님 환영합니다.`} id="collapsible-nav-dropdown" className="text-end">
-                                                <NavDropdown.Item href="#action/3.1">다가오는 예약</NavDropdown.Item>
+                                                <NavDropdown.Item onClick={() => changePage('bookingList')}>내 예약</NavDropdown.Item>
                                                 <NavDropdown.Item href="#action/3.2">내 정보 수정</NavDropdown.Item>
-                                                <NavDropdown.Item onClick={() => changePage('AddressForm2')}>
-                                                    숙소 등록
-                                                </NavDropdown.Item>                                                
+                                                <NavDropdown.Item onClick={() => changePage('AddressForm2')}>숙소 등록</NavDropdown.Item>
                                                 <NavDropdown.Item href="#action/3.2">내 숙소 관리</NavDropdown.Item>
                                                 <NavDropdown.Item onClick={() => changePage('reviews')}>내가 작성한 Review</NavDropdown.Item>
                                                 <NavDropdown.Item onClick={() => changePage('cart')}>Cart</NavDropdown.Item>
