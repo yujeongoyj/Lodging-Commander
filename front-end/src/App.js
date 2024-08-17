@@ -10,6 +10,7 @@ import Details from "./hotel/Details";
 import Cart from "./cart/Cart";
 import StartPage from "./home/StartPage";
 import Header from "./home/component/Header";
+import KakaoRedirection from "./user/components/KakaoRedirection";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/user/info" element={<Info/>}/>
                 <Route path="/user/authSuccess" element={<Home/>}/>
                 <Route path="/user/authFail" element={<AuthFail/>}/>
+                <Route path="/user/kakaoCallBack" element={<KakaoRedirection/>}/>
                 <Route path="/hotel/details/:id" element={<Details/>}/>
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/Auth" element={<Auth/>}/>
