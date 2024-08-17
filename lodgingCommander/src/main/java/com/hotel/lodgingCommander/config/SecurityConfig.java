@@ -39,6 +39,8 @@ public class SecurityConfig {
                                 .requestMatchers("/hotel/details/*").permitAll()
                                 .requestMatchers("/sample.jpg").permitAll()
                                 .requestMatchers("/booking/cancel/**").permitAll()
+                                .requestMatchers("/hotel/details/**").permitAll()
+                                .requestMatchers("/likelist/**").permitAll()
                                 .anyRequest().authenticated())
                 .formLogin((form) ->
                         form

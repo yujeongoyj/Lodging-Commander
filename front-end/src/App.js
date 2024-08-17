@@ -19,6 +19,8 @@ import AddHotelSuccess from "./addHotel/AddHotelSuccess";
 import AddressForm2 from "./addHotel/AddressForm2";
 import Booking from "./booking/Booking";
 import BookingList from "./booking/BookingList";
+import LikeList2 from "./likelist/LikeList2";
+import Reviewlist from "./Reviewlist";
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
           <Route path="/HotelForm" element={<HotelForm/>}/>
           <Route path="/RoomForm" element={<RoomForm/>}/>
           <Route path="/AddHotelSuccess" element={<AddHotelSuccess/>}/>
+          <Route path="/favorites" element={<LikeList2 />} />
+          <Route path="/reviews" element={<Reviewlist/>}></Route>
 
           {/*상민 컴포넌트*/}
           <Route path="/booking/:id" element={<Booking/>}/>

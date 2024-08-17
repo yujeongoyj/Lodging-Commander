@@ -49,12 +49,11 @@ public class CartService {
         dto.setUserGrade((String) result[9]);         // u.grade AS userGrade
         dto.setIsAvailable(((Number) result[10]).intValue() == 1); // isAvailable
 
-        dto.setRoomId(((Number) result[11]).longValue()); // roomId
+        dto.setRoomId(((Number) result[11]).longValue()); // r.id AS roomId
 
         dto.setReviewCount(reviewRepository.countByHotel_Id(dto.getHotelId()));
         return dto;
     }
-
 
     @Transactional
     public void delete(Long id) {
@@ -75,6 +74,6 @@ public class CartService {
                 .user(user)
                 .build();
         cartRepository.save(cartEntity);
-        // 장바구니 대상 삭제 메서드 필요
+        cartRepository.deleteById(requestDTO.getId());
     }
 }

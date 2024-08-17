@@ -1,8 +1,10 @@
 package com.hotel.lodgingCommander.service;
 
-import com.hotel.lodgingCommander.dto.hotel.HotelResponseDTO;
+import com.hotel.lodgingCommander.entity.Address;
 import com.hotel.lodgingCommander.entity.Facility;
 import com.hotel.lodgingCommander.entity.Hotel;
+import com.hotel.lodgingCommander.dto.hotel.HotelResponseDTO;
+import com.hotel.lodgingCommander.model.MapDTO;
 import com.hotel.lodgingCommander.repository.HotelRepository;
 import com.hotel.lodgingCommander.repository.ImgRepository;
 import com.hotel.lodgingCommander.repository.ReviewRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,10 +27,10 @@ public class HotelService {
     private ImgRepository IMG_REPOSITORY;
     private FacilityService FACILITY_SERVICE;
 
-
     public HotelResponseDTO getHotelById(Long id) {
         return convertToDTO(HOTEL_REPOSITORY.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found")));
     }
+
 
     @Transactional(readOnly = true)
     public List<HotelResponseDTO> findAvailableHotels(String location, LocalDate checkInDate, LocalDate checkOutDate, int guests, int rooms) {
@@ -35,6 +38,17 @@ public class HotelService {
         return availableHotels.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
+    }
+    public MapDTO getAddressByHotelId(Long hotelId) {
+        Hotel hotel = HOTEL_REPOSITORY.findById(hotelId)
+                .orElseThrow(() -> new IllegalArgumentException("Hotel not found with id: " + hotelId));
+        Address address = hotel.getAddress(); // Hotel의 Address 가져오기
+
+        if (address == null) {
+            throw new IllegalArgumentException("Address not found for hotel with id: " + hotelId);
+        }
+
+        return new MapDTO(address.getId(), address.getLatitude(), address.getLongitude());
     }
 
     private HotelResponseDTO convertToDTO(Hotel hotel) {

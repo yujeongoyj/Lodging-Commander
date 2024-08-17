@@ -2,6 +2,7 @@ import React from 'react';
 import {Col, Container, Row} from 'react-bootstrap';
 import SelectSize from '../home/component/SelectSize';
 import Hotels from './components/Hotels';
+import KakaoMapSearch from "./components/KakaoMapSearch";
 
 let HotelList = ({
                        filteredHotels = [],
