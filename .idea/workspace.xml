@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1ae7492c-3a22-4697-8fa3-6630e60bc3ff" name="Changes" comment="user duplicated issue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/BookingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/BookingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/CartService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
