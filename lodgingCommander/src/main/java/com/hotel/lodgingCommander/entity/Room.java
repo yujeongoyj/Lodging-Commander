@@ -2,9 +2,9 @@ package com.hotel.lodgingCommander.entity;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.*;
+        import lombok.*;
 
-import java.math.BigDecimal;
+        import java.math.BigDecimal;
 import java.util.List;
 
 @Data

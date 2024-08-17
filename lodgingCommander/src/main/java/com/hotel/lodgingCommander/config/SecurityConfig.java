@@ -30,13 +30,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/user/**").permitAll()
-                                .requestMatchers("/logIn").permitAll()
+//                                .requestMatchers("/logIn").permitAll()
+                                .requestMatchers("/hotel/**").permitAll()
                                 .requestMatchers("/hotel/search").permitAll()
                                 .requestMatchers("/rooms").permitAll()
                                 .requestMatchers("/static/*").permitAll()
                                 .requestMatchers("/log.png").permitAll()
+                                .requestMatchers("/uploads/**").permitAll()
                                 .requestMatchers("/hotel/details/*").permitAll()
                                 .requestMatchers("/sample.jpg").permitAll()
+                                .requestMatchers("/booking/cancel/**").permitAll()
+                                .requestMatchers("/hotel/details/**").permitAll()
+                                .requestMatchers("/likelist/**").permitAll()
                                 .anyRequest().authenticated())
                 .formLogin((form) ->
                         form

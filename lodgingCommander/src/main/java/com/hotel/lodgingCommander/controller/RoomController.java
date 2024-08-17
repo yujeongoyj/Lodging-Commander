@@ -1,7 +1,5 @@
 package com.hotel.lodgingCommander.controller;
 
-import com.hotel.lodgingCommander.entity.Room;
-import com.hotel.lodgingCommander.repository.RoomRepository;
 import com.hotel.lodgingCommander.service.RoomService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,6 @@ import java.util.Map;
 @AllArgsConstructor
 public class RoomController {
 
-    private RoomRepository roomRepository;
     private RoomService ROOM_SERVICE;
 
     @GetMapping("/rooms")
