@@ -41,6 +41,7 @@ public class HotelController {
     public MapDTO getAddressByHotelId(@PathVariable Long hotelId) {
         return HOTEL_SERVICE.getAddressByHotelId(hotelId);
     }
+
     @GetMapping("/search")
     public ResponseEntity<Map<String, Object>> getSearchList(
             @RequestParam(name = "location") String location,
@@ -68,5 +69,19 @@ public class HotelController {
         return ResponseEntity.ok(response);
     }
 
+
+    @GetMapping("{location}")
+    public ResponseEntity<Map<String, Object>> getListByLocation(@PathVariable String location){
+        Map<String, Object> response = new HashMap<>();
+        response.put("hotelList",HOTEL_SERVICE.findByLocation(location));
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping({"newHotels"})
+    public ResponseEntity<Map<String, Object>> getNewHotels(){
+        Map<String, Object> response = new HashMap<>();
+        response.put("hotelList",HOTEL_SERVICE.getRecentHotels());
+        return ResponseEntity.ok(response);
+    }
 
 }
