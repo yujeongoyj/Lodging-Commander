@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1ae7492c-3a22-4697-8fa3-6630e60bc3ff" name="Changes" comment="user duplicated issue">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/Update.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/Update.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,6 +160,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.LodgingCommanderApplication" />
+        <item itemvalue="Spring Boot.LodgingCommanderApplication" />
+        <item itemvalue="Spring Boot.LodgingCommanderApplication" />
         <item itemvalue="Spring Boot.LodgingCommanderApplication" />
       </list>
     </recent_temporary>
