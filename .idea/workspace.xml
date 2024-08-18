@@ -9,13 +9,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/booking/Booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/booking/Booking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/booking/components/BookingListCardItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/booking/components/BookingListCardItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/hotel/Details.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/hotel/Details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/likelist/LikeList2.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/likelist/LikeList2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/reviewinsert.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/reviewinsert.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lodgingCommander.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lodgingCommander.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/user/Update.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/Update.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +147,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LodgingCommanderApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="lodgingCommander.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.hotel.lodgingCommander.LodgingCommanderApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hotel.lodgingCommander.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.LodgingCommanderApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

@@ -32,6 +32,7 @@ public class SecurityConfig {
                                 .requestMatchers("/user/**").permitAll()
 //                                .requestMatchers("/logIn").permitAll()
                                 .requestMatchers("/hotel/**").permitAll()
+                                .requestMatchers("/hotel/search").permitAll()
                                 .requestMatchers("/rooms").permitAll()
                                 .requestMatchers("/static/*").permitAll()
                                 .requestMatchers("/log.png").permitAll()

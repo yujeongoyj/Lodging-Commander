@@ -1,4 +1,4 @@
-package com.hotel.lodgingCommander.dto;
+package com.hotel.lodgingCommander.dto.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,4 +1,4 @@
-package com.hotel.lodgingCommander.dto;
+package com.hotel.lodgingCommander.dto.user;
 
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.entity.enums.UserRole;
