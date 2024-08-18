@@ -46,6 +46,16 @@
             }
         }
 
+    @GetMapping("{id}/nickname")
+    public ResponseEntity<String> getUserNicknameById(@PathVariable Long id) {
+        try {
+            User user = USER_SERVICE.getUserById(id);
+            return ResponseEntity.ok(user.getNickname());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body("User not found");
+        }
+    }
+
 
         @DeleteMapping("delete")
         public ResponseEntity<?> delete() {

@@ -4,23 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ae7492c-3a22-4697-8fa3-6630e60bc3ff" name="Changes" comment="08/18 2:34&#10;pull을 받기위한 commit">
+    <list default="true" id="1ae7492c-3a22-4697-8fa3-6630e60bc3ff" name="Changes" comment="user duplicated issue">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lodgingCommander.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lodgingCommander.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lodgingCommander.main.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/home/component/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/home/component/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/Auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/AuthFail.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/AuthFail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/MyPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/Info.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/Info.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/Update.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/Update.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/booking/Booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/booking/Booking.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/booking/components/BookingListCardItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/booking/components/BookingListCardItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/hotel/Details.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/hotel/Details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/likelist/LikeList2.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/likelist/LikeList2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/reviewinsert.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/reviewinsert.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/CustomUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/CustomUserDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lodgingCommander.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lodgingCommander.main.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,11 +26,6 @@
     <option name="groupingKeys">
       <option value="directory" />
     </option>
-  </component>
-  <component name="ExternalProjectsData">
-    <projectState path="$PROJECT_DIR$/lodgingCommander">
-      <ProjectState />
-    </projectState>
   </component>
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
@@ -82,22 +72,37 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;chenghaLim&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "chenghaLim"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/yujeongoyj/Lodging-Commander.git&quot;,
-    &quot;accountId&quot;: &quot;06164244-5eed-4fa9-aea9-b86f9a4095bb&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/yujeongoyj/Lodging-Commander",
+    "accountId": "e4baf4c8-d678-4e5a-925f-776921fd43f5"
   }
-}</component>
+}]]></component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "chenghaLim"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/yujeongoyj/Lodging-Commander.git",
+    "accountId": "06164244-5eed-4fa9-aea9-b86f9a4095bb"
+  }
+}]]></component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
-  &quot;isMigrated&quot;: true
-}</component>
+        &quot;isMigrated&quot;: true
+        }</component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/front-end/package.json" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -110,31 +115,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build lodgingCommander.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.lodgingCommander 빌드.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.LodgingCommanderApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;donguk&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/kang-eunseok/IdeaProjects/Lodging-Commander&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build lodgingCommander.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.LodgingCommanderApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/kang-eunseok/IdeaProjects/Lodging-Commander",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "ts.external.directory.path": "/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/front-end/src/review" />
@@ -185,8 +188,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
       </set>
     </attachedChunks>
   </component>
@@ -206,8 +209,6 @@
       <workItem from="1723444692011" duration="2115000" />
       <workItem from="1723460821440" duration="909000" />
       <workItem from="1723509011164" duration="184000" />
-      <workItem from="1723921023080" duration="11252000" />
-      <workItem from="1723951398972" duration="18356000" />
     </task>
     <task id="LOCAL-00001" summary="user duplicated issue">
       <option name="closed" value="true" />
@@ -236,7 +237,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="user duplicated issue" />
-    <MESSAGE value="08/18 2:34&#10;pull을 받기위한 commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="08/18 2:34&#10;pull을 받기위한 commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="user duplicated issue" />
   </component>
 </project>

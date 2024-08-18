@@ -20,6 +20,7 @@ import Booking from "./booking/Booking";
 import BookingList from "./booking/BookingList";
 import LikeList2 from "./likelist/LikeList2";
 import Reviewlist from "./Reviewlist";
+import ReviewInsert from "./reviewinsert";
 import LocationList from "./hotel/LocationList";
 import UserProfile from "./user/UserProfile";
 

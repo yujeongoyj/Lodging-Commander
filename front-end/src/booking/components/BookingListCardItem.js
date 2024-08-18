@@ -28,8 +28,8 @@ const BookingListCardItem = ({ booking, onCancelBooking, userInfo }) => {
     }
 
     const goReview = () => {
-        // 은석님 리뷰 이동 버튼
-        navigate('', {state: {userData: userInfo}})
+        // 리뷰 페이지
+        navigate(`/review/insert`, { state: { hotelId: booking.hotelId, userData: userInfo } });
     };
 
     const goHotel = () => {
