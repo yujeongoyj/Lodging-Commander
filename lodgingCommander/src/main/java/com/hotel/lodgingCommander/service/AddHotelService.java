@@ -168,4 +168,23 @@ public class AddHotelService {
     }
 
 
+    @Transactional
+    public List<HotelDTO> getHotelsByUserId(Long userId) {
+        List<Hotel> hotels = hotelRepository.findByUserId(userId);
+        return hotels.stream()
+                .map(hotel -> new HotelDTO(
+                        hotel.getId(),
+                        hotel.getName(),
+                        userId,
+                        hotel.getAddress().getId(),
+                        hotel.getCategory().getId(),
+                        hotel.getTel(),
+                        hotel.getGrade(),
+                        hotel.getDetail()))
+                .collect(Collectors.toList());
+    }
+
+
+
+
 }

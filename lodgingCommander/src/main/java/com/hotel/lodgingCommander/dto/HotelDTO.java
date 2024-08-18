@@ -20,6 +20,5 @@ public class HotelDTO {
     private int grade;
     private String detail;
 
-    public HotelDTO(Hotel hotel) {
-    }
+
 }
