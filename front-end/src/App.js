@@ -4,7 +4,6 @@ import Auth from "./user/Auth";
 import Register from "./user/Register";
 import AuthFail from "./user/AuthFail";
 import Update from "./user/Update";
-import MyPage from "./user/MyPage";
 import Details from "./hotel/Details";
 import Cart from "./cart/Cart";
 import StartPage from "./home/StartPage";
@@ -20,7 +19,6 @@ import Booking from "./booking/Booking";
 import BookingList from "./booking/BookingList";
 import LikeList2 from "./likelist/LikeList2";
 import Reviewlist from "./Reviewlist";
-import ReviewInsert from "./reviewinsert";
 import LocationList from "./hotel/LocationList";
 import UserProfile from "./user/UserProfile";
 
@@ -32,8 +30,7 @@ function App() {
                 <Route path="/" element={<StartPage/>}/>
                 <Route path="/user/register" element={<Register/>}/>
                 <Route path="/user/update" element={<Update/>}/>
-                <Route path="/user/userProfile/*" element={<UserProfile />} />
-                <Route path="/user/checkUser" element={<MyPage/>}/>
+                <Route path="/user/userProfile/*" element={<UserProfile/>} />
                 <Route path="/user/authSuccess" element={<StartPage/>}/>
                 <Route path="/user/authFail" element={<AuthFail/>}/>
                 <Route path="/hotel/details/:id" element={<Details/>}/>
