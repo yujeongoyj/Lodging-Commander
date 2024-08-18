@@ -54,7 +54,6 @@ let Cart = () => {
         setSelectedRoom(isChecked ? room : null);
     };
 
-    // delete handler 오류
     let handleDelete = async (id) => {
         try {
             let resp = await axios.post('http://localhost:8080/cart/delete', {id},{

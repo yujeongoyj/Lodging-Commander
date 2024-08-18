@@ -11,7 +11,7 @@ public class RoomResponseDTO {
     private Long id;
     private String roomName;
     private int maxPeople;
-    private int price;
+    private Integer price;
     private String detail;
     private boolean reservable;
     private String imgPath;

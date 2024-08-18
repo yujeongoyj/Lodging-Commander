@@ -7,6 +7,7 @@ import HotelList from "../hotel/HotelList";
 import List from "./component/List";
 import Paging from "./component/Paging";
 import {useLocation} from "react-router-dom";
+import NewList from "./component/NewList";
 
 let StartPage = () => {
 
@@ -162,9 +163,28 @@ let StartPage = () => {
                     </Row>
                 </>
             ) : (
-                <Row>
-                    <List/>
-                </Row>
+                <Container className="mt-5">
+                    <Row className="text-center mb-4">
+                        <Col>
+                            <h1 className="display-4 font-weight-bold">NEW 호텔</h1>
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Col xs="auto">
+                           <NewList userInfo={userInfo}/>
+                        </Col>
+                    </Row>
+                    <Row className="text-center mb-4 mt-5">
+                        <Col>
+                            <h1 className="display-4 font-weight-bold">자주 가는 국내 호텔 지역</h1>
+                        </Col>
+                    </Row>
+                    <Row className="justify-content-center">
+                        <Col xs="auto">
+                            <List userInfo={userInfo} />
+                        </Col>
+                    </Row>
+                </Container>
             )}
         </Container>
     );

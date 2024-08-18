@@ -12,4 +12,6 @@ public class BookingListRequestDTO {
     private LocalDate checkOutDate;
     private int totalPrice;
     private int totalPeople;
+
+    private Long cartId; // test
 }

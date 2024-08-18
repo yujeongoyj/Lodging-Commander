@@ -33,13 +33,7 @@ const BookingListCardItem = ({ booking, onCancelBooking, userInfo }) => {
     };
 
     const goHotel = () => {
-        navigate(`/hotel/details/${booking.hotelId}`, {
-            state: {
-                userData: userInfo,
-                checkInDate: booking.checkInDate,
-                checkOutDate: booking.checkOutDate
-            }
-        });
+        navigate(`/hotel/details/${booking.hotelId}`, {state: {userData: userInfo,}});
     }
 
     return (

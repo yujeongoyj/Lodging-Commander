@@ -15,6 +15,7 @@
       <change beforePath="$PROJECT_DIR$/front-end/src/likelist/LikeList2.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/likelist/LikeList2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/reviewinsert.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/reviewinsert.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lodgingCommander/src/main/java/com/hotel/lodgingCommander/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/lodgingCommander.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/lodgingCommander.main.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,13 +43,12 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="lodgingCommander" type="f1a62948:ProjectNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="lodgingCommander" type="f1a62948:ProjectNode" />
                 <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
-                <item name="compileClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
               </path>
             </expand>
             <select />
@@ -82,6 +82,18 @@
   "selectedUrlAndAccountId": {
     "url": "https://github.com/yujeongoyj/Lodging-Commander",
     "accountId": "e4baf4c8-d678-4e5a-925f-776921fd43f5"
+  }
+}]]></component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "chenghaLim"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/yujeongoyj/Lodging-Commander.git",
+    "accountId": "06164244-5eed-4fa9-aea9-b86f9a4095bb"
   }
 }]]></component>
   <component name="KubernetesApiPersistence">{}</component>
@@ -197,7 +209,6 @@
       <workItem from="1723444692011" duration="2115000" />
       <workItem from="1723460821440" duration="909000" />
       <workItem from="1723509011164" duration="184000" />
-      <workItem from="1723873745456" duration="10147000" />
     </task>
     <task id="LOCAL-00001" summary="user duplicated issue">
       <option name="closed" value="true" />
