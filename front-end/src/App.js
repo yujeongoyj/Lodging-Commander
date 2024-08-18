@@ -3,7 +3,9 @@ import {Route, Routes} from "react-router-dom";
 import Auth from "./user/Auth";
 import Register from "./user/Register";
 import AuthFail from "./user/AuthFail";
+import Info from "./user/Info";
 import Update from "./user/Update";
+import Home from "./user/Home";
 import Details from "./hotel/Details";
 import Cart from "./cart/Cart";
 import StartPage from "./home/StartPage";
@@ -19,6 +21,7 @@ import Booking from "./booking/Booking";
 import BookingList from "./booking/BookingList";
 import LikeList2 from "./likelist/LikeList2";
 import Reviewlist from "./Reviewlist";
+import ReviewInsert from "./reviewinsert";
 import LocationList from "./hotel/LocationList";
 import UserProfile from "./user/UserProfile";
 
@@ -37,16 +40,17 @@ function App() {
                 <Route path="/cart" element={<Cart/>}/>
                 <Route path="/auth" element={<Auth/>}/>
 
-                {/*유정 컴포넌트 */}
-                    <Route path="/AddressForm" element={<AddressForm/>}/>
-                <Route path="/AddressForm2" element={<AddressForm2/>}/>
-                <Route path="/CategoryForm" element={<CategoryForm/>}/>
-                <Route path="/FacilityForm" element={<FacilityForm/>}/>
-                <Route path="/HotelForm" element={<HotelForm/>}/>
-                <Route path="/RoomForm" element={<RoomForm/>}/>
-                <Route path="/AddHotelSuccess" element={<AddHotelSuccess/>}/>
-                <Route path="/favorites" element={<LikeList2/>}/>
-                <Route path="/reviews" element={<Reviewlist/>}></Route>
+          {/*유정 컴포넌트 */}
+          <Route path="/AddressForm" element={<AddressForm/>}/>
+          <Route path="/AddressForm2" element={<AddressForm2/>}/>
+          <Route path="/CategoryForm" element={<CategoryForm/>}/>
+          <Route path="/FacilityForm" element={<FacilityForm/>}/>
+          <Route path="/HotelForm" element={<HotelForm/>}/>
+          <Route path="/RoomForm" element={<RoomForm/>}/>
+          <Route path="/AddHotelSuccess" element={<AddHotelSuccess/>}/>
+          <Route path="/favorites" element={<LikeList2 />} />
+          <Route path="/reviews" element={<Reviewlist/>}></Route>
+          <Route path="/review/insert" element={<ReviewInsert />} />
 
                 {/*상민 컴포넌트*/}
                 <Route path="/booking/:id" element={<Booking/>}/>

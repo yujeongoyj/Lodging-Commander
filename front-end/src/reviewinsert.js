@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import {Form, Button, Alert, NavDropdown} from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const ReviewInsert = () => {
     const { state } = useLocation();
     const { hotelId, userData } = state || {};
+    const navigate = useNavigate();
 
     const [rating, setRating] = useState('');
     const [comment, setComment] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-
-    const navigate = useNavigate();
 
     const changePage = (pageName) => {
         navigate('/' + pageName, { state: { userData: userData } });
@@ -28,18 +28,18 @@ const ReviewInsert = () => {
         try {
             const response = await axios.post(`http://localhost:8080/review/add`, {
                 hotelId,
-                userId: userData?.id,  // 유저 ID를 서버에 전달
+                userId: userData.id, // userId가 필요할 경우 추가
                 rating,
-                content: comment  // 여기를 수정해서 content로 보내도록 변경
+                content: comment
             }, {
                 withCredentials: true
             });
 
-            if (response.data.result === 'success') {
-                // 성공 시 이전 페이지로 리다이렉트하면서 성공 메시지를 전달
-                changePage('reviews')
+            if (response.status === 201) { // 서버에서 201 Created로 응답하는 경우
+                setSuccessMessage('리뷰가 성공적으로 제출되었습니다!');
+                changePage('reviews');
             } else {
-                setErrorMessage('리뷰 제출 실패');
+                throw new Error('리뷰 제출 실패');
             }
         } catch (error) {
             setErrorMessage('리뷰 제출 중 오류가 발생했습니다.');
@@ -50,6 +50,7 @@ const ReviewInsert = () => {
     return (
         <div className="container mt-4">
             <h2>리뷰 작성</h2>
+            {successMessage && <Alert variant="success">{successMessage}</Alert>}
             {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="rating">
