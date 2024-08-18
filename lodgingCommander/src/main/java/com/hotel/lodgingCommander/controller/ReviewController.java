@@ -1,8 +1,8 @@
 package com.hotel.lodgingCommander.controller;
-
 import com.hotel.lodgingCommander.model.ReviewDTO;
 import com.hotel.lodgingCommander.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,22 +19,26 @@ public class ReviewController {
     private ReviewService REVIEW_SERVICE;
 
     @PostMapping("/add")
-    public Map<String, Object> addReview(@RequestBody ReviewDTO reviewDTO) {
+    public ResponseEntity<Map<String, Object>> addReview(@RequestBody ReviewDTO reviewDTO) {
         Map<String, Object> resultMap = new HashMap<>();
         try {
-            REVIEW_SERVICE.createReview(reviewDTO);
-            resultMap.put("userId", reviewDTO.getUserId());
-            resultMap.put("hotelId", reviewDTO.getHotelId());
-            resultMap.put("content", reviewDTO.getContent());
-            resultMap.put("rating", reviewDTO.getRating());
-            resultMap.put("result", "success");
-        } catch (Exception e) {
-            e.printStackTrace();
-            resultMap.put("result", "fail");
-        }
-        return resultMap;
-    }
+            // 리뷰 생성 서비스 호출
+            ReviewDTO createdReview = REVIEW_SERVICE.createReview(reviewDTO);
 
+            // 성공적인 응답 생성
+            resultMap.put("userId", createdReview.getUserId());
+            resultMap.put("hotelId", createdReview.getHotelId());
+            resultMap.put("content", createdReview.getContent());
+            resultMap.put("rating", createdReview.getRating());
+            resultMap.put("result", "success");
+            return new ResponseEntity<>(resultMap, HttpStatus.CREATED); // 201 Created 상태 코드 반환
+        } catch (Exception e) {
+            // 예외 발생 시 로그 기록
+            resultMap.put("result", "fail");
+            resultMap.put("message", "리뷰 제출 중 오류가 발생했습니다."); // 사용자에게 에러 메시지 제공
+            return new ResponseEntity<>(resultMap, HttpStatus.INTERNAL_SERVER_ERROR); // 500 Internal Server Error 상태 코드 반환
+        }
+    }
     //userid받아서 리뷰 확인
     @GetMapping("/user/{userId}")
     public ResponseEntity<Map<String, Object>> findReviewsByUserId(@PathVariable Long userId) {

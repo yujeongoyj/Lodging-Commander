@@ -49,6 +49,7 @@ function App() {
           <Route path="/AddHotelSuccess" element={<AddHotelSuccess/>}/>
           <Route path="/favorites" element={<LikeList2 />} />
           <Route path="/reviews" element={<Reviewlist/>}></Route>
+          <Route path="/review/insert" element={<ReviewInsert />} />
 
           {/*상민 컴포넌트*/}
           <Route path="/booking/:id" element={<Booking/>}/>
