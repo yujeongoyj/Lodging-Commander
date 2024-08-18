@@ -1,6 +1,7 @@
 package com.hotel.lodgingCommander.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 
 @Data

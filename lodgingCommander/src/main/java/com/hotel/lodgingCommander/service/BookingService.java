@@ -6,7 +6,6 @@ import com.hotel.lodgingCommander.entity.BookingList;
 import com.hotel.lodgingCommander.entity.Room;
 import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.repository.BookingListRepository;
-import com.hotel.lodgingCommander.repository.CartRepository;
 import com.hotel.lodgingCommander.repository.RoomRepository;
 import com.hotel.lodgingCommander.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
