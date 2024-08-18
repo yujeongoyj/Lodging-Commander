@@ -5,7 +5,6 @@ import Register from "./user/Register";
 import AuthFail from "./user/AuthFail";
 import Info from "./user/Info";
 import Update from "./user/Update";
-import Home from "./user/Home";
 import Details from "./hotel/Details";
 import Cart from "./cart/Cart";
 import StartPage from "./home/StartPage";
