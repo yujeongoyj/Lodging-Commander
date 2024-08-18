@@ -1,5 +1,5 @@
     package com.hotel.lodgingCommander.controller;
-    
+
     import com.hotel.lodgingCommander.dto.user.UserDTO;
     import com.hotel.lodgingCommander.entity.User;
     import com.hotel.lodgingCommander.service.UserService;
@@ -9,7 +9,7 @@
     import org.springframework.security.core.Authentication;
     import org.springframework.security.core.context.SecurityContextHolder;
     import org.springframework.web.bind.annotation.*;
-    
+
     import java.util.HashMap;
     import java.util.Map;
     import java.util.Optional;
