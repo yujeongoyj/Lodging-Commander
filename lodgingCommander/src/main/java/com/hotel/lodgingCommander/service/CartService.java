@@ -1,8 +1,15 @@
 package com.hotel.lodgingCommander.service;
 
+import com.hotel.lodgingCommander.dto.cart.CartRequestDTO;
 import com.hotel.lodgingCommander.dto.cart.CartResponseDTO;
+import com.hotel.lodgingCommander.entity.Cart;
+import com.hotel.lodgingCommander.entity.Room;
+import com.hotel.lodgingCommander.entity.User;
 import com.hotel.lodgingCommander.repository.CartRepository;
 import com.hotel.lodgingCommander.repository.ReviewRepository;
+import com.hotel.lodgingCommander.repository.RoomRepository;
+import com.hotel.lodgingCommander.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +22,9 @@ import java.util.stream.Collectors;
 public class CartService {
     private CartRepository cartRepository;
     private ReviewRepository reviewRepository;
+
+    private RoomRepository roomRepository;
+    private UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public List<CartResponseDTO> getCartsByUserId(Long userId) {
@@ -39,13 +49,31 @@ public class CartService {
         dto.setUserGrade((String) result[9]);         // u.grade AS userGrade
         dto.setIsAvailable(((Number) result[10]).intValue() == 1); // isAvailable
 
+        dto.setRoomId(((Number) result[11]).longValue()); // r.id AS roomId
+
         dto.setReviewCount(reviewRepository.countByHotel_Id(dto.getHotelId()));
         return dto;
     }
 
-
     @Transactional
     public void delete(Long id) {
         cartRepository.deleteById(id);
+        // 해당 기능으로 카트에 담긴 cart 대상이 결제되고 난 뒤(booking) 성공적으로 결제가 된 뒤에 cartId 를 통해 해당 메서드 또는 리포지토리로 삭제해주기
+    }
+
+    @Transactional
+    public void insert(CartRequestDTO requestDTO) {
+        User user = userRepository.findById(requestDTO.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("User Not Found"));
+        Room room = roomRepository.findById(requestDTO.getRoomId())
+                .orElseThrow(() -> new EntityNotFoundException("Room Not Found"));
+        Cart cartEntity = Cart.builder()
+                .id(requestDTO.getId())
+                .checkInDate(requestDTO.getCheckInDate())
+                .checkOutDate(requestDTO.getCheckOutDate())
+                .room(room)
+                .user(user)
+                .build();
+        cartRepository.save(cartEntity);
     }
 }

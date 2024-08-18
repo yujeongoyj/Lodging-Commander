@@ -2,6 +2,7 @@ import React from 'react';
 import {Col, Container, Row} from 'react-bootstrap';
 import SelectSize from '../home/component/SelectSize';
 import Hotels from './components/Hotels';
+import KakaoMapSearch from "./components/KakaoMapSearch";
 
 let HotelList = ({
                        filteredHotels = [],
@@ -28,7 +29,6 @@ let HotelList = ({
                     <Row className="justify-content-center align-items-center min-vh-100">
                         <Col className="text-center">
                             <h1>검색 결과가 없습니다.</h1>
-                            <h3>조건을 다시 설정해 주세요.</h3>
                         </Col>
                     </Row>
                 )}

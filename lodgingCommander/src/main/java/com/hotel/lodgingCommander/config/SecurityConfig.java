@@ -31,6 +31,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers("/user/**").permitAll()
 //                                .requestMatchers("/logIn").permitAll()
+                                .requestMatchers("/hotel/**").permitAll()
                                 .requestMatchers("/hotel/search").permitAll()
                                 .requestMatchers("/rooms").permitAll()
                                 .requestMatchers("/static/*").permitAll()
@@ -38,6 +39,10 @@ public class SecurityConfig {
                                 .requestMatchers("/uploads/**").permitAll()
                                 .requestMatchers("/hotel/details/*").permitAll()
                                 .requestMatchers("/sample.jpg").permitAll()
+                                .requestMatchers("/booking/cancel/**").permitAll()
+                                .requestMatchers("/hotel/details/**").permitAll()
+                                .requestMatchers("/likelist/**").permitAll()
+                                .requestMatchers("/review/**").permitAll()
                                 .anyRequest().authenticated())
                 .formLogin((form) ->
                         form

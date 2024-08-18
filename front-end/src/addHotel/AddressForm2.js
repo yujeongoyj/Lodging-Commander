@@ -9,8 +9,8 @@ const AddressForm2 = () => {
     const [addressDetail, setAddressDetail] = useState('');
     const [postCode, setPostCode] = useState('');
     const [extraAddress, setExtraAddress] = useState('');
-    const [latitude, setLatitude] = useState(null); // 초기값을 null로 설정
-    const [longitude, setLongitude] = useState(null); // 초기값을 null로 설정
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
     const [error, setError] = useState('');
 
     const navigate = useNavigate();

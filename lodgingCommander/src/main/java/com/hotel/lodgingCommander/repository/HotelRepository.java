@@ -1,6 +1,7 @@
 package com.hotel.lodgingCommander.repository;
 
 import com.hotel.lodgingCommander.entity.Hotel;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
     Optional<Hotel> findById(Long id);
+
     @Transactional
     @Query(value = """
             SELECT DISTINCT h, c.name
@@ -82,4 +84,10 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
             @Param("guests") int guests,
             @Param("rooms") int rooms
     );
+
+    @Query("SELECT h FROM Hotel h INNER JOIN Address a ON h.address.id = a.id WHERE a.address LIKE :location%")
+    List<Hotel> findByLocation(@Param("location") String location);
+
+    @Query("SELECT h FROM Hotel h ORDER BY h.id DESC")
+    List<Hotel> findByRecentlyList(Pageable pageable);
 }
