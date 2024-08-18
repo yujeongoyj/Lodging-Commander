@@ -1,7 +1,6 @@
 package com.hotel.lodgingCommander.service;
 import com.hotel.lodgingCommander.dto.user.UserDTO;
 import com.hotel.lodgingCommander.entity.User;
-import com.hotel.lodgingCommander.entity.enums.UserGrade;
 import com.hotel.lodgingCommander.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -62,49 +61,14 @@ public class UserService {
         return new UserDTO(user.orElse(null));
     }
 
-    public UserGrade calculateUserGrade(int stayCount) {
-        if (stayCount >= VIP_THRESHOLD) {
-            return UserGrade.VIP;
-        } else if (stayCount >= GOLD_THRESHOLD) {
-            return UserGrade.GOLD;
-        } else if (stayCount >= SILVER_THRESHOLD) {
-            return UserGrade.SILVER;
-        } else {
-            return UserGrade.SILVER;
-        }
-    }
-
-    public int calculateRemainingPoints(int stayCount) {
-        if (stayCount < SILVER_THRESHOLD) {
-            return SILVER_THRESHOLD - stayCount;
-        } else if (stayCount < GOLD_THRESHOLD) {
-            return GOLD_THRESHOLD - stayCount;
-        } else if (stayCount < VIP_THRESHOLD) {
-            return VIP_THRESHOLD - stayCount;
-        } else {
-            return 0;
-        }
-    }
-
-    public void updateUserStayCount(String email) {
-        Optional<User> userOptional = USER_REPOSITORY.findByEmail(email);
-
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-
-            //  user.setStayCount(user.getStayCount() + 1);
-            //  UserGrade newGrade = calculateUserGrade(user.getStayCount());
-            //  user.setGrade(String.valueOf(newGrade));
-
-            USER_REPOSITORY.save(user);
-        } else {
-            throw new RuntimeException("User not found with email: " + email);
-        }
-    }
-
 
     public User getUserById(Long userId) {
         return USER_REPOSITORY.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
     }
+
+    public boolean emailExists(String email) {
+        return USER_REPOSITORY.existsByEmail(email);
+    }
+
 }
