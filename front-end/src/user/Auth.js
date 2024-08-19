@@ -37,7 +37,7 @@ let Auth = () => {
             })
 
             if (response.data.result === 'success') {
-                navigate('/user/authSuccess', {state: {userData: response.data}});
+                navigate('/', {state: {userData: response.data}});
             } else {
                 navigate('/user/authFail');
             }

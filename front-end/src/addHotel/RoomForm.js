@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Container, Form, Button, Row, Col } from 'react-bootstrap';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {Button, Col, Container, Form, Row} from 'react-bootstrap';
 
 const RoomForm = () => {
-    const [rooms, setRooms] = useState([{ name: '', price: 0, detail: '', maxPeople: 1, quantity:1, imgId: null }]);
+    const [rooms, setRooms] = useState([{name: '', price: 0, detail: '', maxPeople: 1, quantity: 1, imgId: null}]);
     const [hotelId, setHotelId] = useState(null);
     const [addressId, setAddressId] = useState(null);
     const [categoryId, setCategoryId] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
-    let userInfo = location.state?.userData
-
+    const userInfo = location.state?.userData?.userInfo || null;
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const addressIdFromParams = queryParams.get('addressId');
@@ -59,7 +58,7 @@ const RoomForm = () => {
     };
 
     const addRoomForm = () => {
-        setRooms([...rooms, { name: '', price: 0, detail: '', maxPeople: 1, quantity:1 ,  imgId: null }]);
+        setRooms([...rooms, {name: '', price: 0, detail: '', maxPeople: 1, quantity: 1, imgId: null}]);
     };
 
     const removeRoomForm = (index) => {
@@ -83,10 +82,10 @@ const RoomForm = () => {
                     formData.append('imgId', rooms[i].imgId);
                 }
 
-                await axios.post('http://localhost:8080/properties/room', formData,{ withCredentials: true});
+                await axios.post('http://localhost:8080/properties/room', formData, {withCredentials: true});
             }
 
-            navigate(`/FacilityForm?addressId=${addressId}&categoryId=${categoryId}&hotelId=${hotelId}`,{state : {userData:userInfo}});
+            navigate(`/FacilityForm?addressId=${addressId}&categoryId=${categoryId}&hotelId=${hotelId}`, {state: {userData: userInfo}});
         } catch (error) {
             console.error('Error saving rooms', error);
         }
@@ -95,90 +94,94 @@ const RoomForm = () => {
 
     return (
         <Container className="mt-4">
-            <h4>4/5 단계</h4>
-            <h3>객실 정보 등록</h3>
-            <Form onSubmit={handleSubmit} style={{'margin-top':'5%'}}>
-                {rooms.map((room, index) => (
-                    <div key={index} className="mb-3 p-3 border rounded">
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={2}>객실 이름</Form.Label>
-                            <Col sm={10}>
-                                <Form.Control
-                                    type="text"
-                                    value={room.name}
-                                    onChange={(e) => handleRoomChange(index, 'name', e.target.value)}
-                                    placeholder="객실 이름"
-                                    required
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={2}>가격</Form.Label>
-                            <Col sm={10}>
-                                <Form.Control
-                                    type="number"
-                                    value={room.price}
-                                    onChange={(e) => handleRoomChange(index, 'price', Number(e.target.value))}
-                                    placeholder="가격"
-                                    required
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={2}>상세정보</Form.Label>
-                            <Col sm={10}>
-                                <Form.Control
-                                    as="textarea"
-                                    value={room.detail}
-                                    onChange={(e) => handleRoomChange(index, 'detail', e.target.value)}
-                                    placeholder="상세정보"
-                                    required
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={2}>최대 인원</Form.Label>
-                            <Col sm={10}>
-                                <Form.Control
-                                    type="number"
-                                    value={room.maxPeople}
-                                    onChange={(e) => handleRoomChange(index, 'maxPeople', Number(e.target.value))}
-                                    placeholder="최대 인원"
-                                    required
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={2}>방 수량</Form.Label>
-                            <Col sm={10}>
-                                <Form.Control
-                                    type="number"
-                                    value={room.quantity}
-                                    onChange={(e) => handleRoomChange(index, 'quantity', Number(e.target.value))}
-                                    placeholder="방 수량"
-                                    required
+            {userInfo ? (
+                <>
+                    <h4>4/5 단계</h4>
+                    <h3>객실 정보 등록</h3>
+                    <Form onSubmit={handleSubmit} style={{'margin-top': '5%'}}>
+                        {rooms.map((room, index) => (
+                            <div key={index} className="mb-3 p-3 border rounded">
+                                <Form.Group as={Row} className="mb-3">
+                                    <Form.Label column sm={2}>객실 이름</Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control
+                                            type="text"
+                                            value={room.name}
+                                            onChange={(e) => handleRoomChange(index, 'name', e.target.value)}
+                                            placeholder="객실 이름"
+                                            required
+                                        />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} className="mb-3">
+                                    <Form.Label column sm={2}>가격</Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control
+                                            type="number"
+                                            value={room.price}
+                                            onChange={(e) => handleRoomChange(index, 'price', Number(e.target.value))}
+                                            placeholder="가격"
+                                            required
+                                        />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} className="mb-3">
+                                    <Form.Label column sm={2}>상세정보</Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control
+                                            as="textarea"
+                                            value={room.detail}
+                                            onChange={(e) => handleRoomChange(index, 'detail', e.target.value)}
+                                            placeholder="상세정보"
+                                            required
+                                        />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} className="mb-3">
+                                    <Form.Label column sm={2}>최대 인원</Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control
+                                            type="number"
+                                            value={room.maxPeople}
+                                            onChange={(e) => handleRoomChange(index, 'maxPeople', Number(e.target.value))}
+                                            placeholder="최대 인원"
+                                            required
+                                        />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} className="mb-3">
+                                    <Form.Label column sm={2}>방 수량</Form.Label>
+                                    <Col sm={10}>
+                                        <Form.Control
+                                            type="number"
+                                            value={room.quantity}
+                                            onChange={(e) => handleRoomChange(index, 'quantity', Number(e.target.value))}
+                                            placeholder="방 수량"
+                                            required
 
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm={2}>이미지 업로드</Form.Label>
-                            <Col sm={10}>
-                                <input
-                                    type="file"
-                                    onChange={(e) => handleImageChange(index, e)}
-                                    accept="image/*"
-                                />
-                            </Col>
-                        </Form.Group>
-                        <Button variant="danger" onClick={() => removeRoomForm(index)}>삭제</Button>
-                    </div>
-                ))}
-                <div className="d-flex justify-content-between mt-3">
-                    <Button variant="secondary" onClick={addRoomForm}>객실 추가</Button>
-                    <Button variant="primary" type="submit">다음 단계로</Button>
-                </div>
-            </Form>
+                                        />
+                                    </Col>
+                                </Form.Group>
+                                <Form.Group as={Row} className="mb-3">
+                                    <Form.Label column sm={2}>이미지 업로드</Form.Label>
+                                    <Col sm={10}>
+                                        <input
+                                            type="file"
+                                            onChange={(e) => handleImageChange(index, e)}
+                                            accept="image/*"
+                                        />
+                                    </Col>
+                                </Form.Group>
+                                <Button variant="danger" onClick={() => removeRoomForm(index)}>삭제</Button>
+                            </div>
+                        ))}
+                        <div className="d-flex justify-content-between mt-3">
+                            <Button variant="secondary" onClick={addRoomForm}>객실 추가</Button>
+                            <Button variant="primary" type="submit">다음 단계로</Button>
+                        </div>
+                    </Form>
+                </>
+            ) : (<h1 className='text-center'>LOGIN이 필요합니다.</h1>)}
         </Container>
     );
 };

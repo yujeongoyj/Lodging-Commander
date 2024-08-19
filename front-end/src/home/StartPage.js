@@ -12,7 +12,7 @@ import NewList from "./component/NewList";
 let StartPage = () => {
 
     let location = useLocation()
-    const userInfo = location.state?.userData || null;
+    const userInfo = location.state?.userData?.userInfo || null;
 
     let [searchLocation, setSearchLocation] = useState('');
     let [searchResults, setSearchResults] = useState({searchList: []});

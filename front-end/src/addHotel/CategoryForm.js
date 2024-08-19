@@ -10,7 +10,7 @@ const CategoryForm = () => {
     const [addressId, setAddressId] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
-    let userInfo = location.state?.userData;
+    const userInfo = location.state?.userData?.userInfo || null;
 
     useEffect(() => {
 
@@ -64,33 +64,38 @@ const CategoryForm = () => {
 
     return (
         <Container className="mt-4">
-            <h4>2/5 단계</h4>
-            <h2>기본 정보 등록부터 시작해 보겠습니다</h2>
-            <Form onSubmit={handleSubmit} style={{ marginTop: '5%' }}>
-                <Form.Group as={Row} className="mb-3" controlId="formCategory">
-                    <Form.Label column sm={2}>숙박시설 종류 선택</Form.Label>
-                    <Col sm={10}>
-                        <Form.Control
-                            as="select"
-                            value={selectedCategoryId}
-                            onChange={handleCategoryChange}
-                            disabled={newCategoryName !== ''}
-                        >
-                            <option value="">카테고리를 선택하세요</option>
-                            {categories.map(category => (
-                                <option key={category.id} value={category.id}>
-                                    {category.name}
-                                </option>
-                            ))}
-                        </Form.Control>
-                    </Col>
-                </Form.Group>
+            {userInfo ? (
+                <>
+                    <h4>2/5 단계</h4>
+                    <h2>기본 정보 등록부터 시작해 보겠습니다</h2>
+                    <Form onSubmit={handleSubmit} style={{marginTop: '5%'}}>
+                        <Form.Group as={Row} className="mb-3" controlId="formCategory">
+                            <Form.Label column sm={2}>숙박시설 종류 선택</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    as="select"
+                                    value={selectedCategoryId}
+                                    onChange={handleCategoryChange}
+                                    disabled={newCategoryName !== ''}
+                                >
+                                    <option value="">카테고리를 선택하세요</option>
+                                    {categories.map(category => (
+                                        <option key={category.id} value={category.id}>
+                                            {category.name}
+                                        </option>
+                                    ))}
+                                </Form.Control>
+                            </Col>
+                        </Form.Group>
 
 
-                <Button variant="primary" type="submit">
-                    다음
-                </Button>
-            </Form>
+                        <Button variant="primary" type="submit">
+                            다음
+                        </Button>
+                    </Form>
+                </>
+            ) : (<h1 className='text-center'>LOGIN이 필요합니다.</h1>)}
+
         </Container>
     );
 };

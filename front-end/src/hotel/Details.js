@@ -15,7 +15,7 @@ const Details = () => {
         return nextDay.toISOString().split('T')[0];
     };
     const location = useLocation();
-    const userInfo = location.state?.userData || null;
+    const userInfo = location.state?.userData?.userInfo || null;
     const initialCheckInDate = location.state?.checkInDate || getTodayDate();
     const initialCheckOutDate = location.state?.checkOutDate || getNextDate(getTodayDate());
 

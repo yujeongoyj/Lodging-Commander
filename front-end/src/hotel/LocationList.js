@@ -9,7 +9,9 @@ let LocationList = () => {
     let { hotelLocation } = useParams();
     const currentLocation = decodeURIComponent(hotelLocation);
     const location = useLocation();
-    const userInfo = location.state?.userData || null;
+
+    const userInfo = location.state?.userData?.userInfo || null;
+
     let [hotels, setHotels] = useState([]); // 초기값을 배열로 설정
     const [checkInDate, setCheckInDate] = useState(getTodayDate());
     const [checkOutDate, setCheckOutDate] = useState(getNextDate(getTodayDate()));

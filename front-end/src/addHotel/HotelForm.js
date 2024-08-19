@@ -12,8 +12,7 @@ const HotelForm = () => {
     const [categoryId, setCategoryId] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
-    let userInfo = location.state?.userData
-
+    const userInfo = location.state?.userData?.userInfo || null;
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -60,60 +59,66 @@ const HotelForm = () => {
 
     return (
         <Container className="mt-4">
-            <h4>3/5 단계</h4>
-            <h2>기본 정보 등록부터 시작해 보겠습니다</h2>
-            <Form onSubmit={handleSubmit} style={{'margin-top':'5%'}}>
-                <Form.Group as={Row} className="mb-3" controlId="formAddress">
-                    <Form.Label column sm={2}>숙소 이름</Form.Label>
-                    <Col sm={10}>
-                        <Form.Control
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="Hotel Name"
-                            required
-                        />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formAddress">
-                    <Form.Label column sm={2}>숙소 번호</Form.Label>
-                    <Col sm={10}>
-                        <Form.Control
-                            type="text"
-                            value={tel}
-                            onChange={(e) => setTel(e.target.value)}
-                            placeholder="Telephone"
-                            required
-                        />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formAddress">
-                    <Form.Label column sm={2}>등급</Form.Label>
-                    <Col sm={10}>
-                        <Form.Control
-                            type="number"
-                            value={grade}
-                            onChange={(e) => setGrade(Number(e.target.value))}
-                            placeholder="Grade"
-                            required
-                        />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formAddress">
-                    <Form.Label column sm={2}>상세 정보</Form.Label>
-                    <Col sm={10}>
-                        <Form.Control
-                            value={detail}
-                            onChange={(e) => setDetail(e.target.value)}
-                            placeholder="Details"
-                            required
-                        />
-                    </Col>
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    다음
-                </Button>
-            </Form>
+            {userInfo ? (
+                <>
+                    <h4>3/5 단계</h4>
+                    <h2>기본 정보 등록부터 시작해 보겠습니다</h2>
+                    <Form onSubmit={handleSubmit} style={{'margin-top': '5%'}}>
+                        <Form.Group as={Row} className="mb-3" controlId="formAddress">
+                            <Form.Label column sm={2}>숙소 이름</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    placeholder="Hotel Name"
+                                    required
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3" controlId="formAddress">
+                            <Form.Label column sm={2}>숙소 번호</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="text"
+                                    value={tel}
+                                    onChange={(e) => setTel(e.target.value)}
+                                    placeholder="Telephone"
+                                    required
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3" controlId="formAddress">
+                            <Form.Label column sm={2}>등급</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="number"
+                                    value={grade}
+                                    min={1}
+                                    max={5}
+                                    onChange={(e) => setGrade(Number(e.target.value))}
+                                    placeholder="Grade"
+                                    required
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3" controlId="formAddress">
+                            <Form.Label column sm={2}>상세 정보</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    value={detail}
+                                    onChange={(e) => setDetail(e.target.value)}
+                                    placeholder="Details"
+                                    required
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Button variant="primary" type="submit">
+                            다음
+                        </Button>
+                    </Form>
+                </>
+            ) : (<h1 className='text-center'>LOGIN이 필요합니다.</h1>)}
         </Container>
     );
 };

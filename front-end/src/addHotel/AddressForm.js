@@ -14,7 +14,7 @@ const AddressForm = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const userInfo = location.state?.userData;
+    const userInfo = location.state?.userData?.userInfo || null;
 
     useEffect(() => {
         const loadDaumPostcodeScript = () => {
@@ -170,48 +170,50 @@ const AddressForm = () => {
 
     return (
         <Container className="mt-4">
-            <h4>1/5 단계</h4>
-            <h2>기본 정보 등록부터 시작해 보겠습니다</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit} style={{ marginTop: '5%' }}>
-                <Form.Group as={Row} className="mb-3" controlId="formPostCode">
-                    <Form.Label column sm={2}>우편번호</Form.Label>
-                    <Col sm={10}>
-                        <Form.Control
-                            type="text"
-                            value={postCode}
-                            placeholder="우편번호"
-                            readOnly
-                        />
-                        <Button variant="primary" type="button" onClick={handlePostcodeSearch} className="mt-2">
-                            우편번호 찾기
-                        </Button>
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="formAddress">
-                    <Form.Label column sm={2}>주소</Form.Label>
-                    <Col sm={10}>
-                        <Form.Control
-                            type="text"
-                            value={address}
-                            placeholder="주소"
-                            readOnly
-                        />
-                    </Col>
-                </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="addressDetail">
-                    <Form.Label column sm={2}>상세 주소</Form.Label>
-                    <Col sm={10}>
-                        <Form.Control
-                            type="text"
-                            value={addressDetail}
-                            onChange={(e) => setAddressDetail(e.target.value)}
-                            placeholder="상세 주소"
-                            required
-                        />
-                    </Col>
-                </Form.Group>
-  {/*              <Form.Group as={Row} className="mb-3" controlId="formExtraAddress">
+            {userInfo ? (
+                <>
+                    <h4>1/5 단계</h4>
+                    <h2>기본 정보 등록부터 시작해 보겠습니다</h2>
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <Form onSubmit={handleSubmit} style={{marginTop: '5%'}}>
+                        <Form.Group as={Row} className="mb-3" controlId="formPostCode">
+                            <Form.Label column sm={2}>우편번호</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="text"
+                                    value={postCode}
+                                    placeholder="우편번호"
+                                    readOnly
+                                />
+                                <Button variant="primary" type="button" onClick={handlePostcodeSearch} className="mt-2">
+                                    우편번호 찾기
+                                </Button>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3" controlId="formAddress">
+                            <Form.Label column sm={2}>주소</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="text"
+                                    value={address}
+                                    placeholder="주소"
+                                    readOnly
+                                />
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3" controlId="addressDetail">
+                            <Form.Label column sm={2}>상세 주소</Form.Label>
+                            <Col sm={10}>
+                                <Form.Control
+                                    type="text"
+                                    value={addressDetail}
+                                    onChange={(e) => setAddressDetail(e.target.value)}
+                                    placeholder="상세 주소"
+                                    required
+                                />
+                            </Col>
+                        </Form.Group>
+                        {/*              <Form.Group as={Row} className="mb-3" controlId="formExtraAddress">
                     <Form.Label column sm={2}>참고항목</Form.Label>
                     <Col sm={10}>
                         <Form.Control
@@ -222,10 +224,14 @@ const AddressForm = () => {
                         />
                     </Col>
                 </Form.Group>*/}
-                <Button variant="primary" type="submit">
-                    다음
-                </Button>
-            </Form>
+                        <Button variant="primary" type="submit">
+                            다음
+                        </Button>
+                    </Form>
+                </>
+            ) : (
+                <h1 className='text-center'>LOGIN이 필요합니다.</h1>
+            )}
         </Container>
     );
 };

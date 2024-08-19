@@ -9,7 +9,7 @@ import * as calculate from '../js/calculate';
 
 let Cart = () => {
     let location = useLocation();
-    let userInfo = location.state?.userData;
+    const userInfo = location.state?.userData?.userInfo || null;
     let [cartList, setCartList] = useState({cartList: []});
     let [selectedRoom, setSelectedRoom] = useState(null);
     let [totalDiscountedPrice, setTotalDiscountedPrice] = useState(0);

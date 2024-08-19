@@ -25,7 +25,7 @@ const FacilityForm = () => {
     const [hotelId, setHotelId] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
-    let userInfo = location.state?.userData
+    const userInfo = location.state?.userData?.userInfo || null;
 
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
@@ -56,27 +56,31 @@ const FacilityForm = () => {
 
     return (
         <Container className="mt-4">
-            <h4>5/5 단계</h4>
-            <h2>편의시설</h2>
-            <Form onSubmit={handleSubmit} style={{'margin-top':'5%'}}>
-                <Row>
-                    {Object.keys(facilities).map((facility) => (
-                        <Col md={6} lg={4} key={facility} className="mb-3">
-                            <Form.Check
-                                type="checkbox"
-                                id={facility}
-                                label={facility.split(/(?=[A-Z])/).join(' ')}
-                                name={facility}
-                                checked={facilities[facility]}
-                                onChange={handleChange}
-                            />
-                        </Col>
-                    ))}
-                </Row>
-                <div className="d-flex justify-content-end mt-3">
-                    <Button variant="primary" type="submit">제출</Button>
-                </div>
-            </Form>
+            {userInfo ? (
+                <>
+                    <h4>5/5 단계</h4>
+                    <h2>편의시설</h2>
+                    <Form onSubmit={handleSubmit} style={{'margin-top': '5%'}}>
+                        <Row>
+                            {Object.keys(facilities).map((facility) => (
+                                <Col md={6} lg={4} key={facility} className="mb-3">
+                                    <Form.Check
+                                        type="checkbox"
+                                        id={facility}
+                                        label={facility.split(/(?=[A-Z])/).join(' ')}
+                                        name={facility}
+                                        checked={facilities[facility]}
+                                        onChange={handleChange}
+                                    />
+                                </Col>
+                            ))}
+                        </Row>
+                        <div className="d-flex justify-content-end mt-3">
+                            <Button variant="primary" type="submit">제출</Button>
+                        </div>
+                    </Form>
+                </>
+            ) : (<h1 className='text-center'>LOGIN이 필요합니다.</h1>)}
         </Container>
     );
 };

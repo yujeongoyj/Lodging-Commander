@@ -27,7 +27,6 @@ let HotelSlice = ({ hotel, checkInDate, checkOutDate, userInfo, onLikeChange }) 
             navigate('/Auth');
         }
     };
-    console.log(userInfo.id,hotel.id)
     return (
         <Container>
             <Card className="mb-4 position-relative">
