@@ -7,7 +7,7 @@ const Header = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const userInfo = location.state?.userData || null;
+    const userInfo = location.state.userData?.userInfo ? location.state.userData : null;
     console.log("location", location.state);
 
     const changePage = (pageName) => {
@@ -32,7 +32,8 @@ const Header = () => {
         <Container className='mb-3 mt-3'>
             <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand onClick={() => navigate('/', {state: {userData: userInfo}})} style={{cursor: 'pointer'}}>
+                    <Navbar.Brand onClick={() => navigate('/', {state: {userData: userInfo}})}
+                                  style={{cursor: 'pointer'}}>
                         <Image src='http://localhost:8080/log.png' alt="Logo" fluid
                                style={{width: '150px', height: 'auto'}}/>
                     </Navbar.Brand>
