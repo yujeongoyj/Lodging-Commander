@@ -5,7 +5,7 @@ import { Button, ListGroup, Spinner, Alert, FloatingLabel, Form, Col, Row } from
 
 const LikeList2 = () => {
     const location = useLocation();
-    const userInfo = location.state?.userData?.userInfo || null;
+    const userInfo = location.state?.userData || null;
 
     const [favorites, setFavorites] = useState([]);
     const [hotelNames, setHotelNames] = useState({});

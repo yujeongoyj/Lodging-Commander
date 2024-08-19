@@ -64,7 +64,7 @@ let Auth = () => {
                     withCredentials: true
                 })
                 if (response.data) {
-                    navigate('/user/authSuccess', {state: {userData: response.data}})
+                    navigate('/', {state: {userData: response.data}})
                 }
             } catch (error) {
                 console.log('Not authenticated')

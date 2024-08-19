@@ -10,7 +10,7 @@ const CategoryForm = () => {
     const [addressId, setAddressId] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
-    const userInfo = location.state?.userData?.userInfo || null;
+    const userInfo = location.state?.userData || null;
 
     useEffect(() => {
 

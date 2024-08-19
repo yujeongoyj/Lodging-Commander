@@ -16,7 +16,7 @@ const Details = () => {
     };
 
     const location = useLocation();
-    const userInfo = location.state?.userData?.userInfo || null;
+    const userInfo = location.state?.userData || null;
     const initialCheckInDate = location.state?.checkInDate || getTodayDate();
     const initialCheckOutDate = location.state?.checkOutDate || getNextDate(getTodayDate());
 

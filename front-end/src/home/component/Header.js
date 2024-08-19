@@ -7,7 +7,7 @@ const Header = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const userInfo = location.state?.userData?.userInfo || null;
+    const userInfo = location.state?.userData || null;
     console.log("location", location.state);
 
     const changePage = (pageName) => {

@@ -12,7 +12,8 @@ import NewList from "./component/NewList";
 let StartPage = () => {
 
     let location = useLocation()
-    const userInfo = location.state?.userData?.userInfo || null;
+    const userInfo = location.state?.userData || null;
+    console.log(location.state.userData)
 
     let [searchLocation, setSearchLocation] = useState('');
     let [searchResults, setSearchResults] = useState({searchList: []});
@@ -97,6 +98,7 @@ let StartPage = () => {
         setCurrentPage(1);
     }, []);
     console.log(location)
+    console.log(userInfo)
 
     let filteredHotels = useMemo(() => {
         let {searchList} = searchResults;
