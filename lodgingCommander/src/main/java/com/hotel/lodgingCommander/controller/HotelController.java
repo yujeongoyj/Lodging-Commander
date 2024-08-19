@@ -84,4 +84,9 @@ public class HotelController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("names")
+    public ResponseEntity<Map<Long, String>> getHotelNames(@RequestParam("ids") List<Long> ids) {
+        Map<Long, String> hotelNames = HOTEL_SERVICE.getHotelNamesByIds(ids);
+        return ResponseEntity.ok(hotelNames);
+    }
 }

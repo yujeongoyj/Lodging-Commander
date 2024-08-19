@@ -50,7 +50,7 @@ let HotelSearchForm = ({onSearch}) => {
             <Form onSubmit={handleSubmit} className="w-100">
                 <Row className="mb-3 justify-content-center">
                     <Col xs="auto">
-                        <FloatingLabel label="지역" controlId="ㄴㄷㅁㄱㅊlocation" className="mb-3">
+                        <FloatingLabel label="지역" controlId="searchlocation" className="mb-3">
                             <Form.Control
                                 type="text"
                                 placeholder="지역을 입력하세요"

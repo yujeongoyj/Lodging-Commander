@@ -38,9 +38,6 @@ const KakaoMapSearch = ({ location }) => {
     return (
         <div>
             <div id="map" style={{width: '100%', height: '150px'}}></div>
-            <div>
-                {/*여기서 전체마커지도 링크 대그*/}
-            </div>
         </div>
 
     );

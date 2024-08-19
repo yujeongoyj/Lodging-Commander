@@ -67,6 +67,7 @@ public class ReviewService {
         return new ReviewDTO(
                 review.getId(),
                 review.getHotel().getId(),
+                review.getHotel().getName(),
                 review.getUser().getId(),
                 review.getRating(),
                 review.getContent(),
@@ -91,4 +92,6 @@ public class ReviewService {
     public void removeReview(Long id) {
         reviewRepository.deleteById(id);
     }
+
+
 }
