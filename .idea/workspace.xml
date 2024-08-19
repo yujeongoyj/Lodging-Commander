@@ -4,24 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ae7492c-3a22-4697-8fa3-6630e60bc3ff" name="Changes" comment="user duplicated issue">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/addHotel/AddressForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/addHotel/AddressForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/addHotel/AddressForm2.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/addHotel/AddressForm2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/addHotel/CategoryForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/addHotel/CategoryForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/addHotel/FacilityForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/addHotel/FacilityForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/addHotel/HotelForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/addHotel/HotelForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/addHotel/RoomForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/addHotel/RoomForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/cart/Cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/home/StartPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/home/StartPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/home/component/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/home/component/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/hotel/Details.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/hotel/Details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/hotel/LocationList.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/hotel/LocationList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/hotel/components/HotelSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/hotel/components/HotelSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/likelist/LikeList2.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/likelist/LikeList2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/review/review.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/Auth.js" afterDir="false" />
-    </list>
+    <list default="true" id="1ae7492c-3a22-4697-8fa3-6630e60bc3ff" name="Changes" comment="user duplicated issue" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -200,7 +183,7 @@
       <workItem from="1723460821440" duration="909000" />
       <workItem from="1723509011164" duration="184000" />
       <workItem from="1723899487117" duration="46000" />
-      <workItem from="1724024682529" duration="1403000" />
+      <workItem from="1724024682529" duration="1695000" />
     </task>
     <task id="LOCAL-00001" summary="user duplicated issue">
       <option name="closed" value="true" />
