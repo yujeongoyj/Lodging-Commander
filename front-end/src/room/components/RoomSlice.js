@@ -10,7 +10,7 @@ import axios from "axios";
 let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
     let navigate = useNavigate()
 
-    let goToLogIn = () =>{
+    let goToLogIn = () => {
         navigate('/Auth')
     }
     let originalPrice = calculate.calculatePrice(checkInDate, checkOutDate, room.price);
@@ -18,7 +18,7 @@ let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
 
     let wrapData = {
         roomId: room.id,
-        userId: userInfo.id,
+        userId: userInfo ? userInfo.id : null,
         checkInDate,
         checkOutDate,
     }
@@ -38,7 +38,7 @@ let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
     let addCart = async (e) => {
         e.preventDefault();
         try {
-            let request = await axios.post(`http://localhost:8080/cart/add/${room.id}`, wrapData,{withCredentials: true});
+            let request = await axios.post(`http://localhost:8080/cart/add/${room.id}`, wrapData, {withCredentials: true});
             if (request.status !== undefined) {
                 navigate(`/cart`, {state: {userData: userInfo}})
             }
@@ -79,11 +79,13 @@ let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
                                                     <h5 className="mb-0 text-danger">
                                                         ₩ {new Intl.NumberFormat().format(discountedPrice)}
                                                     </h5>
-                                                    <span style={{fontSize: '0.75rem'}}>({userInfo.grade} 등급 할인 적용)</span>
+                                                    <span
+                                                        style={{fontSize: '0.75rem'}}>({userInfo.grade} 등급 할인 적용)</span>
                                                 </>
                                             ) : (
                                                 <div>
-                                                    <span style={{fontSize: '1rem', fontWeight: 'bold'}}>총 가격:</span><br/>
+                                                    <span
+                                                        style={{fontSize: '1rem', fontWeight: 'bold'}}>총 가격:</span><br/>
                                                     <h5 style={{margin: '0'}}>₩ {new Intl.NumberFormat().format(originalPrice)}</h5>
                                                 </div>
                                             )}
@@ -93,26 +95,31 @@ let RoomSlice = ({room, checkInDate, checkOutDate, userInfo}) => {
                                         {userInfo ? (
                                             <>
                                                 <Row className="mb-2">
-                                                    <Button variant="primary" size="sm" style={{ backgroundColor: '#007bff', borderColor: '#007bff' }} onClick={goToBooking}>
+                                                    <Button variant="primary" size="sm"
+                                                            style={{backgroundColor: '#007bff', borderColor: '#007bff'}}
+                                                            onClick={goToBooking}>
                                                         구매하기
                                                     </Button>
                                                 </Row>
                                                 <Row>
-                                                    <Button variant="success" size="sm" style={{ backgroundColor: '#28a745', borderColor: '#28a745' }} onClick={addCart}>
+                                                    <Button variant="success" size="sm"
+                                                            style={{backgroundColor: '#28a745', borderColor: '#28a745'}}
+                                                            onClick={addCart}>
                                                         장바구니
                                                     </Button>
                                                 </Row>
                                             </>
                                         ) : (
-                                            <Button variant="primary" size="sm" style={{ fontSize: '0.85rem' }} onClick={goToLogIn} >
-                                                <FontAwesomeIcon icon={faSignInAlt} style={{ marginRight: '0.5rem' }}/>
+                                            <Button variant="primary" size="sm" style={{fontSize: '0.85rem'}}
+                                                    onClick={goToLogIn}>
+                                                <FontAwesomeIcon icon={faSignInAlt} style={{marginRight: '0.5rem'}}/>
                                                 로그인 하여 추가 할인 받기
                                             </Button>
                                         )}
                                     </Col>
                                 </Row>
                             </>
-                        ):(
+                        ) : (
                             <Row>
                                 <p style={{color: 'red'}}>
                                     <FaExclamationTriangle style={{marginRight: '8px'}}/>

@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,5 +80,18 @@ public class HotelService {
         hotelResponseDTO.setFacilities(FACILITY_SERVICE.getList(hotel.getId()));
 
         return hotelResponseDTO;
+    }
+
+    public Map<Long, String> getHotelNamesByIds(List<Long> ids) {
+        List<Object[]> results = HOTEL_REPOSITORY.findNamesByIds(ids);
+
+        Map<Long, String> hotelNames = new HashMap<>();
+        for (Object[] result : results) {
+            Long id = (Long) result[0];
+            String name = (String) result[1];
+            hotelNames.put(id, name);
+        }
+
+        return hotelNames;
     }
 }

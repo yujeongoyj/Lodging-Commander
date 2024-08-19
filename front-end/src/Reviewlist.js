@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, ListGroup, Spinner, Alert } from 'react-bootstrap';
 import {useLocation} from "react-router-dom";
+import StarRating from "./cart/components/StarRating";
 
 const ReviewList = () => {
     const location = useLocation();
@@ -10,6 +11,7 @@ const ReviewList = () => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [hotelName, setHotelName] = useState({})
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -60,6 +62,8 @@ const ReviewList = () => {
     if (loading) return <Spinner animation="border" variant="primary" />;
     if (error) return <Alert variant="danger">Error: {error}</Alert>;
 
+    console.log(reviews)
+
     return (
         <div className="container mt-4">
             <h1 className="mb-4">내가 작성한 리뷰</h1>
@@ -70,9 +74,9 @@ const ReviewList = () => {
                     {reviews.map((review) => (
                         <ListGroup.Item key={review.id} className="d-flex justify-content-between align-items-center">
                             <div>
-                                <div><strong>호텔 ID:</strong> {review.hotelId}</div>
+                                <div><strong>호텔 이름:</strong> {review.hotelName}</div>
                                 <div><strong>내용:</strong> {review.content}</div>
-                                <div><strong>평점:</strong> {review.rating}</div>
+                                <div><strong>리뷰 평점: <StarRating grade={review.rating} /></strong></div>
                             </div>
                             <Button variant="danger" onClick={() => handleDelete(review.id)}>삭제</Button>
                         </ListGroup.Item>

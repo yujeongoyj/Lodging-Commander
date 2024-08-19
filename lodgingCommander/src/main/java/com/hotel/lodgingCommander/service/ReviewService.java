@@ -70,7 +70,8 @@ public class ReviewService {
                 review.getUser().getId(),
                 review.getRating(),
                 review.getContent(),
-                review.getCreateDate()
+                review.getCreateDate(),
+                review.getHotel().getName()
         );
     }
     public ReviewDTO updateReview(Long id, ReviewDTO reviewDTO) {

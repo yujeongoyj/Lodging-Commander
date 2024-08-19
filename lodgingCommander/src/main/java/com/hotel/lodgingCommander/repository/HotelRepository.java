@@ -90,4 +90,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
     @Query("SELECT h FROM Hotel h ORDER BY h.id DESC")
     List<Hotel> findByRecentlyList(Pageable pageable);
+
+    @Query("SELECT h.id, h.name FROM Hotel h WHERE h.id IN :ids")
+    List<Object[]> findNamesByIds(@Param("ids") List<Long> ids);
 }

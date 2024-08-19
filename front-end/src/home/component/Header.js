@@ -1,6 +1,6 @@
 import React from 'react';
-import { Col, Container, Image, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {Col, Container, Image, Nav, Navbar, NavDropdown, Row} from 'react-bootstrap';
+import {useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 const Header = () => {
@@ -11,7 +11,7 @@ const Header = () => {
     console.log("location", location.state);
 
     const changePage = (pageName) => {
-        navigate('/' + pageName, { state: { userData: userInfo } });
+        navigate('/' + pageName, {state: {userData: userInfo}});
     }
 
     const onLogout = async () => {
@@ -20,7 +20,7 @@ const Header = () => {
                 withCredentials: true,
             });
             if (response.status === 200) {
-                navigate('/');
+                navigate('/', {state: {userData: null}});
             }
         } catch (error) {
             console.error('로그아웃 에러:', error);
@@ -32,7 +32,7 @@ const Header = () => {
         <Container className='mb-3 mt-3'>
             <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand onClick={() => changePage('')} style={{cursor: 'pointer'}}>
+                    <Navbar.Brand onClick={() => navigate('/', {state: {userData: userInfo}})} style={{cursor: 'pointer'}}>
                         <Image src='http://localhost:8080/log.png' alt="Logo" fluid
                                style={{width: '150px', height: 'auto'}}/>
                     </Navbar.Brand>

@@ -13,7 +13,6 @@ let StartPage = () => {
 
     let location = useLocation()
     const userInfo = location.state?.userData || null;
-    console.log(location.state.userData)
 
     let [searchLocation, setSearchLocation] = useState('');
     let [searchResults, setSearchResults] = useState({searchList: []});
