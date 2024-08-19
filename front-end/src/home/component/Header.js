@@ -1,6 +1,6 @@
 import React from 'react';
-import {Col, Container, Image, Nav, Navbar, NavDropdown, Row} from 'react-bootstrap';
-import {useLocation, useNavigate} from 'react-router-dom';
+import { Col, Container, Image, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Header = () => {
@@ -11,7 +11,7 @@ const Header = () => {
     console.log("location", location.state);
 
     const changePage = (pageName) => {
-        navigate('/' + pageName, {state: {userData: userInfo}});
+        navigate('/' + pageName, { state: { userData: userInfo } });
     }
 
     const onLogout = async () => {

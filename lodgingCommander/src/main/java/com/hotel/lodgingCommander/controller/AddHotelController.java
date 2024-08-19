@@ -137,5 +137,10 @@ public class AddHotelController {
                 .body(resource);
     }*/
 
+    @GetMapping("/hotels")
+    public ResponseEntity<List<HotelDTO>> getHotelsByUserId(@RequestParam Long userId) {
+        List<HotelDTO> hotels = addHotelService.getHotelsByUserId(userId);
+        return ResponseEntity.ok(hotels);
+    }
 
 }

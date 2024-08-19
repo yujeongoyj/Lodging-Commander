@@ -14,12 +14,12 @@ const BookingListCardItem = ({ booking, onCancelBooking, userInfo }) => {
 
     const onCancel = async () => {
         try {
-            const request = await axios.post(`http://localhost:8080/booking/cancel/${booking.id}`, {
+            const request = await axios.post(`http://localhost:8080/booking/cancel/${booking.id}`, {}, {
                 withCredentials: true
             });
             if (request.status === 200) {
                 alert("예약이 취소되었습니다.")
-                onCancelBooking()
+                onCancelBooking();
             }
         } catch (error) {
             console.error("예약 취소 중 오류 발생", error);
@@ -28,12 +28,18 @@ const BookingListCardItem = ({ booking, onCancelBooking, userInfo }) => {
     }
 
     const goReview = () => {
-        // 은석님 리뷰 이동 버튼
-        navigate('', {state: {userData: userInfo}})
+        // 리뷰 작성 페이지로 이동
+        navigate(`/review/insert`, { state: { hotelId: booking.hotelId, userData: userInfo } });
     };
 
     const goHotel = () => {
-        navigate(`/hotel/details/${booking.hotelId}`, {state: {userData: userInfo,}});
+        navigate(`/hotel/details/${booking.hotelId}`, {
+            state: {
+                userData: userInfo,
+                checkInDate: booking.checkInDate,
+                checkOutDate: booking.checkOutDate
+            }
+        });
     }
 
     return (

@@ -45,10 +45,12 @@ const Booking = () => {
                 if (response.status === 200) {
                     setData(response.data.RoomResponseDTO);
                     setFacility(response.data.FacilityList);
+                    console.log(response.data)
                 }
             } catch (e) {
                 console.error("booking error", e);
             }
+
         }
         booking()
     }, [roomId]);
