@@ -43,3 +43,9 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+bootJar{
+	archivesBaseName = 'lodgingCommander'
+	archiveFileName = 'myApp.jar'
+	archiveVersion = "0.0.1"
+}

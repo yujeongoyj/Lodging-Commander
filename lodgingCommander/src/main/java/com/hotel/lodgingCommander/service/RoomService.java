@@ -1,42 +1,16 @@
 package com.hotel.lodgingCommander.service;
 
-import com.hotel.lodgingCommander.dto.room.RoomResponseDTO;
-import com.hotel.lodgingCommander.entity.Room;
-import com.hotel.lodgingCommander.repository.RoomRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.hotel.lodgingCommander.model.room.RoomRequestModel;
+import com.hotel.lodgingCommander.model.room.RoomResponseModel;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Service
-@AllArgsConstructor
-public class RoomService {
-    private RoomRepository roomRepository;
+public interface RoomService {
 
-    private RoomResponseDTO convertToDTO(Room entity) {
-        RoomResponseDTO resultDTO = new RoomResponseDTO();
-        resultDTO.setId(entity.getId());
-        resultDTO.setHotelName(entity.getHotel().getName());
-        resultDTO.setRoomName(entity.getName());
-        resultDTO.setPrice(entity.getPrice());
-        resultDTO.setDetail(entity.getDetail());
-        resultDTO.setMaxPeople(entity.getMaxPeople());
-        resultDTO.setImgPath(entity.getImg().getPath());
-        resultDTO.setHotelId(entity.getHotel().getId());
-        return resultDTO;
-    }
+    List<?> getRoomsWithBookingStatus(Long hotelId, LocalDate checkInDate, LocalDate checkOutDate);
 
-    public List<RoomResponseDTO> getRoomsWithBookingStatus(Long hotelId, LocalDate checkInDate, LocalDate checkOutDate) {
-        List<RoomResponseDTO> roomsWithBookingStatus = roomRepository.findRoomsWithBookingStatus(hotelId, checkInDate, checkOutDate);
-        return roomsWithBookingStatus;
-    }
+    RoomResponseModel selectOneRoom(Long id);
 
-    @Transactional(readOnly = true)
-    public RoomResponseDTO selectOneRoom(Long id) {
-        Room room = roomRepository.findRoomById(id);
-        return convertToDTO(room);
-    }
-
+    Boolean saveRoom(RoomRequestModel roomDTO);
 }

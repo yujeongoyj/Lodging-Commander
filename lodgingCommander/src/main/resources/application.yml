@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/lodgingCommander
+    url: jdbc:mysql://localhost:3306/lodgingCommanderdb
     username: root
     password: 1234
   thymeleaf:

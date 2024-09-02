@@ -1,6 +1,6 @@
 package com.hotel.lodgingCommander.enums;
 
-import com.hotel.lodgingCommander.entity.enums.UserGrade;
+import com.hotel.lodgingCommander.model.entity.enums.UserGrade;
 import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
