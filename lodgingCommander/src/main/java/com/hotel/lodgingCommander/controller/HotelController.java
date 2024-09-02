@@ -1,71 +1,92 @@
 package com.hotel.lodgingCommander.controller;
 
-import com.hotel.lodgingCommander.model.hotel.HotelRequestModel;
-import com.hotel.lodgingCommander.service.impl.HotelServiceImpl;
+import com.hotel.lodgingCommander.dto.hotel.HotelResponseDTO;
+import com.hotel.lodgingCommander.model.MapDTO;
+import com.hotel.lodgingCommander.service.HotelService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping({"/hotels"})
+@RequestMapping({"/hotel/"})
 @CrossOrigin(origins = "http://localhost:3000")
 public class HotelController {
-    private final HotelServiceImpl service;
+    private HotelService HOTEL_SERVICE;
 
-    @GetMapping("/details/{id}")
-    public ResponseEntity<?> getHotelDetail(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getHotelById(id));
+    @GetMapping("details/{id}")
+    public ResponseEntity<Map<String, Object>> details(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("hotel", HOTEL_SERVICE.getHotelById(id));
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/details/map/{hotelId}")
-    public ResponseEntity<?> getAddressByHotelId(@PathVariable Long hotelId) {
-        return ResponseEntity.ok(service.getAddressByHotelId(hotelId));
+    @GetMapping("details/like/{id}")
+    public ResponseEntity<Map<String, String>> getHotelDetails(@PathVariable Long id) {
+        HotelResponseDTO hotel = HOTEL_SERVICE.getHotelById(id);
+        Map<String, String> response = new HashMap<>();
+        response.put("id", String.valueOf(hotel.getId()));
+        response.put("hotelName", hotel.getHotelName());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("details/map/{hotelId}")
+
+    public MapDTO getAddressByHotelId(@PathVariable Long hotelId) {
+        return HOTEL_SERVICE.getAddressByHotelId(hotelId);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> getSearchList(
+    public ResponseEntity<Map<String, Object>> getSearchList(
             @RequestParam(name = "location") String location,
             @RequestParam(name = "checkInDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkInDate,
             @RequestParam(name = "checkOutDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOutDate,
             @RequestParam(name = "guests") int guests,
             @RequestParam(name = "rooms") int rooms) {
-        return ResponseEntity.ok(service.findAvailableHotels(
+
+        Map<String, Object> response = new HashMap<>();
+
+        int adjustedGuests = (guests % rooms == 0)
+                ? guests / rooms
+                : guests / rooms + 1;
+
+        List<HotelResponseDTO> searchList = HOTEL_SERVICE.findAvailableHotels(
                 location,
                 checkInDate,
                 checkOutDate,
-                guests,
+                adjustedGuests,
                 rooms
-        ));
+        );
+
+        response.put("searchList", searchList);
+
+        return ResponseEntity.ok(response);
     }
 
 
-    @GetMapping("/{location}")
-    public ResponseEntity<?> getListByLocation(@PathVariable String location) {
-        return ResponseEntity.ok(service.findByLocation(location));
+    @GetMapping("{location}")
+    public ResponseEntity<Map<String, Object>> getListByLocation(@PathVariable String location){
+        Map<String, Object> response = new HashMap<>();
+        response.put("hotelList",HOTEL_SERVICE.findByLocation(location));
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping({"/newHotels"})
-    public ResponseEntity<?> getNewHotels() {
-        return ResponseEntity.ok(service.getRecentHotels());
+    @GetMapping({"newHotels"})
+    public ResponseEntity<Map<String, Object>> getNewHotels(){
+        Map<String, Object> response = new HashMap<>();
+        response.put("hotelList",HOTEL_SERVICE.getRecentHotels());
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/names")
-    public ResponseEntity<?> getHotelName(@RequestParam("ids") List<Long> ids) {
-        return ResponseEntity.ok(service.getHotelNamesByIds(ids));
-    }
-
-    @PostMapping("/hotel")
-    public ResponseEntity<?> saveHotel(@RequestBody HotelRequestModel hotelDTO) {
-        return ResponseEntity.ok(service.saveHotel(hotelDTO));
-    }
-
-    @GetMapping("/hotels")
-    public ResponseEntity<List<?>> getHotelsByUserId(@RequestParam Long userId) {
-        return ResponseEntity.ok(service.getHotelsByUserId(userId));
+    @GetMapping("names")
+    public ResponseEntity<Map<Long, String>> getHotelName(@RequestParam("ids") List<Long> ids){
+        Map<Long, String> hotelNames = HOTEL_SERVICE.getHotelNamesByIds(ids);
+        return ResponseEntity.ok(hotelNames);
     }
 }

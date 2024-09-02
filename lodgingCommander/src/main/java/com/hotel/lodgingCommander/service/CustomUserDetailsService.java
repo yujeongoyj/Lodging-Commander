@@ -1,9 +1,9 @@
 package com.hotel.lodgingCommander.service;
 
-import com.hotel.lodgingCommander.model.user.CustomUserDetails;
-import com.hotel.lodgingCommander.model.user.UserModel;
-import com.hotel.lodgingCommander.model.entity.User;
-import com.hotel.lodgingCommander.model.repository.UserRepository;
+import com.hotel.lodgingCommander.dto.user.CustomUserDetails;
+import com.hotel.lodgingCommander.dto.user.UserDTO;
+import com.hotel.lodgingCommander.entity.User;
+import com.hotel.lodgingCommander.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,11 +27,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> byEmail = USER_REPOSITORY.findByEmail(email);
-        UserModel userModel = new UserModel();
-        userModel.setEmail(byEmail.get().getEmail());
-        userModel.setPassword(byEmail.get().getPassword());
-        userModel.setRole(byEmail.get().getRole());
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail(byEmail.get().getEmail());
+        userDTO.setPassword(byEmail.get().getPassword());
+        userDTO.setRole(byEmail.get().getRole());
 
-        return new CustomUserDetails(userModel);
+        return new CustomUserDetails(userDTO);
     }
 }

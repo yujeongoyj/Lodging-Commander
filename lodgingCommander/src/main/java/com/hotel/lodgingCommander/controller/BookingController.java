@@ -1,46 +1,67 @@
 package com.hotel.lodgingCommander.controller;
 
-import com.hotel.lodgingCommander.model.bookingList.BookingListRequestModel;
-import com.hotel.lodgingCommander.service.impl.BookingServiceImpl;
+import com.hotel.lodgingCommander.dto.bookingList.BookingListRequestDTO;
+import com.hotel.lodgingCommander.dto.room.RoomResponseDTO;
+import com.hotel.lodgingCommander.service.BookingService;
+import com.hotel.lodgingCommander.service.CartService;
+import com.hotel.lodgingCommander.service.FacilityService;
+import com.hotel.lodgingCommander.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/bookings")
 public class BookingController {
-    private final BookingServiceImpl service;
+    private final BookingService BOOKING_SERVICE;
+    private final RoomService ROOM_SERVICE;
+    private final FacilityService FACILITY_SERVICE;
+    private final CartService CART_SERVICE;
 
-    @GetMapping("/showOne")
-    public ResponseEntity<?> showBookingPage(@RequestParam Long roomId) {
-        return ResponseEntity.ok(service.showBookingPage(roomId));
+
+    @RequestMapping("/booking/{id}")
+    public ResponseEntity<Map<String, Object>> responseBooking(@PathVariable("id") Long roomId) {
+        Map<String, Object> map = new HashMap<>();
+        RoomResponseDTO roomResponseDTO = ROOM_SERVICE.selectOneRoom(roomId);
+        map.put("RoomResponseDTO", roomResponseDTO);
+        map.put("FacilityList", FACILITY_SERVICE.getList(roomResponseDTO.getHotelId()));
+        return ResponseEntity.ok(map);
     }
 
     @PostMapping("/booking/{id}")
-    public ResponseEntity<?> requestBooking(@PathVariable Long id, @RequestBody BookingListRequestModel requestModel) {
-        return ResponseEntity.ok(service.createBooking(requestModel));
+    public void requestBooking(@PathVariable Long id, @RequestBody BookingListRequestDTO requestDTO) {
+        try {
+            BOOKING_SERVICE.createBooking(requestDTO);
+            if (requestDTO.getCartId() != null) {
+                CART_SERVICE.delete(requestDTO.getCartId());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateState(@PathVariable("id") Long bookingId) {
-        return ResponseEntity.ok(service.cancelBooking(bookingId));
+    @PostMapping("/booking/cancel/{id}")
+    public void updateBooking(@PathVariable("id") Long bookingId) {
+        BOOKING_SERVICE.cancelBooking(bookingId);
     }
 
-    @GetMapping("/validBooking/{id}")
-    public ResponseEntity<?> validBooking(@PathVariable("id") Long userId) {
-        return ResponseEntity.ok(service.myAllValidBooking(userId));
+    @RequestMapping("/validBooking/{id}")
+    public ResponseEntity<Map<String, Object>> validBooking(@PathVariable("id") Long userId) {
+        return ResponseEntity.ok(BOOKING_SERVICE.myAllValidBooking(userId));
     }
 
-    @GetMapping("/expiredBooking/{id}")
-    public ResponseEntity<?> expiredBooking(@PathVariable("id") Long userId) {
-        return ResponseEntity.ok(service.myAllExpiredBooking(userId));
+    @RequestMapping("/expiredBooking/{id}")
+    public ResponseEntity<Map<String, Object>> expiredBooking(@PathVariable("id") Long userId) {
+        return ResponseEntity.ok(BOOKING_SERVICE.myAllExpiredBooking(userId));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> cancelBooking(@PathVariable("id") Long userId) {
-        return ResponseEntity.ok(service.myAllCancelBooking(userId));
+    @RequestMapping("/cancelBooking/{id}")
+    public ResponseEntity<Map<String, Object>> cancelBooking(@PathVariable("id") Long userId) {
+        return ResponseEntity.ok(BOOKING_SERVICE.myAllCancelBooking(userId));
     }
 
 }
