@@ -69,7 +69,8 @@ public class AddHotelController {
     }
 
     @PostMapping("/facility")
-    public ResponseEntity<Map<String, Long>> saveFacility(@RequestParam("hotelId") Long hotelId, @RequestBody FacilityDTO facilityDTO) {
+    public ResponseEntity<Map<String, Long>> saveFacility(@RequestParam("hotelId") Long hotelId,
+                                                          @RequestBody FacilityDTO facilityDTO) {
         if (hotelId == null) {
             return ResponseEntity.badRequest().build();
         }
