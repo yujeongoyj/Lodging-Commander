@@ -9,7 +9,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(22)
+		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
 
@@ -42,4 +42,15 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+
+bootJar {
+	mainClass.set('com.testing.test.TestingApplication')
+}
+
+jar {
+	manifest { // 빌드시 Main-Class 설정
+		attributes 'Main-Class': 'com.testing.test.TestingApplication'
+	}
 }
