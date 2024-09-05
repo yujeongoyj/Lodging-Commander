@@ -45,6 +45,7 @@ tasks.named('test') {
 }
 
 
+/*
 bootJar {
 	mainClass.set('com.testing.test.TestingApplication')
 }
@@ -53,4 +54,4 @@ jar {
 	manifest { // 빌드시 Main-Class 설정
 		attributes 'Main-Class': 'com.testing.test.TestingApplication'
 	}
-}
+}*/
