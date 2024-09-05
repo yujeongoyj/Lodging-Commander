@@ -184,7 +184,18 @@ public class AddHotelService {
                 .collect(Collectors.toList());
     }
 
-
-
+    @Transactional
+    public List<AddressDTO> getAllAddresses() {
+        return addressRepository.findAll().stream()
+                .map(address -> new AddressDTO(
+                        address.getId(),
+                        address.getAddress(),
+                        address.getAddressDetail(),
+                        address.getPostCode(),
+                        address.getLatitude(),
+                        address.getLongitude()
+                ))
+                .collect(Collectors.toList());
+    }
 
 }

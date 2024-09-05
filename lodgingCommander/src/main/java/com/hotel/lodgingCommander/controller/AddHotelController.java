@@ -144,4 +144,10 @@ public class AddHotelController {
         return ResponseEntity.ok(hotels);
     }
 
+
+    @GetMapping("/address")
+    public ResponseEntity<List<AddressDTO>> getAllAddresses() {
+        List<AddressDTO> addresses = addHotelService.getAllAddresses();
+        return ResponseEntity.ok(addresses);
+    }
 }
